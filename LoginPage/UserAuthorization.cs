@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace LoginPage
 {
     /// <summary>
-    /// Child class of the DBConnection
+    /// Child class of the DBConnection. 
     /// </summary>
     public class UserAuthorization: DBConnection
     {
