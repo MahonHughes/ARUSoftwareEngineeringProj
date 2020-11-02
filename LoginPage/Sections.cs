@@ -8,6 +8,6 @@ namespace LoginPage
 {
     class Sections
     {
-        string sectionNAme; 
+        string sectionName; 
     }
 }
