@@ -26,11 +26,6 @@ namespace LoginPage
             InitializeComponent();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
         private void Submit_Button_Click(object sender, RoutedEventArgs e)
         {
             DBConnection.GetInstance();
@@ -45,8 +40,6 @@ namespace LoginPage
             {
                 System.Windows.MessageBox.Show("Invalid data");
             }
-           
-
         }
     }
 }

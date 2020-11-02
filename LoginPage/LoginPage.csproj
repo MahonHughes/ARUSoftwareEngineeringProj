@@ -70,7 +70,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CreateNewSectionPage.xaml.cs">
+      <DependentUpon>CreateNewSectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DashboardPage.xaml.cs">
+      <DependentUpon>DashboardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageTemplatesPage.xaml.cs">
+      <DependentUpon>ManageTemplatesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProceedFeedbackPage.xaml.cs">
+      <DependentUpon>ProceedFeedbackPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserAuthorization.cs" />
+    <Page Include="CreateNewSectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DashboardPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -91,6 +111,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ManageTemplatesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProceedFeedbackPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

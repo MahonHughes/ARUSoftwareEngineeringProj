@@ -10,20 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace LoginPage
 {
     /// <summary>
-    /// Interaction logic for MainPage.xaml
+    /// Interaction logic for CreateNewSectionPage.xaml
     /// </summary>
-    public partial class MainPage : Window
+    public partial class CreateNewSectionPage : Page
     {
-        public MainPage()
+        public CreateNewSectionPage()
         {
             InitializeComponent();
+        }
 
-            mainFrame.NavigationService.Navigate(new DashboardPage());
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new DashboardPage());
         }
     }
 }

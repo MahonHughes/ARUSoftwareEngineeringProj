@@ -31,9 +31,8 @@ namespace LoginPage
         {
             if (instance == null)
                 instance = new DBConnection();
+
             return instance;
         }
-        
-
     }
 }

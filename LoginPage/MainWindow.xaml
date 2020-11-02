@@ -13,8 +13,8 @@
         </Grid.ColumnDefinitions>
         <Label Content="Name:" HorizontalAlignment="Left" Margin="22,131,0,0" VerticalAlignment="Top" Height="44" Width="81" FontSize="24"/>
         <Label Content="Password:" HorizontalAlignment="Left" Margin="22,202,0,0" VerticalAlignment="Top" Height="44" Width="119" FontSize="24"/>
-        <TextBox x:Name="Name_Text_Box" HorizontalAlignment="Left" Height="19" Margin="166,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="Password_Text_Box" HorizontalAlignment="Left" Height="19" Margin="166,216,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="Name_Text_Box" HorizontalAlignment="Left" Height="19" Margin="166,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="Password_Text_Box" HorizontalAlignment="Left" Height="19" Margin="166,216,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Grid.ColumnSpan="2"/>
         <Button x:Name="Submit_Button" Content="Submit " HorizontalAlignment="Left" Margin="183,335,0,0" VerticalAlignment="Top" Width="108" Height="32" Click="Submit_Button_Click" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>
