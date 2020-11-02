@@ -82,6 +82,7 @@
     <Compile Include="ProceedFeedbackPage.xaml.cs">
       <DependentUpon>ProceedFeedbackPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sections.cs" />
     <Compile Include="UserAuthorization.cs" />
     <Page Include="CreateNewSectionPage.xaml">
       <SubType>Designer</SubType>
