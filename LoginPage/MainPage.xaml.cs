@@ -24,6 +24,7 @@ namespace LoginPage
         public  ManageTemplatesPage manageTemplatesPage = new ManageTemplatesPage();
         public  ProceedFeedbackPage feedbackPage = new ProceedFeedbackPage();
         public  CreateNewSectionPage createNewSectionPage = new CreateNewSectionPage();
+
         public MainPage()
         {
             InitializeComponent();

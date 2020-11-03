@@ -28,11 +28,13 @@ namespace LoginPage
         private void btnToFeedback_Click(object sender, RoutedEventArgs e)
         {
             //this.NavigationService.Navigate(new ProceedFeedbackPage());
+            MainWindow.mainPage.Content = MainWindow.mainPage.feedbackPage;
         }
 
         private void btnManageTemps_Click(object sender, RoutedEventArgs e)
         {
             //this.NavigationService.Navigate(new ManageTemplatesPage());
+            MainWindow.mainPage.Content = MainWindow.mainPage.manageTemplatesPage;
         }
 
         private void btnCreateSection_Click(object sender, RoutedEventArgs e)

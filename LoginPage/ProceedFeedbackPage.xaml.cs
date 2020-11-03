@@ -23,11 +23,14 @@ namespace LoginPage
         public ProceedFeedbackPage()
         {
             InitializeComponent();
+
+            //Gets the values for each dropdown box
+            DBConnection.PopulateDropDowns(selectJobDropdown, Constants.grabJobPositions, Constants.jobPositionsNameColumnIndex);
+            DBConnection.PopulateDropDowns(selectTemplateDropdown, Constants.grabTemplates, Constants.templatesNameColumnIndex);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            // this.NavigationService.Navigate(new DashboardPage());
             MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
         }
     }
