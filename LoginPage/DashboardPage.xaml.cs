@@ -27,17 +27,18 @@ namespace LoginPage
 
         private void btnToFeedback_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new ProceedFeedbackPage());
+            //this.NavigationService.Navigate(new ProceedFeedbackPage());
         }
 
         private void btnManageTemps_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new ManageTemplatesPage());
+            //this.NavigationService.Navigate(new ManageTemplatesPage());
         }
 
         private void btnCreateSection_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new CreateNewSectionPage());
+            //this.NavigationService.Navigate(new CreateNewSectionPage());
+            MainWindow.mainPage.Content = MainWindow.mainPage.createNewSectionPage;
         }
     }
 }

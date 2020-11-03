@@ -9,7 +9,15 @@
       Title="CreateNewSectionPage">
 
     <Grid Background="#FFC35F5F">
-        <Button Content="Back" HorizontalAlignment="Left" Margin="33,345,0,0" VerticalAlignment="Top" Width="161" Height="41" FontSize="18" Click="Button_Click"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="148*"/>
+            <RowDefinition Height="301*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="bt_goBack" Content="Back" HorizontalAlignment="Left" Margin="35,35,0,0" VerticalAlignment="Top" Width="161" Height="41" FontSize="18" Click="bt_goBack_Click"/>
+        <ListBox x:Name="sectionsListBox" HorizontalAlignment="Left" Height="226" Margin="139,101,0,0" VerticalAlignment="Top" Width="227" Loaded="sectionsListBox_Loaded" Grid.RowSpan="2"/>
+        <ListBox HorizontalAlignment="Left" Height="226" Margin="446,101,0,0" VerticalAlignment="Top" Width="227" Grid.RowSpan="2"/>
+        <Button Content="Add section" HorizontalAlignment="Left" Margin="172,197,0,0" VerticalAlignment="Top" Width="161" Height="41" FontSize="18" Click="Button_Click" Grid.Row="1"/>
+        <Button x:Name="bt_comment" Content="Add Comment" HorizontalAlignment="Left" Margin="476,196.8,0,0" VerticalAlignment="Top" Width="161" Height="41" FontSize="18" Grid.Row="1" Click="bt_comment_Click"/>
 
     </Grid>
 </Page>

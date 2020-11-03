@@ -46,8 +46,8 @@ namespace LoginPage
         {
             bool result = false;
 
-            bool flag1 = SearchData(name, "select user_name from [Users]");
-            bool flag2 = SearchData(password, "select user_password from [Users]");
+            bool flag1 = SearchData(name, Constants.userAuthorizaztionName);
+            bool flag2 = SearchData(password, Constants.userAuthorizaztionPassword);
 
             if (flag1 && flag2)
                 result = true;

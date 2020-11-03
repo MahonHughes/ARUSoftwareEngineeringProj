@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,11 +20,20 @@ namespace LoginPage
     /// </summary>
     public partial class MainPage : Window
     {
+        public  DashboardPage dashboard = new DashboardPage();
+        public  ManageTemplatesPage manageTemplatesPage = new ManageTemplatesPage();
+        public  ProceedFeedbackPage feedbackPage = new ProceedFeedbackPage();
+        public  CreateNewSectionPage createNewSectionPage = new CreateNewSectionPage();
         public MainPage()
         {
             InitializeComponent();
+            
+        }
 
-            mainFrame.NavigationService.Navigate(new DashboardPage());
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.Content = dashboard;
+            ///mainFrame.NavigationService.Navigate(new DashboardPage());
         }
     }
 }

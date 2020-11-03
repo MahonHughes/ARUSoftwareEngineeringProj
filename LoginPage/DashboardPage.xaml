@@ -9,10 +9,16 @@
       Title="DashboardPage">
 
     <Grid Background="#FF9BBFA3">
-        <Label Content="Dashboard" HorizontalAlignment="Left" Margin="264,39,0,0" VerticalAlignment="Top" Height="43" Width="207" FontSize="24"/>
-        <Button x:Name="btnCreateSection" Content="Create New Section" HorizontalAlignment="Left" Margin="475,317,0,0" VerticalAlignment="Top" Width="199" FontSize="18" Height="42" Click="btnCreateSection_Click"/>
-        <Button x:Name="btnManageTemps" Content="Manage templates" HorizontalAlignment="Left" Margin="311,225,0,0" VerticalAlignment="Top" Width="199" FontSize="18" Height="42" Click="btnManageTemps_Click"/>
-        <Button x:Name="btnToFeedback" Content="Proceed to Feedback" HorizontalAlignment="Left" Margin="107,124,0,0" VerticalAlignment="Top" Width="199" FontSize="18" Height="42" Click="btnToFeedback_Click"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+     
+
+        <Label Content="Dashboard" HorizontalAlignment="Left" Margin="264,39,0,0" VerticalAlignment="Top" Height="43" Width="207" FontSize="24" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnCreateSection" Content="Create New Section" HorizontalAlignment="Left" Margin="475,317,0,0" VerticalAlignment="Top" Width="199" FontSize="18" Height="42" Click="btnCreateSection_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnManageTemps" Content="Manage templates" HorizontalAlignment="Left" Margin="311,225,0,0" VerticalAlignment="Top" Width="199" FontSize="18" Height="42" Click="btnManageTemps_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnToFeedback" Content="Proceed to Feedback" HorizontalAlignment="Left" Margin="107,124,0,0" VerticalAlignment="Top" Width="199" FontSize="18" Height="42" Click="btnToFeedback_Click" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Page>

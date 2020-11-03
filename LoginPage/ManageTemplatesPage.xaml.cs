@@ -27,7 +27,8 @@ namespace LoginPage
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new DashboardPage());
+            //this.NavigationService.Navigate(new DashboardPage());
+            MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
         }
     }
 }

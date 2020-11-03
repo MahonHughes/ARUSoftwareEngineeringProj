@@ -70,6 +70,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddSectionWindow.xaml.cs">
+      <DependentUpon>AddSectionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Constants.cs" />
     <Compile Include="CreateNewSectionPage.xaml.cs">
       <DependentUpon>CreateNewSectionPage.xaml</DependentUpon>
     </Compile>
@@ -84,6 +88,10 @@
     </Compile>
     <Compile Include="Sections.cs" />
     <Compile Include="UserAuthorization.cs" />
+    <Page Include="AddSectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CreateNewSectionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

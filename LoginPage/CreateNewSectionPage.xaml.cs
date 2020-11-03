@@ -20,6 +20,9 @@ namespace LoginPage
     /// </summary>
     public partial class CreateNewSectionPage : Page
     {
+        static int a = 0;
+
+        AddSectionWindow sectionWindow = new AddSectionWindow();
         public CreateNewSectionPage()
         {
             InitializeComponent();
@@ -27,7 +30,34 @@ namespace LoginPage
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new DashboardPage());
+            sectionWindow.Show();
+           
         }
+
+        private void sectionsListBox_Loaded(object sender, RoutedEventArgs e)
+        {
+          
+            if (a==0)
+            {
+                Sections.FetchDataFromTheDatabase();
+                for (int i = 0; i < Sections.sections.Count; i++)
+                {
+                    sectionsListBox.Items.Add(Sections.sections[i].sectionName);
+                }
+                a++;
+            }
+        
+        }
+
+        private void bt_goBack_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
+        }
+
+        private void bt_comment_Click(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
     }
 }

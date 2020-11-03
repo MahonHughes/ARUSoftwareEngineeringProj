@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LoginPage"
         mc:Ignorable="d"
-        Title="MainPage" Height="450" Width="800">
-    <Grid>
-        <Frame x:Name="mainFrame" Content="" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="792" NavigationUIVisibility="Hidden"/>
+        Title="MainPage" Height="450" Width="800" Loaded="Window_Loaded">
+    <Frame Content="Frame" HorizontalAlignment="Left" Height="421" Margin="0,0,0,-1" VerticalAlignment="Top" Width="790" NavigationUIVisibility="Hidden"/>
 
-    </Grid>
+
 </Window>

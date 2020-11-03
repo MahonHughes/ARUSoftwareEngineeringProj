@@ -25,14 +25,14 @@ namespace LoginPage
         {
             InitializeComponent();
         }
-
+        public static MainPage mainPage = new MainPage();
         private void Submit_Button_Click(object sender, RoutedEventArgs e)
         {
             DBConnection.GetInstance();
             bool flag = UserAuthorization.Verification(this.Name_Text_Box.Text, this.Password_Text_Box.Text);
             if (flag)
             {
-                MainPage mainPage = new MainPage();
+                mainPage = new MainPage();
                 mainPage.Show();
                 this.Hide();
             }
