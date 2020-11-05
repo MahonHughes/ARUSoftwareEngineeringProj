@@ -60,11 +60,70 @@ namespace LoginPage
                         _dropdown.Items.Add(item);
                     }
 
+                    dbConnetion.Close();
                 }
             }
             catch (Exception e) 
             {
                 //Nothing for now
+            }
+        }
+
+        /// <summary>
+        /// Called by CreateNewSectionPage to retrieve a list of TemplateSections. Searches database for all
+        /// sections then creates an TemplateSection object for each entry and adds it to the list. Passes to
+        /// the TemplateSection object the database entries name and ID.
+        /// </summary>
+        /// <returns>A list of TemplateSection objects.</returns>
+        public static List<TemplateSection> GetSectionsFromDatabase()
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                //New list for the TemplateSection objects
+                List<TemplateSection> _sections = new List<TemplateSection>();
+
+                dbConnetion.Open();
+
+                SqlCommand cmd = new SqlCommand(Constants.sectionsFetchData, dbConnetion);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    //Variable to hold the ID from the database
+                    int _id = 0;
+
+                    //Only if the entry has an ID, though all should
+                    if (Int32.TryParse(reader[0].ToString(), out _id))
+                    {
+                        //Creates object
+                        TemplateSection section = new TemplateSection(reader[1].ToString(), _id);
+                        //Adds it to the list
+                        _sections.Add(section);
+                    }
+                }
+
+                dbConnetion.Close();
+
+                return _sections;
+            }
+        }
+
+        /// <summary>
+        /// Called by AddSectionWindow to insert a new section into the database.
+        /// </summary>
+        /// <param name="_section">Newly created template section.</param>
+        public static void InsertAddedSection(TemplateSection _section)
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                dbConnetion.Open();
+
+                SqlCommand cmd = new SqlCommand(Constants.insertSection, dbConnetion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.Parameters.Add(new SqlParameter("section_name", _section.sectionName)); //May need more for relation to template
+                cmd.ExecuteNonQuery();
+
+                dbConnetion.Close();
             }
         }
     }

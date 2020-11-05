@@ -23,15 +23,41 @@ namespace LoginPage
         public ProceedFeedbackPage()
         {
             InitializeComponent();
-
-            //Gets the values for each dropdown box
-            DBConnection.PopulateDropDowns(selectJobDropdown, Constants.grabJobPositions, Constants.jobPositionsNameColumnIndex);
-            DBConnection.PopulateDropDowns(selectTemplateDropdown, Constants.grabTemplates, Constants.templatesNameColumnIndex);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
+        }
+
+        /// <summary>
+        /// Populates dropdown boxes on load.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            //Gets the values for each dropdown box
+            DBConnection.PopulateDropDowns(selectJobDropdown, Constants.grabJobPositions, Constants.jobPositionsNameColumnIndex);
+            DBConnection.PopulateDropDowns(selectTemplateDropdown, Constants.grabTemplates, Constants.templatesNameColumnIndex);
+        }
+
+        /// <summary>
+        /// Moves user to feedback page when job position and template have been selected.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnProceed_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectJobDropdown.SelectedItem != null && selectTemplateDropdown.SelectedItem != null)
+            {
+                //Saves selction for generating correnct feedback window
+                CurrentUser.selectedJobPosition = selectJobDropdown.SelectedItem.ToString();
+                CurrentUser.currentlySelectedTemplate = selectTemplateDropdown.SelectedItem.ToString();
+
+                //Switches to FeedbackPage
+                MainWindow.mainPage.Content = MainWindow.mainPage.feedbackPage;
+            }
         }
     }
 }

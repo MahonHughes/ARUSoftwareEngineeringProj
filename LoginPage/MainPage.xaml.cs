@@ -22,8 +22,9 @@ namespace LoginPage
     {
         public  DashboardPage dashboard = new DashboardPage();
         public  ManageTemplatesPage manageTemplatesPage = new ManageTemplatesPage();
-        public  ProceedFeedbackPage feedbackPage = new ProceedFeedbackPage();
+        public  ProceedFeedbackPage proceedToFeedbackPage = new ProceedFeedbackPage();
         public  CreateNewSectionPage createNewSectionPage = new CreateNewSectionPage();
+        public FeedBackPage feedbackPage = new FeedBackPage();
 
         public MainPage()
         {

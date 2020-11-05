@@ -6,20 +6,15 @@ using System.Threading.Tasks;
 
 namespace LoginPage
 {
-    //Used for storing the current users name
-    //For displaying the user deltails in screen or to aid retrieval of info form database
-    public class CurrentUser
+    //Used for storing the current users name...
+    //For displaying the user deltails in screen or to aid retrieval of info from database
+    public static class CurrentUser
     {
         //Current user's name
-        public string userName;
+        public static string userName;
 
-        /// <summary>
-        /// Constuctor to set username
-        /// </summary>
-        /// <param name="_name">Name from log-in screen.</param>
-        public CurrentUser(string _name)
-        {
-            userName = _name;
-        }
+        //Current user's template and job position selection
+        public static string selectedJobPosition;
+        public static string currentlySelectedTemplate;
     }
 }

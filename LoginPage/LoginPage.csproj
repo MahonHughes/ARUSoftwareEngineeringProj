@@ -81,13 +81,16 @@
     <Compile Include="DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FeedBackPage.xaml.cs">
+      <DependentUpon>FeedBackPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManageTemplatesPage.xaml.cs">
       <DependentUpon>ManageTemplatesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ProceedFeedbackPage.xaml.cs">
       <DependentUpon>ProceedFeedbackPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sections.cs" />
+    <Compile Include="TemplateSection.cs" />
     <Compile Include="UserAuthorization.cs" />
     <Page Include="AddSectionWindow.xaml">
       <SubType>Designer</SubType>
@@ -98,6 +101,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DashboardPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FeedBackPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

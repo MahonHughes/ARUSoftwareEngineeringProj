@@ -24,35 +24,49 @@ namespace LoginPage
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Executed by button click to add new section to the database.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            bool flag = true;
-            foreach(var section in Sections.sections)
+            bool notInvalid = true;
+
+            //Prevents duplicate entries into database
+            foreach(var sec in CreateNewSectionPage.sections)
             {
-                if(section.sectionName == tbSectionName.Text)
+                if(sec.sectionName == tbSectionName.Text)
                 {
-                    System.Windows.MessageBox.Show("Invalid data");
-                    flag = false;
+                    System.Windows.MessageBox.Show("Invalid data, duplicate.");
+
+                    notInvalid = false;
                     break;
                 }
             }
+
+            //Prevents null entries into database
             if (String.IsNullOrWhiteSpace(tbSectionName.Text))
             {
-                System.Windows.MessageBox.Show("Invalid data");
-                flag = false;
+                System.Windows.MessageBox.Show("Invalid data, no input.");
 
+                notInvalid = false;
             }
-         
-            if (flag)
+            
+            //Add new section to the database
+            if (notInvalid)
             {
-                Sections section = new Sections(tbSectionName.Text);
-                Sections.SaveAddedSections(section);
-                MainWindow.mainPage.createNewSectionPage.sectionsListBox.Items.Add(section.sectionName);
-                this.Hide();
-                tbSectionName.Text = "";
-            }
-                
+                //Creates new section with given name
+                TemplateSection _section = new TemplateSection(tbSectionName.Text);
 
+                //Inserts entry to database
+                DBConnection.InsertAddedSection(_section);
+
+                //Reloads CreateNewSectionPage (so the list is created each time directly from the database so the program has an accurate ID for relations to comments)
+                MainWindow.mainPage.createNewSectionPage.InitializeComponent();
+
+                this.Hide();
+            }
         }
     }
 }

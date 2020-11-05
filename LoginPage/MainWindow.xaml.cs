@@ -24,19 +24,20 @@ namespace LoginPage
         public MainWindow()
         {
             InitializeComponent();
+            //Puts cursur in first text box on load
+            Name_Text_Box.Focus();
         }
 
         public static MainPage mainPage;
-        public static CurrentUser user;
 
         private void Submit_Button_Click(object sender, RoutedEventArgs e)
         {
-            DBConnection.GetInstance();
-            bool flag = UserAuthorization.Verification(this.Name_Text_Box.Text, this.Password_Text_Box.Text);
-            if (flag)
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //To be deleted, to avoid retyping user details when testing
+            if (this.Name_Text_Box.Text == "" &&  this.Password_Text_Box.Text == "")
             {
                 //Sets the username in the CurrentUser class
-                user = new CurrentUser(this.Name_Text_Box.Text);
+                CurrentUser.userName = "Test User";
 
                 mainPage = new MainPage();
                 mainPage.Show();
@@ -44,8 +45,39 @@ namespace LoginPage
             }
             else
             {
-                System.Windows.MessageBox.Show("Invalid data");
+                DBConnection.GetInstance();
+                bool flag = UserAuthorization.Verification(this.Name_Text_Box.Text, this.Password_Text_Box.Text);
+                if (flag)
+                {
+                    //Sets the username in the CurrentUser class
+                    CurrentUser.userName = this.Name_Text_Box.Text;
+
+                    mainPage = new MainPage();
+                    mainPage.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Invalid data");
+                }
             }
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            //DBConnection.GetInstance();
+            //bool flag = UserAuthorization.Verification(this.Name_Text_Box.Text, this.Password_Text_Box.Text);
+            //if (flag)
+            //{
+            //    //Sets the username in the CurrentUser class
+            //    user = new CurrentUser(this.Name_Text_Box.Text);
+
+            //    mainPage = new MainPage();
+            //    mainPage.Show();
+            //    this.Hide();
+            //}
+            //else
+            //{
+            //    System.Windows.MessageBox.Show("Invalid data");
+            //}
         }
     }
 }

@@ -20,33 +20,67 @@ namespace LoginPage
     /// </summary>
     public partial class CreateNewSectionPage : Page
     {
-        static int a = 0;
+        //Declares sectionWindow
+        AddSectionWindow sectionWindow;
 
-        AddSectionWindow sectionWindow = new AddSectionWindow();
+        //Declares list for sections
+        public static List<TemplateSection> sections;
+
         public CreateNewSectionPage()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Opens window to add new section.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            sectionWindow.Show();
-           
+            //Creates new section window each time button is pushed
+            sectionWindow = new AddSectionWindow();
+
+            sectionWindow.Show();           
         }
 
+        /// <summary>
+        /// When page loads the sections list box is populated with buttons (one for each section in the database)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void sectionsListBox_Loaded(object sender, RoutedEventArgs e)
         {
-          
-            if (a==0)
+            sections = new List<TemplateSection>();
+
+            sections = DBConnection.GetSectionsFromDatabase();
+
+            for (int i = 0; i < sections.Count; i++)
             {
-                Sections.FetchDataFromTheDatabase();
-                for (int i = 0; i < Sections.sections.Count; i++)
-                {
-                    sectionsListBox.Items.Add(Sections.sections[i].sectionName);
-                }
-                a++;
-            }
-        
+                Button btn = new Button();
+                //Changes buttons text
+                btn.Content = sections[i].sectionName;
+                //Adds click event to the button
+                btn.Click += SectionSelected;
+                //Sets the buttons width and height
+                btn.Width = sectionsListBox.ActualWidth;
+                btn.Height = 40; //Unsure
+                //Adds the button to the list box
+                sectionsListBox.Items.Add(btn);
+            }       
+        }
+
+        /// <summary>
+        /// Method called by section buttons when clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void SectionSelected(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("List button was clicked");
+
+            //Load comments in similar fashion to sections
+            //store ID for comment entry to database (section ID needed for section/comment relation)
         }
 
         private void bt_goBack_Click(object sender, RoutedEventArgs e)
@@ -58,6 +92,5 @@ namespace LoginPage
         {
            
         }
-
     }
 }

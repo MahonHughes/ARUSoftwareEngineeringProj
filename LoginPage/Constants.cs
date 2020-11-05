@@ -14,8 +14,8 @@ namespace LoginPage
 
 
         // SQl commands for Sections class
-        public static string sectionsFetchData = "select section_name from [Sections]";
-        public static string insertSections = "INSERT INTO Sections (section_name) VALUES (@section_name)";
+        public static string sectionsFetchData = "select * from [Sections]";
+        public static string insertSection = "INSERT INTO Sections (section_name) VALUES (@section_name)";
 
         //SQL queries for ProceedToFeedback
         public static string grabTemplates = "SELECT template_name FROM [templates]";                       // May change names when table created
