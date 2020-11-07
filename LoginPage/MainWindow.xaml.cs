@@ -36,6 +36,7 @@ namespace LoginPage
             //To be deleted, to avoid retyping user details when testing
             if (this.Name_Text_Box.Text == "" &&  this.Password_Text_Box.Text == "")
             {
+                DBConnection.GetInstance();
                 //Sets the username in the CurrentUser class
                 CurrentUser.userName = "Test User";
 

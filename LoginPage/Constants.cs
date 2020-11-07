@@ -18,9 +18,9 @@ namespace LoginPage
         public static string insertSection = "INSERT INTO Sections (section_name) VALUES (@section_name)";
 
         //SQL queries for ProceedToFeedback
-        public static string grabTemplates = "SELECT template_name FROM [templates]";                       // May change names when table created
-        public static string grabJobPositions = "SELECT position_name FROM [Job_positions]";                // May change names when table created
-        public static int templatesNameColumnIndex = 1;                                                     // May change names when table created
-        public static int jobPositionsNameColumnIndex = 1;                                                  // May change names when table created
+        public static string grabTemplates = "SELECT template_name FROM [Templates]";
+        public static string grabJobPositions = "SELECT position_title FROM [Job_position]";
+        public static int templatesNameColumnIndex = 0;
+        public static int jobPositionsNameColumnIndex = 0;
     }
 }

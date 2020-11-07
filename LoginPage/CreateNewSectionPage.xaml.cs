@@ -51,6 +51,8 @@ namespace LoginPage
         /// <param name="e"></param>
         private void sectionsListBox_Loaded(object sender, RoutedEventArgs e)
         {
+            sectionsListBox.Items.Clear();
+
             sections = new List<TemplateSection>();
 
             sections = DBConnection.GetSectionsFromDatabase();
@@ -63,8 +65,8 @@ namespace LoginPage
                 //Adds click event to the button
                 btn.Click += SectionSelected;
                 //Sets the buttons width and height
-                btn.Width = sectionsListBox.ActualWidth;
-                btn.Height = 40; //Unsure
+                btn.Width = 215;
+                btn.Height = 30;
                 //Adds the button to the list box
                 sectionsListBox.Items.Add(btn);
             }       
@@ -91,6 +93,14 @@ namespace LoginPage
         private void bt_comment_Click(object sender, RoutedEventArgs e)
         {
            
+        }
+
+        /// <summary>
+        /// Called by AddSectionWindow to reload list box values.
+        /// </summary>
+        public void ResetPage()
+        {
+            sectionsListBox_Loaded(this, null);
         }
     }
 }

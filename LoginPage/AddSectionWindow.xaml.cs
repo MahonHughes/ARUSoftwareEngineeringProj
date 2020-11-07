@@ -22,6 +22,9 @@ namespace LoginPage
         public AddSectionWindow()
         {
             InitializeComponent();
+
+            //Puts cursur in first text box on load
+            tbSectionName.Focus();
         }
 
         /// <summary>
@@ -62,8 +65,8 @@ namespace LoginPage
                 //Inserts entry to database
                 DBConnection.InsertAddedSection(_section);
 
-                //Reloads CreateNewSectionPage (so the list is created each time directly from the database so the program has an accurate ID for relations to comments)
-                MainWindow.mainPage.createNewSectionPage.InitializeComponent();
+                //Calls load method on CreateNewSectionPage to repopulate the sections list box
+                MainWindow.mainPage.createNewSectionPage.ResetPage();
 
                 this.Hide();
             }
