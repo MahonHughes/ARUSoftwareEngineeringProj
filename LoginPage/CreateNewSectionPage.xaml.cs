@@ -79,7 +79,9 @@ namespace LoginPage
         /// <param name="e"></param>
         private static void SectionSelected(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("List button was clicked");
+            Button btn = (Button)sender;
+
+            MessageBox.Show("List button was clicked, the buttons content is: " + btn.Content);
 
             //Load comments in similar fashion to sections
             //store ID for comment entry to database (section ID needed for section/comment relation)

@@ -13,7 +13,7 @@ namespace LoginPage
         public int sectionID;
 
         /// <summary>
-        /// Constuctor assigns name and ID to object.
+        /// Constuctor assigns name and ID to object.  j
         /// </summary>
         /// <param name="_name"></param>
         /// <param name="_id"></param>
