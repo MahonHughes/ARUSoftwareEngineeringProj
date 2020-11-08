@@ -21,12 +21,22 @@ namespace LoginPage
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
             //Puts cursur in first text box on load
-            Name_Text_Box.Focus();
+            
         }
+
+        private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        } 
 
         public static MainPage mainPage;
 
@@ -62,6 +72,10 @@ namespace LoginPage
                     System.Windows.MessageBox.Show("Invalid data");
                 }
             }
+
+
+
+
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             //DBConnection.GetInstance();
