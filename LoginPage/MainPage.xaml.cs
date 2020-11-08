@@ -37,5 +37,11 @@ namespace LoginPage
             this.Content = dashboard;
             ///mainFrame.NavigationService.Navigate(new DashboardPage());
         }
+
+        private void CloseBut_Click(object sender, RoutedEventArgs e)
+        {
+           Close();
+
+        }
     }
 }

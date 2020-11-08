@@ -5,4 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LoginPage"
         mc:Ignorable="d"
-        Title="MainPage" Height="450" Width="800" Loaded="Window_Loaded"/>
+        Title="MainPage" Height="450" Width="800" Loaded="Window_Loaded"
+        WindowStyle="None"
+        AllowsTransparency="True" Background="Transparent">
+
+    <Grid>
+        <Grid>
+            <Border CornerRadius="20" Grid.RowSpan="2">
+                <Border.Background>
+                    <LinearGradientBrush>
+
+                        <GradientStop Color="#F544E5" Offset="0.0"/>
+                        <GradientStop Color="#73F5CF" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+        </Grid>
+        <Button x:Name="CloseBut" Content="X" HorizontalAlignment="Right" Height="40" Width="40" VerticalAlignment="Top" Click="CloseBut_Click" 
+             />
+    </Grid>
+</Window>
+    
