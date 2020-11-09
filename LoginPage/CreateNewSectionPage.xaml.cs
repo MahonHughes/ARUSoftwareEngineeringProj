@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Schema;
 
 namespace LoginPage
 {
@@ -67,6 +68,9 @@ namespace LoginPage
                 //Sets the buttons width and height
                 btn.Width = 215;
                 btn.Height = 30;
+                //Set button style
+                btn.Background = Brushes.Gray;
+                btn.Opacity = 255;
                 //Adds the button to the list box
                 sectionsListBox.Items.Add(btn);
             }       
@@ -80,6 +84,7 @@ namespace LoginPage
         private static void SectionSelected(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
+            btn.Background = Brushes.BlueViolet;
 
             MessageBox.Show("List button was clicked, the buttons content is: " + btn.Content);
 
