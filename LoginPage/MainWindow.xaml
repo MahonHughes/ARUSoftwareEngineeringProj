@@ -5,16 +5,64 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LoginPage"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="474.8" Background="#FFEACA67">
-    <Grid Margin="0,0,-1.8,0" RenderTransformOrigin="0.5,0.5">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="266*"/>
-            <ColumnDefinition Width="205*"/>
-        </Grid.ColumnDefinitions>
-        <Label Content="Name:" HorizontalAlignment="Left" Margin="22,131,0,0" VerticalAlignment="Top" Height="44" Width="81" FontSize="24"/>
-        <Label Content="Password:" HorizontalAlignment="Left" Margin="22,202,0,0" VerticalAlignment="Top" Height="44" Width="119" FontSize="24"/>
-        <TextBox x:Name="Name_Text_Box" HorizontalAlignment="Left" Height="19" Margin="166,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="Password_Text_Box" HorizontalAlignment="Left" Height="19" Margin="166,216,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Grid.ColumnSpan="2"/>
-        <Button x:Name="Submit_Button" Content="Submit " HorizontalAlignment="Left" Margin="183,335,0,0" VerticalAlignment="Top" Width="108" Height="32" Click="Submit_Button_Click" Grid.ColumnSpan="2" IsDefault="True"/>
+        Title="MainWindow" Height="450" Width="474.8"
+        AllowsTransparency="True" ResizeMode="NoResize"
+        WindowStyle="None"
+        Background="Transparent"
+         MouseDown="MainWindow_OnMouseDown">
+    <Grid>
+        <Border CornerRadius="20" Grid.RowSpan="2">
+            <Border.Background>
+                <LinearGradientBrush>
+
+                    <GradientStop Color="#F544E5" Offset="0.0"/>
+                    <GradientStop Color="#73F5CF" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+        </Border>
+        <Grid Margin="0,0,-1.8,0" RenderTransformOrigin="0.5,0.5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <StackPanel Margin="0,0,1.8,-0.4">
+                <TextBox x:Name="Name_Text_Box" FontFamily="Helvetica" FontWeight="Light" 
+                         Text="Username" FontSize="20"
+                         
+                         HorizontalAlignment="Center"
+                         Foreground="White"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         Width="235"
+                         
+                         HorizontalContentAlignment="Center"
+                         Opacity="0.5"
+                         Height="35"
+                     
+                         Margin="0 145 0 0" GotFocus="textBox_1_Enter" LostFocus="textBox__Enter" />
+            </StackPanel>
+            <Border Background="White" Opacity="0.5" Margin="0,169,0.8,278.6" Width="250"/>
+            <StackPanel Margin="0,0,1.8,-0.4">
+                <PasswordBox x:Name="Password_Text_Box" HorizontalAlignment="Left"   VerticalAlignment="Center" FontFamily="Helvetica" FontWeight="Light"
+                         Password="Password" FontSize="20"
+                        Margin="120 215 0 0"
+                         Foreground="White"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         Width="235"
+                         HorizontalContentAlignment="Center"
+                         Opacity="0.5"
+                         Height="35"
+                            
+                                 GotFocus="PWBox_1_Enter"
+                                 LostFocus=" PWWBox__Enter" />
+            </StackPanel>
+            <Border Background="White" Opacity="0.5" Margin="10,239,0.8,208" Width="250"/>
+            <Button x:Name="Submit_Button" Content="Submit " FontSize="20" FontWeight="Light" HorizontalAlignment="Left" Margin="303,335,0,0" VerticalAlignment="Top" Width="150" Height="52" Click="Submit_Button_Click" IsDefault="True"/>
+            <Button x:Name="Close_Button" FontSize="20" FontWeight="Light" Content="Close " HorizontalAlignment="Left" Margin="15,335,0,0" VerticalAlignment="Top" Width="150" Height="52" Click=" CloseButton_Click" IsDefault="True"/>
+        </Grid>
     </Grid>
 </Window>

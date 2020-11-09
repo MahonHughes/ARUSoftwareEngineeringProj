@@ -21,12 +21,22 @@ namespace LoginPage
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
             //Puts cursur in first text box on load
-            Name_Text_Box.Focus();
+            
         }
+
+        private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        } 
 
         public static MainPage mainPage;
 
@@ -34,7 +44,7 @@ namespace LoginPage
         {
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //To be deleted, to avoid retyping user details when testing
-            if (this.Name_Text_Box.Text == "" &&  this.Password_Text_Box.Text == "")
+            if (this.Name_Text_Box.Text == "" &&  this.Password_Text_Box.Password == "")
             {
                 DBConnection.GetInstance();
                 //Sets the username in the CurrentUser class
@@ -47,7 +57,7 @@ namespace LoginPage
             else
             {
                 DBConnection.GetInstance();
-                bool flag = UserAuthorization.Verification(this.Name_Text_Box.Text, this.Password_Text_Box.Text);
+                bool flag = UserAuthorization.Verification(this.Name_Text_Box.Text, this.Password_Text_Box.Password);
                 if (flag)
                 {
                     //Sets the username in the CurrentUser class
@@ -62,6 +72,11 @@ namespace LoginPage
                     System.Windows.MessageBox.Show("Invalid data");
                 }
             }
+
+
+
+
+
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             //DBConnection.GetInstance();
@@ -80,5 +95,69 @@ namespace LoginPage
             //    System.Windows.MessageBox.Show("Invalid data");
             //}
         }
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void textBox_1_Enter(object sender, EventArgs e)
+
+        {
+
+            if (!string.IsNullOrEmpty(Name_Text_Box.Text.Trim()))
+
+            {
+
+                Name_Text_Box.Text = "";
+
+            }
+
+
+        }
+        private void textBox__Enter(object sender, EventArgs e)
+
+        {
+
+            if (string.IsNullOrEmpty(Name_Text_Box.Text))
+
+            {
+
+                Name_Text_Box.Text = "Username";
+
+            }
+
+
+
+        }
+        private void PWBox_1_Enter(object sender, EventArgs e)
+
+        {
+
+            if (!string.IsNullOrEmpty(Password_Text_Box.Password.Trim()))
+
+            {
+
+                Password_Text_Box.Password = "";
+
+            }
+
+
+        }
+        private void PWWBox__Enter(object sender, EventArgs e)
+
+        {
+
+            if (string.IsNullOrEmpty(Password_Text_Box.Password))
+
+            {
+
+                Password_Text_Box.Password = "Password";
+
+            }
+
+
+
+        }
     }
+    
 }
