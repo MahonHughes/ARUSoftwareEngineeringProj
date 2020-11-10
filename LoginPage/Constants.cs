@@ -22,5 +22,8 @@ namespace LoginPage
         public static string grabJobPositions = "SELECT position_title FROM [Job_position]";
         public static int templatesNameColumnIndex = 0;
         public static int jobPositionsNameColumnIndex = 0;
+
+        //SQL queries for FeedbackPage
+        public static string getApplicants = "SELECT * FROM [Applicants]"; // WHERE Applicants.job_id = (selected job)
     }
 }

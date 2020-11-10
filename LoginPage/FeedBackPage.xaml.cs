@@ -20,14 +20,49 @@ namespace LoginPage
     /// </summary>
     public partial class FeedBackPage : Page
     {
+        List<string> applicants;
+        private string currentJobPosition;
+        private string currentTemplateSelected;
+
         public FeedBackPage()
         {
             InitializeComponent();
+
+            currentJobPosition = CurrentUser.selectedJobPosition;
+            currentTemplateSelected = CurrentUser.currentlySelectedTemplate;
+
+            //Set text labels to show current info
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
+            applicants = new List<string>();
 
+            applicants = DBConnection.GetApplicantsFromDatabase();
+
+            for (int i = 0; i < applicants.Count; i++)
+            {
+                Button btn = new Button();
+                //Changes buttons text
+                btn.Content = applicants[i];
+                //Adds click event to the button
+                btn.Click += ApplicantSelected;
+                //Sets the buttons width and height
+                btn.Width = 148;
+                btn.Height = 25;
+                //Set button style
+                btn.Style = Application.Current.TryFindResource("ListBoxButton") as Style;
+                //Adds the button to the list box
+                applicantListBox.Items.Add(btn);
+            }
+        }
+
+        private void ApplicantSelected(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Applicant selected.");
+            //Change colour
+            //Generate the section, combo boxes for the feedback
+            //Save button
         }
     }
 }

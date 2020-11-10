@@ -9,8 +9,12 @@
       Title="FeedBackPage">
 
     <Grid Background="#FF389CA0" Loaded="Grid_Loaded">
-        <ListBox HorizontalAlignment="Left" Height="269" Margin="32,128,0,0" VerticalAlignment="Top" Width="160"/>
+        <ListBox x:Name="applicantListBox" HorizontalAlignment="Left" Height="269" Margin="32,128,0,0" VerticalAlignment="Top" Width="160"/>
         <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="10,416,0,0" VerticalAlignment="Top" Width="141" Height="24"/>
+        <Frame Content="Select applicant to begin." HorizontalAlignment="Left" Height="320" Margin="213,77,0,0" VerticalAlignment="Top" Width="561" FontSize="20"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="263,34,0,0" VerticalAlignment="Top"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="450,34,0,0" VerticalAlignment="Top"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="651,34,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>

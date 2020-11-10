@@ -69,8 +69,7 @@ namespace LoginPage
                 btn.Width = 215;
                 btn.Height = 30;
                 //Set button style
-                btn.Background = Brushes.Gray;
-                btn.Opacity = 255;
+                btn.Style = Application.Current.TryFindResource("ListBoxButton") as Style;
                 //Adds the button to the list box
                 sectionsListBox.Items.Add(btn);
             }       
@@ -84,7 +83,7 @@ namespace LoginPage
         private static void SectionSelected(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
-            btn.Background = Brushes.BlueViolet;
+            btn.Background = Brushes.DarkOliveGreen;
 
             MessageBox.Show("List button was clicked, the buttons content is: " + btn.Content);
 

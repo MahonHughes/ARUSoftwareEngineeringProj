@@ -110,6 +110,33 @@ namespace LoginPage
         }
 
         /// <summary>
+        /// Used by the FeedbackPage to get the relevant applicants for the selected job.
+        /// </summary>
+        /// <returns>List of applicants.</returns>
+        public static List<string> GetApplicantsFromDatabase()
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                List<string> applicants = new List<string>();
+
+                dbConnetion.Open();
+
+                SqlCommand cmd = new SqlCommand(Constants.getApplicants, dbConnetion);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    string _applicant = reader[1].ToString();
+                    applicants.Add(_applicant);
+                }
+
+                dbConnetion.Close();
+
+                return applicants;
+            }
+        }
+
+        /// <summary>
         /// Called by AddSectionWindow to insert a new section into the database.
         /// </summary>
         /// <param name="_section">Newly created template section.</param>
