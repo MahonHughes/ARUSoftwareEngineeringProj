@@ -28,7 +28,7 @@ namespace LoginPage
         {
             connString = Properties.Settings.Default.userDBconnStr;
         }
- 
+
         public static DBConnection GetInstance()
         {
             if (instance == null)
@@ -64,7 +64,7 @@ namespace LoginPage
                     dbConnetion.Close();
                 }
             }
-            catch (Exception e) 
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
@@ -157,7 +157,7 @@ namespace LoginPage
 
         public static void InsertComment(Comment comment)
         {
-            using (dbConnetion = new SqlConnection (connString))
+            using (dbConnetion = new SqlConnection(connString))
             {
                 dbConnetion.Open();
 
@@ -166,7 +166,7 @@ namespace LoginPage
                 cmd.Parameters.Add(new SqlParameter("code_name", comment.code_name));
                 cmd.Parameters.Add(new SqlParameter("comment_text", comment.text));
                 cmd.Parameters.Add(new SqlParameter("section_id", comment.section_id));
-                cmd.ExecuteNonQuery();     
+                cmd.ExecuteNonQuery();
             }
 
         }
@@ -174,7 +174,7 @@ namespace LoginPage
 
         public static List<Comment> GetCommentFromDatabase(int section_id)
         {
-           
+
             using (dbConnetion = new SqlConnection(connString))
             {
                 List<Comment> comments = new List<Comment>();
@@ -191,7 +191,38 @@ namespace LoginPage
 
                 return comments;
             }
-            
+
+        }
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>A list of Template objects.</returns>
+        public static string[] GetTemplateNamesFromDatabase()
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                //New list for the Template objects
+                List<Template> _templates = new List<Template>();
+
+                dbConnetion.Open();
+
+                SqlCommand cmd = new SqlCommand(Constants.grabTemplates, dbConnetion);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                List<string> TemplateNameList = new List<string>();
+
+                while (reader.Read())
+                {
+                    TemplateNameList.Add(reader[0].ToString());
+                }
+
+                dbConnetion.Close();
+
+                return TemplateNameList.ToArray();
+            }
         }
     }
 }

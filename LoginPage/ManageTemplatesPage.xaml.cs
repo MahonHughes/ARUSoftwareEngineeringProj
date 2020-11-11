@@ -30,5 +30,19 @@ namespace LoginPage
             //this.NavigationService.Navigate(new DashboardPage());
             MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
         }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ListBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            string[] templateNameArray = DBConnection.GetTemplateNamesFromDatabase();
+            for (int i = 0; i < templateNameArray.Length; i++)
+            {
+                templatesListBox.Items.Add(templateNameArray[i]);
+            }
+        }
     }
 }
