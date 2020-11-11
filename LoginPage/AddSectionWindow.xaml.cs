@@ -37,7 +37,7 @@ namespace LoginPage
             bool notInvalid = true;
 
             //Prevents duplicate entries into database
-            foreach(var sec in CreateNewSectionPage.sections)
+            foreach(var sec in TemplateSection.sections)
             {
                 if(sec.sectionName == tbSectionName.Text)
                 {
@@ -66,7 +66,7 @@ namespace LoginPage
                 DBConnection.InsertAddedSection(_section);
 
                 //Calls load method on CreateNewSectionPage to repopulate the sections list box
-                MainWindow.mainPage.createNewSectionPage.ResetPage();
+                MainPage.createNewSectionPage.ResetPage();
 
                 this.Hide();
             }

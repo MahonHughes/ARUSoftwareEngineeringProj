@@ -154,5 +154,44 @@ namespace LoginPage
                 dbConnetion.Close();
             }
         }
+
+        public static void InsertComment(Comment comment)
+        {
+            using (dbConnetion = new SqlConnection (connString))
+            {
+                dbConnetion.Open();
+
+                SqlCommand cmd = new SqlCommand(Constants.insertComment, dbConnetion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.Parameters.Add(new SqlParameter("code_name", comment.code_name));
+                cmd.Parameters.Add(new SqlParameter("comment_text", comment.text));
+                cmd.Parameters.Add(new SqlParameter("section_id", comment.section_id));
+                cmd.ExecuteNonQuery();     
+            }
+
+        }
+
+
+        public static List<Comment> GetCommentFromDatabase(int section_id)
+        {
+           
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                List<Comment> comments = new List<Comment>();
+                dbConnetion.Open();
+
+                SqlCommand cmd = new SqlCommand(Constants.GetCommets(section_id), dbConnetion);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Comment comment = new Comment(reader[0].ToString(), reader[1].ToString());
+                    comments.Add(comment);
+                }
+
+                return comments;
+            }
+            
+        }
     }
 }

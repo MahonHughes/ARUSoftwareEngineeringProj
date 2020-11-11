@@ -23,7 +23,14 @@ namespace LoginPage
         public static int templatesNameColumnIndex = 0;
         public static int jobPositionsNameColumnIndex = 0;
 
-        //SQL queries for FeedbackPage
-        public static string getApplicants = "SELECT * FROM [Applicants]"; // WHERE Applicants.job_id = (selected job)
+        //SQL queris for Comment class
+        public static string GetCommets(int section_id)
+        {
+            return  "SELECT code_name, comment_text, section_id FROM [Comments] WHERE Comments.section_id = " + section_id.ToString();
+        }
+        public static string insertComment = "INSERT INTO Comments (code_name, comment_text, section_id) VALUES (@code_name, @comment_text, @section_id)";
+       
     }
+       
+    
 }
