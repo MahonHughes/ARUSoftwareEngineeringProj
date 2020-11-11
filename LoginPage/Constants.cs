@@ -28,9 +28,10 @@ namespace LoginPage
         {
             return  "SELECT code_name, comment_text, section_id FROM [Comments] WHERE Comments.section_id = " + section_id.ToString();
         }
+
         public static string insertComment = "INSERT INTO Comments (code_name, comment_text, section_id) VALUES (@code_name, @comment_text, @section_id)";
-       
+
+        //SQL queries for FeedbackPage
+        public static string getApplicants = "SELECT * FROM [Applicants]"; // WHERE Applicants.job_id = (selected job)
     }
-       
-    
 }
