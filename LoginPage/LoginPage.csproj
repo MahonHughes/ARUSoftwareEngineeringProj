@@ -73,7 +73,11 @@
     <Compile Include="AddSectionWindow.xaml.cs">
       <DependentUpon>AddSectionWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Comment.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="CreateCommentWindow.xaml.cs">
+      <DependentUpon>CreateCommentWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CreateNewSectionPage.xaml.cs">
       <DependentUpon>CreateNewSectionPage.xaml</DependentUpon>
     </Compile>
@@ -100,6 +104,10 @@
     <Page Include="AReviewBT.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CreateCommentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CreateNewSectionPage.xaml">
       <SubType>Designer</SubType>

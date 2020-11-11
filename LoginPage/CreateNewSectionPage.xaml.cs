@@ -24,8 +24,14 @@ namespace LoginPage
         //Declares sectionWindow
         AddSectionWindow sectionWindow;
 
-        //Declares list for sections
-        public static List<TemplateSection> sections;
+        public CreateCommentWindow commentWindow;
+
+        public static int currentSectionID = 0;
+
+
+
+        static int a;
+ 
 
         public CreateNewSectionPage()
         {
@@ -54,22 +60,32 @@ namespace LoginPage
         {
             sectionsListBox.Items.Clear();
 
-            sections = new List<TemplateSection>();
+            a = 0;
+            currentSectionID = 0;
+            TemplateSection.sections = DBConnection.GetSectionsFromDatabase();
+            for (int i = 0; i < TemplateSection.sections.Count;i++)
+            {
+               List <Comment> comments =  DBConnection.GetCommentFromDatabase(TemplateSection.sections[i].sectionID);
+                for (int j =0;j < comments.Count;j++)
+                {
+                    TemplateSection.sections[i].comments.Add(comments[j]);
+                }
+            }
 
-            sections = DBConnection.GetSectionsFromDatabase();
-
-            for (int i = 0; i < sections.Count; i++)
+            for (int i = 0; i < TemplateSection.sections.Count; i++)
             {
                 Button btn = new Button();
                 //Changes buttons text
-                btn.Content = sections[i].sectionName;
+                btn.Content = TemplateSection.sections[i].sectionName;
                 //Adds click event to the button
                 btn.Click += SectionSelected;
                 //Sets the buttons width and height
                 btn.Width = 215;
                 btn.Height = 30;
-                //Set button style
-                btn.Background = Brushes.Gray;
+                // Set button style
+                // btn.Background = Brushes.;
+                btn.Tag = a;
+                a++;
                 btn.Opacity = 255;
                 //Adds the button to the list box
                 sectionsListBox.Items.Add(btn);
@@ -83,13 +99,43 @@ namespace LoginPage
         /// <param name="e"></param>
         private static void SectionSelected(object sender, RoutedEventArgs e)
         {
+            int b = 0;
             Button btn = (Button)sender;
-            btn.Background = Brushes.BlueViolet;
+            Int32.TryParse(btn.Tag.ToString(), out currentSectionID);
+            MainPage.createNewSectionPage.text_box.Text = "";
+            MainPage.createNewSectionPage.commentsListBox.Items.Clear();
+       
+            MainPage.createNewSectionPage.bt_comment.IsEnabled = true;
+            MainPage.createNewSectionPage.commentsListBox.Items.Clear();
+            ShowCommentsButtons();
+            
 
-            MessageBox.Show("List button was clicked, the buttons content is: " + btn.Content);
+        }
 
-            //Load comments in similar fashion to sections
-            //store ID for comment entry to database (section ID needed for section/comment relation)
+        public static void ShowCommentsButtons()
+        {
+            MainPage.createNewSectionPage.commentsListBox.Items.Clear();
+            int b = 0;
+            for (int i = 0; i < TemplateSection.sections[currentSectionID].comments.Count; i++)
+            {
+                Button button = new Button();
+                button.Content = TemplateSection.sections[currentSectionID].comments[i];
+                button.Click += CommentSelected;
+                button.Content = TemplateSection.sections[currentSectionID].comments[i].code_name;
+                button.Width = 215;
+                button.Height = 30;
+                button.Opacity = 255;
+                button.Tag = b;
+                b++;
+                MainPage.createNewSectionPage.commentsListBox.Items.Add(button);
+            }
+        }
+
+        private static void CommentSelected(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            Int32.TryParse(btn.Tag.ToString(), out int comment_index);
+            MainPage.createNewSectionPage.text_box.Text = TemplateSection.sections[currentSectionID].comments[comment_index].text;
         }
 
         private void bt_goBack_Click(object sender, RoutedEventArgs e)
@@ -99,7 +145,10 @@ namespace LoginPage
 
         private void bt_comment_Click(object sender, RoutedEventArgs e)
         {
-           
+                    
+            commentWindow = new CreateCommentWindow();
+
+            commentWindow.Show();
         }
 
         /// <summary>
@@ -108,6 +157,7 @@ namespace LoginPage
         public void ResetPage()
         {
             sectionsListBox_Loaded(this, null);
+          
         }
     }
 }

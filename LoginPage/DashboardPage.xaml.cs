@@ -37,7 +37,7 @@ namespace LoginPage
 
         private void btnCreateSection_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.mainPage.Content = MainWindow.mainPage.createNewSectionPage;
+            MainWindow.mainPage.Content = MainPage.createNewSectionPage;
         }
     }
 }
