@@ -64,5 +64,10 @@ namespace LoginPage
             //Generate the section, combo boxes for the feedback
             //Save button
         }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.mainPage.Content = MainWindow.mainPage.proceedToFeedbackPage;
+        }
     }
 }
