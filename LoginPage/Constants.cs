@@ -18,8 +18,8 @@ namespace LoginPage
         public static string insertSection = "INSERT INTO Sections (section_name) VALUES (@section_name)";
 
         //SQL queries for ProceedToFeedback
-        public static string grabTemplates = "SELECT template_name FROM [Templates]";
-        public static string grabJobPositions = "SELECT position_title FROM [Job_position]";
+        public static string grabTemplates = "SELECT template_name FROM Templates";
+        public static string grabJobPositions = "SELECT position_title FROM Job_position";
         public static int templatesNameColumnIndex = 0;
         public static int jobPositionsNameColumnIndex = 0;
 
@@ -32,6 +32,10 @@ namespace LoginPage
         public static string insertComment = "INSERT INTO Comments (code_name, comment_text, section_id) VALUES (@code_name, @comment_text, @section_id)";
 
         //SQL queries for FeedbackPage
-        public static string getApplicants = "SELECT * FROM [Applicants]"; // WHERE Applicants.job_id = (selected job)
+        public static string getApplicants = "SELECT * FROM Applicants";// WHERE Applicants.job_id = @selected job;
+
+        //SQL query for getting the relevant sections for the selected template (using the templates name)
+        public static string getTemplatesSections = 
+            "SELECT * FROM Sections INNER JOIN Templates ON Sections.template_id = Templates.template_id WHERE Templates.template_name = '";
     }
 }

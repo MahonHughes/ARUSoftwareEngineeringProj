@@ -9,12 +9,49 @@
       Title="FeedBackPage">
 
     <Grid Background="#FF389CA0" Loaded="Grid_Loaded">
-        <ListBox x:Name="applicantListBox" HorizontalAlignment="Left" Height="269" Margin="32,128,0,0" VerticalAlignment="Top" Width="160"/>
+        <ListBox x:Name="applicantListBox" HorizontalAlignment="Left" Height="304" Margin="22,93,0,0" VerticalAlignment="Top" Width="170"/>
         <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="10,416,0,10" Width="141" Click="btnCancel_Click"/>
-        <Frame Content="Select applicant to begin." HorizontalAlignment="Left" Height="320" Margin="213,77,0,0" VerticalAlignment="Top" Width="561" FontSize="20"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="263,34,0,0" VerticalAlignment="Top"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="450,34,0,0" VerticalAlignment="Top"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="651,34,0,0" VerticalAlignment="Top"/>
+        <Label Content="Template: Random" HorizontalAlignment="Left" Margin="263,34,0,0" VerticalAlignment="Top"/>
+        <Label Content="Job Position: Random" HorizontalAlignment="Left" Margin="450,34,0,0" VerticalAlignment="Top"/>
+        <Label Content="User: Random" HorizontalAlignment="Left" Margin="651,34,0,0" VerticalAlignment="Top"/>
+        <ListView x:Name="feedbackListView" HorizontalAlignment="Left" Height="304" Margin="214,93,0,0" VerticalAlignment="Top" Width="559" ItemsSource="{Binding sections}">
+            <ListView.View>
+                <GridView>
 
+                    <GridViewColumn Header="Section Name" DisplayMemberBinding="{Binding sectionName}" Width="120">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox TextAlignment="Center"></TextBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Comment Selection" Width="233">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox Width="218" Loaded="ComboBox_Loaded"></ComboBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Preview Comment" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Preview" Style="{StaticResource ListBoxButton}" Width="90" Loaded="PreviewButton_Loaded" Click="PreviewComment"></Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Custom Comment" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Add" Style="{StaticResource ListBoxButton}" Width="90" Loaded="AddButton_Loaded" Click="AddCustomComment"></Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Page>

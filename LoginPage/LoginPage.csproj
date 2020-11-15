@@ -73,6 +73,8 @@
     <Compile Include="AddSectionWindow.xaml.cs">
       <DependentUpon>AddSectionWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Applicant.cs" />
+    <Compile Include="FeedbackSection.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="Comment.cs" />
     <Compile Include="Constants.cs" />

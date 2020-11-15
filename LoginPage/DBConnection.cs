@@ -113,11 +113,11 @@ namespace LoginPage
         /// Used by the FeedbackPage to get the relevant applicants for the selected job.
         /// </summary>
         /// <returns>List of applicants.</returns>
-        public static List<string> GetApplicantsFromDatabase()
+        public static List<Applicant> GetApplicantsFromDatabase()
         {
             using (dbConnetion = new SqlConnection(connString))
             {
-                List<string> applicants = new List<string>();
+                List<Applicant> applicants = new List<Applicant>();
 
                 dbConnetion.Open();
 
@@ -126,8 +126,13 @@ namespace LoginPage
 
                 while (reader.Read())
                 {
-                    string _applicant = reader[1].ToString();
-                    applicants.Add(_applicant);
+                    int _id = 0;
+
+                    if (Int32.TryParse(reader[0].ToString(), out _id))
+                    {
+                        Applicant _applicant = new Applicant(reader[1].ToString(), _id);
+                        applicants.Add(_applicant);
+                    }
                 }
 
                 dbConnetion.Close();
@@ -171,7 +176,6 @@ namespace LoginPage
 
         }
 
-
         public static List<Comment> GetCommentFromDatabase(int section_id)
         {
 
@@ -185,7 +189,7 @@ namespace LoginPage
 
                 while (reader.Read())
                 {
-                    Comment comment = new Comment(reader[0].ToString(), reader[1].ToString());
+                    Comment comment = new Comment(reader[0].ToString(), reader[1].ToString());//reader[1].ToString(), reader[3].ToString());
                     comments.Add(comment);
                 }
 
@@ -193,8 +197,6 @@ namespace LoginPage
             }
 
         }
-
-
 
         /// <summary>
         /// 
@@ -222,6 +224,41 @@ namespace LoginPage
                 dbConnetion.Close();
 
                 return TemplateNameList.ToArray();
+            }
+        }
+
+        public static List<FeedbackSection> GetFeedbackSectionsFromDatabase(string currentlySelectedTemplate)
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                //New list for the TemplateSection objects
+                List<FeedbackSection> _sections = new List<FeedbackSection>();
+
+                dbConnetion.Open();
+
+                string _query = Constants.getTemplatesSections + currentlySelectedTemplate + "'";
+
+                SqlCommand cmd = new SqlCommand(_query, dbConnetion);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    //Variable to hold the ID from the database
+                    int _id;
+
+                    //Only if the entry has an ID, though all should
+                    if (Int32.TryParse(reader[0].ToString(), out _id))
+                    {
+                        //Creates object
+                        FeedbackSection section = new FeedbackSection(reader[1].ToString(), _id);
+                        //Adds it to the list
+                        _sections.Add(section);
+                    }
+                }
+
+                dbConnetion.Close();
+
+                return _sections;
             }
         }
     }
