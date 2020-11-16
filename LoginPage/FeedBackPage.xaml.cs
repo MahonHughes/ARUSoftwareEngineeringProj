@@ -29,5 +29,10 @@ namespace LoginPage
         {
 
         }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
+        }
     }
 }

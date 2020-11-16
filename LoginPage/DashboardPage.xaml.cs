@@ -39,5 +39,13 @@ namespace LoginPage
         {
             MainWindow.mainPage.Content = MainWindow.mainPage.createNewSectionPage;
         }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.mainPage.Close();
+            MainWindow main = new MainWindow();
+            main.Show();
+
+        }
     }
 }

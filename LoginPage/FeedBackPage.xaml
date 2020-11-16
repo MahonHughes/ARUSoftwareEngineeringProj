@@ -10,7 +10,9 @@
 
     <Grid Background="#FF389CA0" Loaded="Grid_Loaded">
         <ListBox HorizontalAlignment="Left" Height="269" Margin="32,128,0,0" VerticalAlignment="Top" Width="160"/>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="10,416,0,0" VerticalAlignment="Top" Width="141" Height="24"/>
-
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="10,416,0,0" VerticalAlignment="Top" Width="141" Height="24" Click="btnCancel_Click"/>
+        
+        
+        
     </Grid>
 </Page>

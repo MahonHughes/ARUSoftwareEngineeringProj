@@ -32,6 +32,7 @@ namespace LoginPage
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             bool notInvalid = true;
@@ -71,5 +72,12 @@ namespace LoginPage
                 this.Hide();
             }
         }
+
+        private void windowClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+      
     }
 }

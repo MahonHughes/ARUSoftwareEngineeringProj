@@ -10,8 +10,9 @@
 
     <Grid Background="#FFD3DC7B" Loaded="Grid_Loaded">
         <Button Content="Back" HorizontalAlignment="Left" Margin="39,336,0,0" VerticalAlignment="Top" Width="161" Height="41" FontSize="18" Click="Button_Click"/>
-        <ComboBox x:Name="selectJobDropdown" HorizontalAlignment="Left" Margin="302,159,0,0" VerticalAlignment="Top" Width="219" Height="29"/>
-        <ComboBox x:Name="selectTemplateDropdown" HorizontalAlignment="Left" Margin="302,261,0,0" VerticalAlignment="Top" Width="219" Height="29"/>
+        <ComboBox x:Name="selectJobDropdown" Background="Transparent" 
+                  HorizontalAlignment="Left" Margin="302,159,0,0" VerticalAlignment="Top" Width="219" Height="29"/>
+        <ComboBox x:Name="selectTemplateDropdown" Background="Transparent" HorizontalAlignment="Left" Margin="302,261,0,0" VerticalAlignment="Top" Width="219" Height="29"/>
         <Label Content="Job position:" HorizontalAlignment="Left" Margin="143,159,0,0" VerticalAlignment="Top" Height="42" Width="122" FontSize="18"/>
         <Label Content="Template:" HorizontalAlignment="Left" Margin="143,261,0,0" VerticalAlignment="Top" Width="122" Height="40" FontSize="18"/>
         <Button x:Name="btnProceed" Content="Proceed" HorizontalAlignment="Left" Margin="606,336,0,0" VerticalAlignment="Top" Width="161" Height="41" FontSize="18" Click="btnProceed_Click"/>

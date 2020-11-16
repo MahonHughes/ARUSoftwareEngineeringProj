@@ -82,7 +82,9 @@ namespace LoginPage
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            for (int intCounter = App.Current.Windows.Count - 1; intCounter >= 0; intCounter--)  
+                App.Current.Windows[intCounter].Close();
+            //shutdowns WPF app
         }
 
         private void textBox_1_Enter(object sender, EventArgs e)
