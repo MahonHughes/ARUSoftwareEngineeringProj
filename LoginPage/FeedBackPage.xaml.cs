@@ -220,11 +220,6 @@ namespace LoginPage
         {
             MainWindow.mainPage.Content = MainWindow.mainPage.proceedToFeedbackPage;
         }
-
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
-        }
     }
 }
 //To do
