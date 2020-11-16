@@ -10,6 +10,10 @@
 
     <Grid Background="#FF4BCDBB">
         <Button Content="Back" HorizontalAlignment="Left" Margin="40,336,0,0" VerticalAlignment="Top" Width="161" Height="41" FontSize="18" Click="Button_Click"/>
+        <Button Content="Edit" HorizontalAlignment="Left" Margin="561,282,0,0" VerticalAlignment="Top" Width="161" Height="42" FontSize="18" Click="Button_Click"/>
+        <ListBox Name="templatesListBox" HorizontalAlignment="Left" Height="238" Margin="252,85,0,0" VerticalAlignment="Top" Width="280" SelectionChanged="ListBox_SelectionChanged" SelectionMode="Single" Loaded="ListBox_Loaded"/>
 
+        <Button Content="New from selected" HorizontalAlignment="Left" Margin="561,217,0,0" VerticalAlignment="Top" Width="161" Height="41" FontSize="18" Click="Button_Click"/>
+        <Button Content="Create New Template" HorizontalAlignment="Left" Margin="561,148,0,0" VerticalAlignment="Top" Width="161" Height="42" FontSize="18" Click="Button_Click"/>
     </Grid>
 </Page>

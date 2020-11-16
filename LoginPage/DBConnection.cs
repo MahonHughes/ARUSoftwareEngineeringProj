@@ -28,7 +28,7 @@ namespace LoginPage
         {
             connString = Properties.Settings.Default.userDBconnStr;
         }
- 
+
         public static DBConnection GetInstance()
         {
             if (instance == null)
@@ -64,7 +64,7 @@ namespace LoginPage
                     dbConnetion.Close();
                 }
             }
-            catch (Exception e) 
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
@@ -110,6 +110,38 @@ namespace LoginPage
         }
 
         /// <summary>
+        /// Used by the FeedbackPage to get the relevant applicants for the selected job.
+        /// </summary>
+        /// <returns>List of applicants.</returns>
+        public static List<Applicant> GetApplicantsFromDatabase()
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                List<Applicant> applicants = new List<Applicant>();
+
+                dbConnetion.Open();
+
+                SqlCommand cmd = new SqlCommand(Constants.getApplicants, dbConnetion);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int _id = 0;
+
+                    if (Int32.TryParse(reader[0].ToString(), out _id))
+                    {
+                        Applicant _applicant = new Applicant(reader[1].ToString(), _id);
+                        applicants.Add(_applicant);
+                    }
+                }
+
+                dbConnetion.Close();
+
+                return applicants;
+            }
+        }
+
+        /// <summary>
         /// Called by AddSectionWindow to insert a new section into the database.
         /// </summary>
         /// <param name="_section">Newly created template section.</param>
@@ -125,6 +157,108 @@ namespace LoginPage
                 cmd.ExecuteNonQuery();
 
                 dbConnetion.Close();
+            }
+        }
+
+        public static void InsertComment(Comment comment)
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                dbConnetion.Open();
+
+                SqlCommand cmd = new SqlCommand(Constants.insertComment, dbConnetion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.Parameters.Add(new SqlParameter("code_name", comment.code_name));
+                cmd.Parameters.Add(new SqlParameter("comment_text", comment.text));
+                cmd.Parameters.Add(new SqlParameter("section_id", comment.section_id));
+                cmd.ExecuteNonQuery();
+            }
+
+        }
+
+        public static List<Comment> GetCommentFromDatabase(int section_id)
+        {
+
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                List<Comment> comments = new List<Comment>();
+                dbConnetion.Open();
+
+                SqlCommand cmd = new SqlCommand(Constants.GetCommets(section_id), dbConnetion);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Comment comment = new Comment(reader[0].ToString(), reader[1].ToString());//reader[1].ToString(), reader[3].ToString());
+                    comments.Add(comment);
+                }
+
+                return comments;
+            }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>A list of Template objects.</returns>
+        public static string[] GetTemplateNamesFromDatabase()
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                //New list for the Template objects
+                List<Template> _templates = new List<Template>();
+
+                dbConnetion.Open();
+
+                SqlCommand cmd = new SqlCommand(Constants.grabTemplates, dbConnetion);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                List<string> TemplateNameList = new List<string>();
+
+                while (reader.Read())
+                {
+                    TemplateNameList.Add(reader[0].ToString());
+                }
+
+                dbConnetion.Close();
+
+                return TemplateNameList.ToArray();
+            }
+        }
+
+        public static List<FeedbackSection> GetFeedbackSectionsFromDatabase(string currentlySelectedTemplate)
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                //New list for the TemplateSection objects
+                List<FeedbackSection> _sections = new List<FeedbackSection>();
+
+                dbConnetion.Open();
+
+                string _query = Constants.getTemplatesSections + currentlySelectedTemplate + "'";
+
+                SqlCommand cmd = new SqlCommand(_query, dbConnetion);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    //Variable to hold the ID from the database
+                    int _id;
+
+                    //Only if the entry has an ID, though all should
+                    if (Int32.TryParse(reader[0].ToString(), out _id))
+                    {
+                        //Creates object
+                        FeedbackSection section = new FeedbackSection(reader[1].ToString(), _id);
+                        //Adds it to the list
+                        _sections.Add(section);
+                    }
+                }
+
+                dbConnetion.Close();
+
+                return _sections;
             }
         }
     }

@@ -11,6 +11,14 @@ namespace LoginPage
         //Variables for the section name and ID number
         public string sectionName;
         public int sectionID;
+        private static int nextSectionID;
+        
+        // List of commments per section 
+        public List<Comment> comments;
+
+        //Declares list for sections
+        public static List<TemplateSection> sections = new List<TemplateSection>();
+
 
         /// <summary>
         /// Constuctor assigns name and ID to object.
@@ -21,6 +29,8 @@ namespace LoginPage
         {
             sectionName = _name;
             sectionID = _id;
+            nextSectionID++;
+            comments = new List<Comment>();
         }
 
         /// <summary>
@@ -31,6 +41,21 @@ namespace LoginPage
         public TemplateSection(string _name)
         {
             sectionName = _name;
+            comments = new List<Comment>();
+            sectionID = nextSectionID;
+            nextSectionID++;
+        }
+
+        /// <summary>
+        /// Method to creat a new comment for the section 
+        /// </summary>
+        /// <param name="code_name"></param>
+        /// <param name="text"></param>
+        public Comment AddComment(string code_name, string text)
+        {
+            Comment comment = new Comment(code_name, text);
+            comments.Add(comment);
+            return comment;
         }
     }
 }

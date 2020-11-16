@@ -37,6 +37,9 @@ namespace LoginPage
         /// <param name="e"></param>
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
+            selectJobDropdown.Items.Clear();
+            selectTemplateDropdown.Items.Clear();
+
             //Gets the values for each dropdown box
             DBConnection.PopulateDropDowns(selectJobDropdown, Constants.grabJobPositions, Constants.jobPositionsNameColumnIndex);
             DBConnection.PopulateDropDowns(selectTemplateDropdown, Constants.grabTemplates, Constants.templatesNameColumnIndex);
