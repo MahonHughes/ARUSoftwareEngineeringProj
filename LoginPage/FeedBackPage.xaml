@@ -53,5 +53,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button x:Name="btnFinish" Content="Finish" HorizontalAlignment="Left" Margin="632,416,0,10" Width="141" Click="btnFinish_Click"/>
+        <Button x:Name="btnSaveFeedback" Content="Save Applicant Feedback" HorizontalAlignment="Left" Margin="461,416,0,10" Width="141" Click="btnSaveFeedback_Click"/>
     </Grid>
 </Page>

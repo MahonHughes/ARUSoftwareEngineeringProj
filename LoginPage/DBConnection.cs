@@ -189,7 +189,7 @@ namespace LoginPage
 
                 while (reader.Read())
                 {
-                    Comment comment = new Comment(reader[0].ToString(), reader[1].ToString());//reader[1].ToString(), reader[3].ToString());
+                    Comment comment = new Comment(reader[0].ToString(), reader[1].ToString());
                     comments.Add(comment);
                 }
 

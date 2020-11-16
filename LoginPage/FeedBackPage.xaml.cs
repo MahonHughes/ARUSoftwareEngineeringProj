@@ -33,6 +33,8 @@ namespace LoginPage
         private static int prevBtnIndex;
         private static int addBtnIndex;
 
+        private static Button selectedApplcant;
+
         public FeedBackPage()
         {
             InitializeComponent();
@@ -87,6 +89,8 @@ namespace LoginPage
                 Button btn = new Button();
                 //Changes buttons text
                 btn.Content = applicants[i].name;
+                //Sets buttons index
+                btn.Tag = i;
                 //Adds click event to the button
                 btn.Click += ApplicantSelected;
                 //Sets the buttons width and height
@@ -96,6 +100,33 @@ namespace LoginPage
                 btn.Style = Application.Current.TryFindResource("ListBoxButton") as Style;
                 //Adds the button to the list box
                 applicantListBox.Items.Add(btn);
+
+                if (i == 0)
+                {
+                    SetSelectedApplicantButton(btn);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sets the background colour of the buttons so the user knows which
+        /// applicant is selected.
+        /// </summary>
+        /// <param name="_btn">Button to be altered.</param>
+        private void SetSelectedApplicantButton(Button _btn)
+        {
+            if(selectedApplcant == null)
+            {
+                selectedApplcant = _btn;
+                _btn.Background = Brushes.Blue;
+            }
+            else
+            {
+                BrushConverter bc = new BrushConverter();
+                selectedApplcant.Background = (Brush)bc.ConvertFrom("#FF3A7E85");//Colour from 'ListBoxButton' style in resource dictionary
+
+                selectedApplcant = _btn;
+                _btn.Background = Brushes.Blue;
             }
         }
 
@@ -108,10 +139,14 @@ namespace LoginPage
         private void ApplicantSelected(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
-            MessageBox.Show("Applicant selected. Applicant's name is: " + btn.Content);
 
-            //Change colour
-            //Reset on screen section (possibly save selected Or do elsewhere)
+            SetSelectedApplicantButton(btn);
+
+            //Currently just resets the selected will ned to change to load the previously selected
+            for (int i = 0; i < feedbackListView.Items.Count; i++)
+            {
+                comboBoxes[i].SelectedIndex = -1;
+            }
         }
 
         /// <summary>
@@ -126,15 +161,20 @@ namespace LoginPage
             Button btn = (Button) sender;
             //Sets the index (the buttons order in the list view)
             int index = (int)btn.Tag;
-            //Gets the selected item from the relevant combo box
-            string code = comboBoxes[index].SelectedItem.ToString();
 
-            //Searches for the correct comment with the given code to display the full comment
-            for (int i = 0; i < sections[index].comments.Count; i++)
+            //Only if an option is selected
+            if (comboBoxes[index].SelectedIndex != -1)
             {
-                if (sections[index].comments[i].code_name == code)
+                //Gets the selected item from the relevant combo box
+                string code = comboBoxes[index].SelectedItem.ToString();
+
+                //Searches for the correct comment with the given code to display the full comment
+                for (int i = 0; i < sections[index].comments.Count; i++)
                 {
-                    MessageBox.Show("The full comment is: \n" + sections[index].comments[i].text);
+                    if (sections[index].comments[i].code_name == code)
+                    {
+                        MessageBox.Show("The full comment is: \n" + sections[index].comments[i].text);
+                    }
                 }
             }
         }
@@ -212,6 +252,98 @@ namespace LoginPage
         }
 
         /// <summary>
+        /// Saves the selected applicants feedback entries into the database.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSaveFeedback_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Feedback saved. (If it was implemented)");
+
+            //int applicantID = GetApplicantID();
+
+            //List<int> sectionIDs = GetSectionIDs();
+
+            //List<int> commentIDs = GetCommentIDs();
+
+            //for (int i = 0; i < sectionIDs.Count; i++)
+            //{
+            //    DBConnection.WriteFeedbackToDatabase(applicantID, sectionIDs[i], commentIDs[i]);
+            //}
+        }
+
+        /// <summary>
+        /// Gets the ID's for the currently available sections.
+        /// </summary>
+        /// <returns>Int list of section ID's.</returns>
+        private List<int> GetSectionIDs()
+        {
+            List<int> list = new List<int>();
+
+            for (int i = 0; i < sections.Count; i++)
+            {
+                list.Add(sections[i].sectionID);
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Gets the currently selected comments codes adn adds them to a list.
+        /// </summary>
+        /// <returns>List of an applicants currently selected comment ID's.</returns>
+        private List<int> GetCommentIDs()
+        {
+            List<int> list = new List<int>();
+
+            for (int i = 0; i < comboBoxes.Count; i++)
+            {
+                if (comboBoxes[i].SelectedIndex == -1)
+                {
+                    MessageBox.Show("Error! You have not filled in all the sections.");//Need to be altered for custom comments
+                    break;
+                }
+                else
+                {
+                    //Gets the selected item from the relevant combo box
+                    string code = comboBoxes[i].SelectedItem.ToString();
+
+                    //Searches for the correct comment with the given code to display the full comment
+                    for (int j = 0; j < sections[j].comments.Count; j++)
+                    {
+                        if (sections[i].comments[j].code_name == code)
+                        {
+                            list.Add(sections[i].comments[j].section_id);
+                        }
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Uses the currently selected applicants name to find the correct ID
+        /// for writing feedback to the database.
+        /// </summary>
+        /// <returns>Int the currently selected applicant's ID.</returns>
+        private int GetApplicantID()
+        {
+            int ID = -1;
+
+            for (int i = 0; i < applicants.Count; i++)
+            {
+                if (applicants[i].name == selectedApplcant.Content.ToString())
+                {
+                    ID = applicants[i].iD;
+                    return ID;
+                }
+            }
+
+            return ID;//Should never be reached
+        }
+
+        /// <summary>
         /// Takes user back a page when 'Back' button is pushed.
         /// </summary>
         /// <param name="sender"></param>
@@ -220,9 +352,19 @@ namespace LoginPage
         {
             MainWindow.mainPage.Content = MainWindow.mainPage.proceedToFeedbackPage;
         }
+
+        /// <summary>
+        /// Takes user to dashboard when 'Finish' button is pushed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnFinish_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
+        }
     }
 }
 //To do
-//Sort multiple selections for different applicants
+//Load previously selected options (if any)
 //Sort custom comments
 //New template_has_sections table for many to many? (avoid recreating identical sections)
