@@ -25,6 +25,7 @@ namespace LoginPage
         public  ProceedFeedbackPage proceedToFeedbackPage = new ProceedFeedbackPage();
         public static CreateNewSectionPage createNewSectionPage = new CreateNewSectionPage();
         public  FeedBackPage feedbackPage = new FeedBackPage();
+        public CandidateManagement candidateManagementPage = new CandidateManagement();
 
         public MainPage()
         {

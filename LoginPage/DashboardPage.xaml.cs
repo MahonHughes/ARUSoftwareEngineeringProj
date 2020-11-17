@@ -47,5 +47,10 @@ namespace LoginPage
             main.Show();
 
         }
+
+        private void btnManageCandidates_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.mainPage.Content = MainWindow.mainPage.candidateManagementPage;
+        }
     }
 }
