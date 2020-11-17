@@ -130,7 +130,7 @@ namespace LoginPage
 
                     if (Int32.TryParse(reader[0].ToString(), out _id))
                     {
-                        Applicant _applicant = new Applicant(reader[1].ToString(), _id);
+                        Applicant _applicant = new Applicant(reader[1].ToString(), reader[2].ToString(), _id);
                         applicants.Add(_applicant);
                     }
                 }
