@@ -60,6 +60,8 @@ namespace LoginPage
             feedbackListView.ItemsSource = sections;
 
             PopulateApplicantsListBox();
+
+            //SetPreviousFeedbackSelections();
         }
 
         /// <summary>
@@ -110,7 +112,7 @@ namespace LoginPage
 
         /// <summary>
         /// Sets the background colour of the buttons so the user knows which
-        /// applicant is selected.
+        /// applicant is selected and alters reference of the selected applicant.
         /// </summary>
         /// <param name="_btn">Button to be altered.</param>
         private void SetSelectedApplicantButton(Button _btn)
@@ -130,6 +132,38 @@ namespace LoginPage
             }
         }
 
+        private void SetPreviousFeedbackSelections()
+        {
+            //int currentIndex = FindSelectedApplicant();
+
+            //if(applicants[currentIndex].hasSavedFeedback == true)
+            //{
+            //    for (int i = 0; i < comboBoxes.Count; i++)
+            //    {
+            //        comboBoxes[i].SelectedIndex = applicants[currentIndex].previousFeedback[i];
+            //    }
+            //}
+        }
+
+        /// <summary>
+        /// Finds the index in the applicant list of the currently selected applicant (button).
+        /// </summary>
+        /// <returns>Int, the index.</returns>
+        private int FindSelectedApplicant()
+        {
+            int applicantIndex = -1;
+
+            for (int i = 0; i < applicants.Count; i++)
+            {
+                if (selectedApplcant.Content.ToString() == applicants[i].name)
+                {
+                    applicantIndex = i;
+                }
+            }
+
+            return applicantIndex;
+        }
+
         /// <summary>
         /// Called when an applicant is selected to change the UI for giving feedback to
         /// a different applicant.
@@ -139,6 +173,8 @@ namespace LoginPage
         private void ApplicantSelected(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
+
+            //Check for unsaved alterations
 
             SetSelectedApplicantButton(btn);
 
@@ -224,6 +260,13 @@ namespace LoginPage
         /// <param name="e"></param>
         private void AddCustomComment(object sender, RoutedEventArgs e)
         {
+            //Needs to store reference of custom added so can be reverted
+
+            Button btn = (Button)sender;
+            int index = (int) btn.Tag;
+
+            comboBoxes[index].IsEnabled = false;
+
             MessageBox.Show("Add button clicked.");
         }
 
@@ -350,6 +393,9 @@ namespace LoginPage
         /// <param name="e"></param>
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
+            //Check no unsaved changes
+            //Warn if unsaved changes
+
             MainWindow.mainPage.Content = MainWindow.mainPage.proceedToFeedbackPage;
         }
 
@@ -360,11 +406,32 @@ namespace LoginPage
         /// <param name="e"></param>
         private void btnFinish_Click(object sender, RoutedEventArgs e)
         {
+            //Send feedback to pdf compile
+
             MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
+        }
+
+        /// <summary>
+        /// For determining if the combo boxes are unused; for displaying save 
+        /// warning when moving to a different applicant.
+        /// </summary>
+        /// <returns>Bool, true if applicant has had no feedback selected.</returns>
+        private bool AreComboBoxesEmpty()
+        {
+            bool empty = true;
+
+            for (int i = 0; i < comboBoxes.Count; i++)
+            {
+                if (comboBoxes[i].SelectedIndex != -1)
+                {
+                    empty = false;
+                    break;
+                }
+            }
+
+            return empty;
         }
     }
 }
 //To do
-//Load previously selected options (if any)
 //Sort custom comments
-//New template_has_sections table for many to many? (avoid recreating identical sections)
