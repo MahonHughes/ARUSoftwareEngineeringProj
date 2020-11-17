@@ -33,6 +33,26 @@ namespace LoginPage
         private void ExecuteBtn_Click(object sender, RoutedEventArgs e)
         {
             candidateListBox.Items.Add("Jane Simmonds: jane@gmail.com");
+            GetCSVPathFromUser();
+        }
+
+        private void GetCSVPathFromUser()
+        {
+            //Declare dialogue
+            Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
+
+            //Filter for just CSV:
+            openFileDlg.DefaultExt = ".csv";
+            openFileDlg.Filter = "CSV Files (.csv)|*.csv";
+
+
+            bool? result = openFileDlg.ShowDialog();
+
+            if (result == true)
+            {
+                Console.WriteLine(openFileDlg.FileName);
+                //TextBlock1.Text = System.IO.File.ReadAllText(openFileDlg.FileName);
+            }
         }
     }
 }
