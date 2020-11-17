@@ -17,6 +17,8 @@
 
         <Label Content="Candidate Management" HorizontalAlignment="Left" Margin="259,31,0,0" VerticalAlignment="Top" Height="43" Width="303" FontSize="24" Grid.ColumnSpan="2"/>
         <Button x:Name="bt_goBack" Content="Back" HorizontalAlignment="Left" Margin="31,375,0,0" VerticalAlignment="Top" Width="161" Height="41" FontSize="18" Grid.ColumnSpan="2" Click="bt_goBack_Click"/>
+        <ListBox x:Name="candidateListBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="100" Margin="282,176,0,0" VerticalAlignment="Top" Width="240"/>
+        <Button x:Name="ExecuteBtn" Content="Execute" HorizontalAlignment="Left" Margin="318,314,0,0" VerticalAlignment="Top" Width="161" Height="40" FontSize="18" Grid.ColumnSpan="2" Click="ExecuteBtn_Click" />
 
     </Grid>
 </Page>

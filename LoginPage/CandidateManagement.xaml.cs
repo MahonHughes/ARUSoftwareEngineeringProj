@@ -29,5 +29,10 @@ namespace LoginPage
         {
             MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
         }
+
+        private void ExecuteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            candidateListBox.Items.Add("Jane Simmonds: jane@gmail.com");
+        }
     }
 }
