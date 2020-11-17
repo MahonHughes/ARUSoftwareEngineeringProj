@@ -27,10 +27,11 @@ namespace LoginPage
         public CreateCommentWindow commentWindow;
 
         public static int currentSectionID = 0;
+        public static int currentCommentID = 0;
 
 
 
-        static int a;
+        static int sectionButtonTag;
  
 
         public CreateNewSectionPage()
@@ -58,38 +59,7 @@ namespace LoginPage
         /// <param name="e"></param>
         private void sectionsListBox_Loaded(object sender, RoutedEventArgs e)
         {
-            sectionsListBox.Items.Clear();
-
-            a = 0;
-            currentSectionID = 0;
-            TemplateSection.sections = DBConnection.GetSectionsFromDatabase();
-            for (int i = 0; i < TemplateSection.sections.Count;i++)
-            {
-               List <Comment> comments =  DBConnection.GetCommentFromDatabase(TemplateSection.sections[i].sectionID);
-                for (int j =0;j < comments.Count;j++)
-                {
-                    TemplateSection.sections[i].comments.Add(comments[j]);
-                }
-            }
-
-            for (int i = 0; i < TemplateSection.sections.Count; i++)
-            {
-                Button btn = new Button();
-                //Changes buttons text
-                btn.Content = TemplateSection.sections[i].sectionName;
-                //Adds click event to the button
-                btn.Click += SectionSelected;
-                //Sets the buttons width and height
-                btn.Width = 215;
-                btn.Height = 30;
-                // Set button style
-                // btn.Background = Brushes.;
-                btn.Tag = a;
-                a++;
-                btn.Opacity = 255;
-                //Adds the button to the list box
-                sectionsListBox.Items.Add(btn);
-            }       
+            ShowSectionButtons();
         }
 
         /// <summary>
@@ -111,31 +81,68 @@ namespace LoginPage
             
 
         }
+        public static void ShowSectionButtons()
+        {
+            MainPage.createNewSectionPage.sectionsListBox.Items.Clear();
 
+            sectionButtonTag = 0;
+            currentSectionID = 0;
+            TemplateSection.sections = DBConnection.GetSectionsFromDatabase();
+            for (int i = 0; i < TemplateSection.sections.Count; i++)
+            {
+                List<Comment> comments = DBConnection.GetCommentFromDatabase(TemplateSection.sections[i].sectionID);
+                for (int j = 0; j < comments.Count; j++)
+                {
+                    TemplateSection.sections[i].comments.Add(comments[j]);
+                }
+            }
+
+            for (int i = 0; i < TemplateSection.sections.Count; i++)
+            {
+                Button btn = new Button();
+                //Changes buttons text
+                btn.Content = TemplateSection.sections[i].sectionName;
+                //Adds click event to the button
+                btn.Click += SectionSelected;
+                //Sets the buttons width and height
+                btn.Width = 232;
+                btn.Height = 30;
+                // Set button style
+                // btn.Background = Brushes.;
+                btn.Tag = sectionButtonTag;
+                sectionButtonTag++;
+                btn.Opacity = 255;
+                //Adds the button to the list box
+                MainPage.createNewSectionPage.sectionsListBox.Items.Add(btn);
+            }
+            MainPage.createNewSectionPage.text_box.Text = "";
+        }
         public static void ShowCommentsButtons()
         {
             MainPage.createNewSectionPage.commentsListBox.Items.Clear();
-            int b = 0;
+            int CommentButtontTag = 0;
             for (int i = 0; i < TemplateSection.sections[currentSectionID].comments.Count; i++)
             {
                 Button button = new Button();
                 button.Content = TemplateSection.sections[currentSectionID].comments[i];
                 button.Click += CommentSelected;
                 button.Content = TemplateSection.sections[currentSectionID].comments[i].code_name;
-                button.Width = 215;
+                button.Width = 232;
                 button.Height = 30;
                 button.Opacity = 255;
-                button.Tag = b;
-                b++;
+                button.Tag = CommentButtontTag;
+                CommentButtontTag++;
                 MainPage.createNewSectionPage.commentsListBox.Items.Add(button);
             }
+            MainPage.createNewSectionPage.text_box.Text = "";
         }
 
         private static void CommentSelected(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
-            Int32.TryParse(btn.Tag.ToString(), out int comment_index);
-            MainPage.createNewSectionPage.text_box.Text = TemplateSection.sections[currentSectionID].comments[comment_index].text;
+            Int32.TryParse(btn.Tag.ToString(), out currentCommentID);
+            MainPage.createNewSectionPage.text_box.Text = TemplateSection.sections[currentSectionID].comments[currentCommentID].text;
+            MainPage.createNewSectionPage.bt_delete_Comment_.IsEnabled = true;
         }
 
         private void bt_goBack_Click(object sender, RoutedEventArgs e)
@@ -158,6 +165,21 @@ namespace LoginPage
         {
             sectionsListBox_Loaded(this, null);
           
+        }
+        private void bt_Delete_Section(object sender, RoutedEventArgs e)
+        {
+            DBConnection.DeleteSectionFromDatabase(TemplateSection.sections[currentSectionID].sectionID);
+            ShowSectionButtons();
+            ShowCommentsButtons();
+
+        }
+
+
+        private void bt_Delete_Comment(object sender, RoutedEventArgs e)
+        {
+            DBConnection.DeleteComment(TemplateSection.sections[currentSectionID].comments[currentCommentID].comment_id);
+            TemplateSection.sections[currentSectionID].comments.RemoveAt(currentCommentID);
+            ShowCommentsButtons();
         }
     }
 }

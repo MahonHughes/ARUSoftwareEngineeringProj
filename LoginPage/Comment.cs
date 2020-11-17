@@ -11,18 +11,22 @@ namespace LoginPage
         public string code_name;
         public int section_id;
         public string text;
+        private static int nextID = 0;
+        public int comment_id;
 
         public Comment(string name, string comm)
         {
             this.code_name = name;
             this.text = comm;
+            comment_id = nextID;
         }
-
-        public Comment(string name, string comm, int section)
+        public Comment(string name, string comm, int id)
         {
-            this.section_id = section;
             this.code_name = name;
             this.text = comm;
+            this.comment_id = id;
+            nextID = comment_id + 1;
         }
+
     }
 }

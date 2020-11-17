@@ -189,7 +189,8 @@ namespace LoginPage
 
                 while (reader.Read())
                 {
-                    Comment comment = new Comment(reader[0].ToString(), reader[1].ToString());
+                    Int32.TryParse(reader[2].ToString(), out int temp);
+                    Comment comment = new Comment(reader[0].ToString(), reader[1].ToString(), temp);
                     comments.Add(comment);
                 }
 
@@ -260,6 +261,35 @@ namespace LoginPage
 
                 return _sections;
             }
+        }
+        public static void DeleteSectionFromDatabase(int section_id)
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                dbConnetion.Open();
+                SqlCommand cmd = new SqlCommand(Constants.DeleteComments(section_id), dbConnetion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+                SqlCommand cmd2 = new SqlCommand(Constants.DeleteSection(section_id), dbConnetion);
+                cmd2.CommandType = System.Data.CommandType.Text;
+                cmd2.ExecuteNonQuery();
+
+
+            }
+        }
+
+        public static void DeleteComment(int comment_id)
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                dbConnetion.Open();
+                SqlCommand cmd = new SqlCommand(Constants.DeleteComment(comment_id), dbConnetion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteReader();
+
+            }
+
         }
     }
 }
