@@ -16,6 +16,7 @@
 
 
         <Label Content="Candidate Management" HorizontalAlignment="Left" Margin="259,31,0,0" VerticalAlignment="Top" Height="43" Width="303" FontSize="24" Grid.ColumnSpan="2"/>
+        <Button x:Name="bt_goBack" Content="Back" HorizontalAlignment="Left" Margin="31,375,0,0" VerticalAlignment="Top" Width="161" Height="41" FontSize="18" Grid.ColumnSpan="2" Click="bt_goBack_Click"/>
 
     </Grid>
 </Page>

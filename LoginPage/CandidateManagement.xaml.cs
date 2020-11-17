@@ -24,5 +24,10 @@ namespace LoginPage
         {
             InitializeComponent();
         }
+
+        private void bt_goBack_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
+        }
     }
 }
