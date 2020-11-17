@@ -15,7 +15,7 @@
         </Grid.ColumnDefinitions>
 
 
-        <Label Content="People Management" HorizontalAlignment="Left" Margin="280,35,0,0" VerticalAlignment="Top" Height="43" Width="262" FontSize="24" Grid.ColumnSpan="2"/>
+        <Label Content="Candidate Management" HorizontalAlignment="Left" Margin="259,31,0,0" VerticalAlignment="Top" Height="43" Width="303" FontSize="24" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Page>
