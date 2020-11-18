@@ -39,7 +39,13 @@ namespace LoginPage
             Applicant[] applicants = readApplicantCSVFile(path);
             for (int i = 0; i < applicants.Length; i++)
             {
-                candidateListBox.Items.Add(applicants[i].name + ": " + applicants[i].emailAddress);
+                //candidateListBox.Items.Add(applicants[i].name + ": " + applicants[i].emailAddress);
+            }
+            DBConnection.InsertApplicants(applicants);
+            Applicant[] applicants1 = DBConnection.GetApplicantsFromDatabase().ToArray();
+            for (int i = 0; i < applicants1.Length; i++)
+            {
+                candidateListBox.Items.Add(applicants1[i].name + ": " + applicants1[i].emailAddress);
             }
         }
 
