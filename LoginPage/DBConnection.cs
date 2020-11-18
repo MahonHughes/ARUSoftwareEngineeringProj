@@ -130,7 +130,7 @@ namespace LoginPage
 
                     if (Int32.TryParse(reader[0].ToString(), out _id))
                     {
-                        Applicant _applicant = new Applicant(reader[1].ToString(), reader[2].ToString(), _id);
+                        Applicant _applicant = new Applicant(reader[1].ToString(), reader[2].ToString(), _id, int.Parse(reader[3].ToString()), (bool) reader[4]);
                         applicants.Add(_applicant);
                     }
                 }
@@ -174,6 +174,24 @@ namespace LoginPage
                 cmd.ExecuteNonQuery();
             }
 
+        }
+
+        public static void InsertApplicants(Applicant[] ApplicantArray) 
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                dbConnetion.Open();
+                for (int i = 0; i < ApplicantArray.Length; i++)
+                {
+                    SqlCommand cmd = new SqlCommand(Constants.insertApplicant, dbConnetion);
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.Add(new SqlParameter("applicant_name", ApplicantArray[i].name));
+                    cmd.Parameters.Add(new SqlParameter("applicant_email", ApplicantArray[i].emailAddress));
+                    cmd.Parameters.Add(new SqlParameter("job_Id", ApplicantArray[i].groupID));
+                    cmd.Parameters.Add(new SqlParameter("hasFeedback", ApplicantArray[i].hasFeedback));
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public static List<Comment> GetCommentFromDatabase(int section_id)
