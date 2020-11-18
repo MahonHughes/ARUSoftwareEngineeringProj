@@ -30,11 +30,33 @@ namespace LoginPage
         }
 
         /// <summary>
-        /// Used by the FeedbackSection object to get the comments for the selected section from the database.
+        /// Used by the FeedbackSection object to get the Section to ppulate it's list of comments.
         /// </summary>
         private void GetComments()
         {
-            comments = DBConnection.GetCommentFromDatabase(sectionID);
+            comments = DBConnection.GetCommentFromDatabaseWithID(sectionID);
+        }
+
+        /// <summary>
+        /// Used by the FeedbackSection object to get the combo box index for the 
+        /// selected section by comparing the database ID to the list of comments ID's.
+        /// </summary>
+        /// <param name="_commentID">The comment ID that the combo box index is required for.</param>
+        /// <returns>The given comments combo box ID.</returns>
+        public int GetCommentIndex(int _commentID)
+        {
+            int result = -1;
+
+            for (int i = 0; i < comments.Count; i++)
+            {
+                if(comments[i].comment_id == _commentID)
+                {
+                    result = i;
+                    break;
+                }
+            }
+
+            return result;
         }
     }
 }

@@ -58,6 +58,9 @@ namespace LoginPage
                 CurrentUser.selectedJobPosition = selectJobDropdown.SelectedItem.ToString();
                 CurrentUser.currentlySelectedTemplate = selectTemplateDropdown.SelectedItem.ToString();
 
+                //Renews Page to avoid old data
+                MainWindow.mainPage.feedbackPage = new FeedBackPage();
+
                 //Switches to FeedbackPage
                 MainWindow.mainPage.Content = MainWindow.mainPage.feedbackPage;
             }
