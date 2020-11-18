@@ -22,6 +22,14 @@ namespace LoginPage
             groupID = _groupID;
             hasFeedback = false;
         }
+
+        public Applicant(string _name, string _emailAddress, int _ID, int? _groupID, bool _hasFeedback)
+        {
+            name = _name;
+            emailAddress = _emailAddress;
+            ID = _ID;
+            groupID = _groupID;
+            hasFeedback = _hasFeedback;
         }
     }
 }
