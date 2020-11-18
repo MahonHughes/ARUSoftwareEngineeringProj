@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace LoginPage
 {
@@ -33,10 +34,29 @@ namespace LoginPage
         private void ExecuteBtn_Click(object sender, RoutedEventArgs e)
         {
             candidateListBox.Items.Add("Jane Simmonds: jane@gmail.com");
-            GetCSVPathFromUser();
+            string path = GetCSVPathFromUser();
+            candidateListBox.Items.Add(path);
+            Applicant[] applicants = readApplicantCSVFile(path);
+            for (int i = 0; i < applicants.Length; i++)
+            {
+                candidateListBox.Items.Add(applicants[i].name + ": " + applicants[i].emailAddress);
+            }
         }
 
-        private void GetCSVPathFromUser()
+        private Applicant[] readApplicantCSVFile(string path)
+        {
+            string[] CSVLines = File.ReadAllLines(path);
+            //i starts at one to ignore the first line of the csv file where we expect heading names to be
+            Applicant[] applicants = new Applicant[CSVLines.Length - 1];
+            for (int i = 1; i < CSVLines.Length; i++)
+            {
+                string[] cells = CSVLines[i].Split(',');
+                applicants[i-1] = new Applicant(cells[0], cells[1], i);
+            }
+            return applicants;
+        }
+
+        private string GetCSVPathFromUser()
         {
             //Declare dialogue
             Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
@@ -50,9 +70,10 @@ namespace LoginPage
 
             if (result == true)
             {
-                Console.WriteLine(openFileDlg.FileName);
+                return openFileDlg.FileName;
                 //TextBlock1.Text = System.IO.File.ReadAllText(openFileDlg.FileName);
             }
+            return null;
         }
     }
 }

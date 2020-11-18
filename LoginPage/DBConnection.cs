@@ -130,14 +130,7 @@ namespace LoginPage
 
                     if (Int32.TryParse(reader[0].ToString(), out _id))
                     {
-                        bool hasFeedback = false;
-
-                        if(reader[4].ToString().ToLower() == "true")
-                        {
-                            hasFeedback = true;
-                        }
-
-                        Applicant _applicant = new Applicant(reader[1].ToString(), reader[2].ToString(), _id, hasFeedback);
+                        Applicant _applicant = new Applicant(reader[1].ToString(), reader[2].ToString(), _id);
                         applicants.Add(_applicant);
                     }
                 }
@@ -180,10 +173,12 @@ namespace LoginPage
                 cmd.Parameters.Add(new SqlParameter("section_id", comment.section_id));
                 cmd.ExecuteNonQuery();
             }
+
         }
 
         public static List<Comment> GetCommentFromDatabase(int section_id)
         {
+
             using (dbConnetion = new SqlConnection(connString))
             {
                 List<Comment> comments = new List<Comment>();
@@ -194,12 +189,14 @@ namespace LoginPage
 
                 while (reader.Read())
                 {
-                    Comment comment = new Comment(reader[0].ToString(), reader[1].ToString());
+                    Int32.TryParse(reader[2].ToString(), out int temp);
+                    Comment comment = new Comment(reader[0].ToString(), reader[1].ToString(), temp);
                     comments.Add(comment);
                 }
 
                 return comments;
             }
+
         }
 
         /// <summary>
@@ -231,11 +228,6 @@ namespace LoginPage
             }
         }
 
-        /// <summary>
-        /// Gets a list of the relevant sections of a template from the database.
-        /// </summary>
-        /// <param name="currentlySelectedTemplate">The template that the sections are needed for.</param>
-        /// <returns>A list of the section objects.</returns>
         public static List<FeedbackSection> GetFeedbackSectionsFromDatabase(string currentlySelectedTemplate)
         {
             using (dbConnetion = new SqlConnection(connString))
@@ -270,108 +262,34 @@ namespace LoginPage
                 return _sections;
             }
         }
-
-        /// <summary>
-        /// Searches the Applicant_Comment table for the saved feedback entries.
-        /// </summary>
-        /// <param name="_applicantID">The applicant to search for the feedback for.</param>
-        /// <returns>A list of arrays, arrays contain a section ID and a Comment ID for each instance of a saved selection.</returns>
-        public static List<int[]> SearchForPreviousFeedback(int _applicantID)
-        {
-            using (dbConnetion = new SqlConnection(connString))
-            {
-                List<int[]> sections_comments = new List<int[]>();
-                string _query = Constants.getPreviousFeedbackQuery + _applicantID.ToString();
-
-                dbConnetion.Open();
-                SqlCommand cmd = new SqlCommand(_query, dbConnetion);
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        int[] tuple = new int[2];
-
-                        if (Int32.TryParse(reader[1].ToString(), out tuple[0]) && Int32.TryParse(reader[0].ToString(), out tuple[1]))
-                        {
-                            sections_comments.Add(tuple);
-                        }
-                    }
-                }
-
-                dbConnetion.Close();
-
-                return sections_comments;
-            }
-        }
-
-        /// <summary>
-        /// Allows for creation of comments with all their details.
-        /// </summary>
-        /// <param name="section_id">Relevant section to get comments for.</param>
-        /// <returns>List of comments.</returns>
-        public static List<Comment> GetCommentFromDatabaseWithID(int _section_id)
-        {
-            using (dbConnetion = new SqlConnection(connString))
-            {
-                List<Comment> comments = new List<Comment>();
-                string _query = Constants.getAllCommentDetails + _section_id + "'";
-
-                dbConnetion.Open();
-                SqlCommand cmd = new SqlCommand(_query, dbConnetion);
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    int _ID;
-
-                    if (Int32.TryParse(reader[0].ToString(), out _ID))
-                    {
-                        Comment comment = new Comment(_ID, reader[1].ToString(), reader[3].ToString());
-                        comments.Add(comment);
-                    }
-                }
-
-                dbConnetion.Close();
-
-                return comments;
-            }
-        }
-
-        public static void WriteFeedbackEntryToDatabase(int _applicantID, int _commentID)
+        public static void DeleteSectionFromDatabase(int section_id)
         {
             using (dbConnetion = new SqlConnection(connString))
             {
                 dbConnetion.Open();
-
-                SqlCommand cmd = new SqlCommand(Constants.insertFeedbackEntry, dbConnetion);
-                string one = _applicantID.ToString();
-                string two = _commentID.ToString();
-
+                SqlCommand cmd = new SqlCommand(Constants.DeleteComments(section_id), dbConnetion);
                 cmd.CommandType = System.Data.CommandType.Text;
-                cmd.Parameters.Add(new SqlParameter("applicant_Id", one));
-                cmd.Parameters.Add(new SqlParameter("comment_Id", two));
                 cmd.ExecuteNonQuery();
-            }
 
-                dbConnetion.Close();
+                SqlCommand cmd2 = new SqlCommand(Constants.DeleteSection(section_id), dbConnetion);
+                cmd2.CommandType = System.Data.CommandType.Text;
+                cmd2.ExecuteNonQuery();
+
+
+            }
         }
 
-        public static void UpdateApplicantsFeedbackStatus(int _applicantID)
+        public static void DeleteComment(int comment_id)
         {
             using (dbConnetion = new SqlConnection(connString))
             {
-                string _query = Constants.updateFeedbackStatus + _applicantID.ToString();
-
                 dbConnetion.Open();
+                SqlCommand cmd = new SqlCommand(Constants.DeleteComment(comment_id), dbConnetion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteReader();
 
-                SqlCommand cmd = new SqlCommand(_query, dbConnetion);
-
-                cmd.ExecuteNonQuery();
             }
 
-                dbConnetion.Close();
         }
     }
 }

@@ -27,7 +27,7 @@
             <RowDefinition Height="301*"/>
         </Grid.RowDefinitions>
         <Button x:Name="bt_goBack" Content="Back" HorizontalAlignment="Left" Margin="35,35,0,0" VerticalAlignment="Top" Width="161" Height="41" FontSize="18" Click="bt_goBack_Click"/>
-        <ListBox x:Name="sectionsListBox" HorizontalAlignment="Left" Height="226" Margin="139,101,0,0" VerticalAlignment="Top" Width="227" Loaded="sectionsListBox_Loaded" Grid.RowSpan="2" BorderBrush="#FFFDFEFF" BorderThickness="3">
+        <ListBox x:Name="sectionsListBox" HorizontalAlignment="Left" Height="226" Margin="109,101,0,0" VerticalAlignment="Top" Width="269" Loaded="sectionsListBox_Loaded" Grid.RowSpan="2" BorderBrush="#FFFDFEFF" BorderThickness="3" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible">
             <ListBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFD21AEA" Offset="0"/>
@@ -41,7 +41,7 @@
                 </Style>
             </ListBox.Resources>
         </ListBox>
-        <ListBox x:Name="commentsListBox" HorizontalAlignment="Left" Height="92" Margin="451,101,0,0" VerticalAlignment="Top" Width="227" Grid.RowSpan="2" BorderBrush="#FFFDFEFF" BorderThickness="3" Grid.ColumnSpan="2">
+        <ListBox x:Name="commentsListBox" HorizontalAlignment="Left" Height="92" Margin="434,101,0,0" VerticalAlignment="Top" Width="269" Grid.RowSpan="2" BorderBrush="#FFFDFEFF" BorderThickness="3" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFD11BEA" Offset="0"/>
@@ -54,12 +54,14 @@
                 </Style>
             </ListBox.Resources>
         </ListBox>
-        <Button Content="Add section" HorizontalAlignment="Left" Margin="176,197,0,0" VerticalAlignment="Top" Width="161" Height="41" FontSize="18" Click="Button_Click" Grid.Row="1"/>
-        <Button x:Name="bt_comment" Content="Add Comment" HorizontalAlignment="Left" Margin="488,197,0,0" VerticalAlignment="Top" Width="161" Height="41" FontSize="18" Grid.Row="1" Click="bt_comment_Click" IsEnabled="False" Grid.ColumnSpan="2"/>
-        <Border CornerRadius="5" BorderThickness="3" BorderBrush="White" Margin="434,60,97,115.6" Grid.ColumnSpan="2" Grid.Row="1">
-            <TextBlock x:Name="text_box" Background="White"></TextBlock>
+        <Button Content="Add section" HorizontalAlignment="Left" Margin="109,186,0,0" VerticalAlignment="Top" Width="122" Height="41" FontSize="18" Click="Button_Click" Grid.Row="1"/>
+        <Button x:Name="bt_comment" Content="Add Comment" HorizontalAlignment="Left" Margin="434,186,0,0" VerticalAlignment="Top" Width="122" Height="41" FontSize="18" Grid.Row="1" Click="bt_comment_Click" IsEnabled="False" RenderTransformOrigin="-0.086,0.683"/>
+        <Border CornerRadius="5" BorderThickness="3" BorderBrush="White" Margin="434,53,97,122.6" Grid.ColumnSpan="2" Grid.Row="1">
+            <TextBlock x:Name="text_box" Background="White" TextWrapping="Wrap"></TextBlock>
 
         </Border>
+        <Button Content="Delete section" HorizontalAlignment="Left" Margin="252,186,0,0" VerticalAlignment="Top" Width="126" Height="41" FontSize="18" Click="bt_Delete_Section" Grid.Row="1"/>
+        <Button x:Name="bt_delete_Comment_" Content="Delete Comment" HorizontalAlignment="Left" Margin="566,186,0,0" VerticalAlignment="Top" Width="137" Height="41" FontSize="18" Grid.Row="1" IsEnabled="False" RenderTransformOrigin="-0.086,0.683" Grid.ColumnSpan="2" Click="bt_Delete_Comment"/>
 
     </Grid>
 </Page>

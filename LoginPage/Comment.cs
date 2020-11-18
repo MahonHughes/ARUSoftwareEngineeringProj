@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace LoginPage
 {
@@ -12,26 +11,22 @@ namespace LoginPage
         public string code_name;
         public int section_id;
         public string text;
-        public int commentID;
+        private static int nextID = 0;
+        public int comment_id;
 
         public Comment(string name, string comm)
         {
             this.code_name = name;
             this.text = comm;
+            comment_id = nextID;
         }
-
-        public Comment(int _ID, string name, string comm)
+        public Comment(string name, string comm, int id)
         {
-            commentID = _ID;
-            code_name = name;
-            text = comm;
-        }
-
-        public Comment(string name, string comm, int section)
-        {
-            this.section_id = section;
             this.code_name = name;
             this.text = comm;
+            this.comment_id = id;
+            nextID = comment_id + 1;
         }
+
     }
 }
