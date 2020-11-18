@@ -14,7 +14,7 @@ namespace LoginPage
         public int? groupID;
         public bool hasFeedback;
 
-        public Applicant(string _name, string _emailAddress, int _iD)
+        public Applicant(string _name, string _emailAddress, int _ID, int? _groupID)
         {
             name = _name;
             emailAddress = _emailAddress;

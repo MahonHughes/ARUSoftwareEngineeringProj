@@ -51,7 +51,7 @@ namespace LoginPage
             for (int i = 1; i < CSVLines.Length; i++)
             {
                 string[] cells = CSVLines[i].Split(',');
-                applicants[i-1] = new Applicant(cells[0], cells[1], i);
+                applicants[i-1] = new Applicant(cells[0], cells[1], i, 0);
             }
             return applicants;
         }
