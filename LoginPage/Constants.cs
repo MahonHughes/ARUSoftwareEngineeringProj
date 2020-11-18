@@ -48,5 +48,7 @@ namespace LoginPage
 
         //SQL query for getting the relevant sections for the selected template (using the templates name)
         public static string getTemplatesSections = "SELECT * FROM Sections INNER JOIN Templates ON Sections.template_id = Templates.template_id WHERE Templates.template_name = '";
+        public static string insertTemplate = "INSERT INTO Tamplates (template_name)  VALUES (@template_name)";
+        public static string insertTemplateSection = "INSERT INTO Template_has_Sections VALUES (@template_id,section_id)";
     }
 }

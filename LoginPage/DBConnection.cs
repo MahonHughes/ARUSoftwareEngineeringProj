@@ -198,6 +198,19 @@ namespace LoginPage
             }
 
         }
+        public static void DeleteComment(int comment_id)
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                dbConnetion.Open();
+                SqlCommand cmd = new SqlCommand(Constants.DeleteComment(comment_id), dbConnetion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+            }
+
+        }
+
 
         /// <summary>
         /// 
@@ -279,17 +292,34 @@ namespace LoginPage
             }
         }
 
-        public static void DeleteComment(int comment_id)
+
+        public static void InsertTemplate(Template template)
         {
             using (dbConnetion = new SqlConnection(connString))
             {
                 dbConnetion.Open();
-                SqlCommand cmd = new SqlCommand(Constants.DeleteComment(comment_id), dbConnetion);
-                cmd.CommandType = System.Data.CommandType.Text;
-                cmd.ExecuteReader();
+                SqlCommand cmd = new SqlCommand(Constants.insertTemplate, dbConnetion);
+                cmd.Parameters.Add(new SqlParameter("template_name", template.name));
+                cmd.ExecuteNonQuery();
+            }
+        }
 
+        public static void InsertTemplateSection(int template_id, int section_id)
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                dbConnetion.Open();
+                SqlCommand cmd = new SqlCommand(Constants.insertTemplateSection, dbConnetion);
+                cmd.Parameters.Add(new SqlParameter("template_id", template_id));
+                cmd.Parameters.Add(new SqlParameter("section_id", section_id));
+                cmd.ExecuteNonQuery();   
             }
 
         }
+        
+        
+
+       
+        
     }
 }

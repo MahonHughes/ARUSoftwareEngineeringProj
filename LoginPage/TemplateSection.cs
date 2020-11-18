@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace LoginPage
 {
@@ -56,6 +58,19 @@ namespace LoginPage
             Comment comment = new Comment(code_name, text);
             comments.Add(comment);
             return comment;
+        }
+
+        public static List<TemplateSection> SectionsForTemplate(List<Button> buttons )
+        {
+            List<TemplateSection> return_sections = new List<TemplateSection>();
+            for (int i =0;i< buttons.Count;i++)
+            {
+                if (buttons[i].Foreground == Brushes.Black)
+                {
+                    return_sections.Add(sections[i]);
+                }
+            }
+            return return_sections;
         }
     }
 }
