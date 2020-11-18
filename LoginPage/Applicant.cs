@@ -10,13 +10,18 @@ namespace LoginPage
     {
         public string name;
         public string emailAddress;
-        public int iD;
+        public int ID;
+        public int? groupID;
+        public bool hasFeedback;
 
         public Applicant(string _name, string _emailAddress, int _iD)
         {
             name = _name;
             emailAddress = _emailAddress;
-            iD = _iD;
+            ID = _ID;
+            groupID = _groupID;
+            hasFeedback = false;
+        }
         }
     }
 }
