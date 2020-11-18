@@ -429,7 +429,7 @@ namespace LoginPage
                     {
                         if (sections[i].comments[j].code_name == code)
                         {
-                            list.Add(sections[i].comments[j].commentID);
+                            list.Add(sections[i].comments[j].comment_id);
                         }
                     }
                 }

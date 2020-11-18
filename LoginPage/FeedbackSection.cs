@@ -49,7 +49,7 @@ namespace LoginPage
 
             for (int i = 0; i < comments.Count; i++)
             {
-                if(comments[i].commentID == _commentID)
+                if(comments[i].comment_id == _commentID)
                 {
                     result = i;
                     break;

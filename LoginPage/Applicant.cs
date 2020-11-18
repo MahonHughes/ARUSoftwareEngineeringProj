@@ -15,6 +15,13 @@ namespace LoginPage
         public bool hasSavedFeedback = false;
         public List<int[]> previousFeedback;
 
+        public Applicant(string _name, string _emailAddress, int _iD)
+        {
+            name = _name;
+            emailAddress = _emailAddress;
+            iD = _iD;
+        }
+
         public Applicant(string _name, string _emailAddress, int _iD, bool _hasFeedback)
         {
             name = _name;
