@@ -10,10 +10,10 @@
 
     <Grid Background="#FF389CA0" Loaded="Grid_Loaded">
         <ListBox x:Name="applicantListBox" HorizontalAlignment="Left" Height="304" Margin="22,93,0,0" VerticalAlignment="Top" Width="170"/>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="10,416,0,10" Width="141" Click="btnCancel_Click"/>
-        <Label Content="Template: Random" HorizontalAlignment="Left" Margin="263,34,0,0" VerticalAlignment="Top"/>
-        <Label Content="Job Position: Random" HorizontalAlignment="Left" Margin="450,34,0,0" VerticalAlignment="Top"/>
-        <Label Content="User: Random" HorizontalAlignment="Left" Margin="651,34,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnCancel" Content="Back" HorizontalAlignment="Left" Margin="10,416,0,10" Width="141" Click="btnCancel_Click"/>
+        <Label Content="Template: Random" HorizontalAlignment="Left" Margin="253,29,0,0" VerticalAlignment="Top"/>
+        <Label Content="Job Position: Random" HorizontalAlignment="Left" Margin="583,29,0,0" VerticalAlignment="Top"/>
+        <Label Content="User: Random" HorizontalAlignment="Left" Margin="583,60,0,0" VerticalAlignment="Top"/>
         <ListView x:Name="feedbackListView" HorizontalAlignment="Left" Height="304" Margin="214,93,0,0" VerticalAlignment="Top" Width="559" ItemsSource="{Binding sections}">
             <ListView.View>
                 <GridView>
@@ -53,7 +53,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="btnFinish" Content="Finish" HorizontalAlignment="Left" Margin="632,416,0,10" Width="141" Click="btnFinish_Click"/>
-        <Button x:Name="btnSaveFeedback" Content="Save Applicant Feedback" HorizontalAlignment="Left" Margin="461,416,0,10" Width="141" Click="btnSaveFeedback_Click"/>
+        <Button x:Name="btnFinish" Content="Finish Group and Send Feedback" HorizontalAlignment="Left" Margin="583,416,0,10" Width="190" Click="btnFinish_Click"/>
+        <Button x:Name="btnSaveFeedback" Content="Save Applicant Feedback" HorizontalAlignment="Left" Margin="418,416,0,10" Width="141" Click="btnSaveFeedback_Click"/>
+        <Label Content="Template Subject: Random" HorizontalAlignment="Left" Margin="253,60,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>

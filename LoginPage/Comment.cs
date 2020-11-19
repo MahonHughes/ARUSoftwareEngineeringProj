@@ -28,5 +28,11 @@ namespace LoginPage
             nextID = comment_id + 1;
         }
 
+        public Comment(int _ID, string name, string comm)
+        {
+            comment_id = _ID;
+            code_name = name;
+            text = comm;
+        }
     }
 }
