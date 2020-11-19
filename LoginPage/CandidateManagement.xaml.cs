@@ -21,6 +21,7 @@ namespace LoginPage
     /// </summary>
     public partial class CandidateManagement : Page
     {
+        Applicant[] applicants;
         public CandidateManagement()
         {
             InitializeComponent();
@@ -33,14 +34,18 @@ namespace LoginPage
 
         private void ExecuteBtn_Click(object sender, RoutedEventArgs e)
         {
-            candidateListBox.Items.Add("Jane Simmonds: jane@gmail.com");
+            //candidateListBox.Items.Add("Jane Simmonds: jane@gmail.com");
             string path = GetCSVPathFromUser();
-            candidateListBox.Items.Add(path);
-            Applicant[] applicants = readApplicantCSVFile(path);
-            for (int i = 0; i < applicants.Length; i++)
+            //candidateListBox.Items.Add(path);
+            if (path != null && path != "")
             {
-                //candidateListBox.Items.Add(applicants[i].name + ": " + applicants[i].emailAddress);
+                applicants = readApplicantCSVFile(path);
+                for (int i = 0; i < applicants.Length; i++)
+                {
+                    candidateListBox.Items.Add(applicants[i].name + ": " + applicants[i].emailAddress);
+                }
             }
+            
             DBConnection.InsertApplicants(applicants);
             Applicant[] applicants1 = DBConnection.GetApplicantsFromDatabase().ToArray();
             for (int i = 0; i < applicants1.Length; i++)
