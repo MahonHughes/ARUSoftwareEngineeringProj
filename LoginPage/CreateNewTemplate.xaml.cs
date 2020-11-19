@@ -84,7 +84,7 @@ namespace LoginPage
                 List<TemplateSection> sections = TemplateSection.SectionsForTemplate(buttons);
                 Template template = new Template( textBox.Text, sections);
                 //DBConnection.InsertTemplate(template);
-                
+                //Hello
             }
            
         }
