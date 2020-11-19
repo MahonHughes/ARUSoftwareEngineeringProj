@@ -19,7 +19,8 @@
         <Button x:Name="bt_goBack" Content="Back" HorizontalAlignment="Left" Margin="31,375,0,0" VerticalAlignment="Top" Width="161" Height="41" FontSize="18" Grid.ColumnSpan="2" Click="bt_goBack_Click"/>
         <ListBox x:Name="candidateListBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="178" Margin="109,79,0,0" VerticalAlignment="Top" Width="577"/>
         <Button x:Name="ExecuteBtn" Content="Upload CSV..." HorizontalAlignment="Left" Margin="109,262,0,0" VerticalAlignment="Top" Width="161" Height="40" FontSize="18" Grid.ColumnSpan="2" Click="ExecuteBtn_Click" />
-        <Button x:Name="ExecuteBtn_Copy" Content="Upload CSV..." HorizontalAlignment="Left" Margin="525,257,0,0" VerticalAlignment="Top" Width="161" Height="40" FontSize="18" Grid.ColumnSpan="2" Click="ExecuteBtn_Click" />
+        <Button x:Name="ConfirmButton" Content="Confirm" HorizontalAlignment="Left" Margin="525,257,0,0" VerticalAlignment="Top" Width="161" Height="40" FontSize="18" Grid.ColumnSpan="2" />
+        <ComboBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="333,275,0,0" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Page>
