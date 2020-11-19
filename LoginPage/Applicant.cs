@@ -22,7 +22,7 @@ namespace LoginPage
             emailAddress = _emailAddress;
             ID = _ID;
             groupID = _groupID;
-            hasFeedback = false;
+            hasSavedFeedback = false;
         }
 
         public Applicant(string _name, string _emailAddress, int _ID, int? _groupID, bool _hasFeedback)
@@ -31,14 +31,14 @@ namespace LoginPage
             emailAddress = _emailAddress;
             ID = _ID;
             groupID = _groupID;
-            hasFeedback = _hasFeedback;
+            hasSavedFeedback = _hasFeedback;
         }
 
-        public Applicant(string _name, string _emailAddress, int _iD, bool _hasFeedback)
+        public Applicant(string _name, string _emailAddress, int _ID, bool _hasFeedback)
         {
             name = _name;
             emailAddress = _emailAddress;
-            iD = _iD;
+            ID = _ID;
             hasSavedFeedback = _hasFeedback;
         }
 

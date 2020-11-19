@@ -168,7 +168,7 @@ namespace LoginPage
                 {
                     List<int[]> sections_comments = new List<int[]>();
 
-                    sections_comments = DBConnection.SearchForPreviousFeedback(applicants[i].iD);
+                    sections_comments = DBConnection.SearchForPreviousFeedback(applicants[i].ID);
 
                     ChangeDBCommentIDsToComboBoxIndexes(sections_comments);
 
@@ -387,7 +387,7 @@ namespace LoginPage
                     {
                         applicants[i].hasSavedFeedback = true;
 
-                        DBConnection.UpdateApplicantsFeedbackStatus(applicants[i].iD);
+                        DBConnection.UpdateApplicantsFeedbackStatus(applicants[i].ID);
 
                         break;
                     }
@@ -516,7 +516,7 @@ namespace LoginPage
                 List<int[]> listOne = new List<int[]>();
                 List<int[]> listTwo = new List<int[]>();
 
-                listOne = ChangeDBCommentIDsToComboBoxIndexes(DBConnection.SearchForPreviousFeedback(applicants[index].iD));
+                listOne = ChangeDBCommentIDsToComboBoxIndexes(DBConnection.SearchForPreviousFeedback(applicants[index].ID));
                 listTwo = applicants[index].previousFeedback;
 
                 for (int i = 0; i < listOne.Count; i++)
