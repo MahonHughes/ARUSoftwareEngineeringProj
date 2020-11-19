@@ -69,7 +69,6 @@ namespace LoginPage
         /// <param name="e"></param>
         private static void SectionSelected(object sender, RoutedEventArgs e)
         {
-            int b = 0;
             Button btn = (Button)sender;
             Int32.TryParse(btn.Tag.ToString(), out currentSectionID);
             MainPage.createNewSectionPage.text_box.Text = "";

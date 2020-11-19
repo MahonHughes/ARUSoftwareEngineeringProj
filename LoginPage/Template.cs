@@ -11,8 +11,16 @@ namespace LoginPage
         // The ID number
         int id;
         // The section's name as displayed to the user
-        string name;
-        //An array of section objects, not implemented yet.
-        TemplateSection[] Sections;
+        public  string name;
+        //List of section objects
+        List<TemplateSection> templateSections = new List<TemplateSection>();
+
+
+        public Template(string template_name, List<TemplateSection> sections )
+        {
+            name = template_name;
+            templateSections = sections;
+        }
+        
     }
 }

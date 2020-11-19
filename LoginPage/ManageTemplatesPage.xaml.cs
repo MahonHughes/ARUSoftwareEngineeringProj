@@ -27,8 +27,8 @@ namespace LoginPage
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //this.NavigationService.Navigate(new DashboardPage());
-            MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
+          
+            MainWindow.mainPage.Content = MainPage.createNewTemplate;
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -44,6 +44,11 @@ namespace LoginPage
             {
                 templatesListBox.Items.Add(templateNameArray[i]);
             }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
         }
     }
 }

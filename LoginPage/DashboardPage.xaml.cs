@@ -32,7 +32,7 @@ namespace LoginPage
 
         private void btnManageTemps_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.mainPage.Content = MainWindow.mainPage.manageTemplatesPage;
+            MainWindow.mainPage.Content = MainPage.manageTemplatesPage;
         }
 
         private void btnCreateSection_Click(object sender, RoutedEventArgs e)

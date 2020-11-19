@@ -21,11 +21,12 @@ namespace LoginPage
     public partial class MainPage : Window
     {
         public  DashboardPage dashboard = new DashboardPage();
-        public  ManageTemplatesPage manageTemplatesPage = new ManageTemplatesPage();
+        public static ManageTemplatesPage manageTemplatesPage = new ManageTemplatesPage();
         public  ProceedFeedbackPage proceedToFeedbackPage = new ProceedFeedbackPage();
         public static CreateNewSectionPage createNewSectionPage = new CreateNewSectionPage();
         public  FeedBackPage feedbackPage = new FeedBackPage();
         public CandidateManagement candidateManagementPage = new CandidateManagement();
+        public static CreateNewTemplate createNewTemplate = new CreateNewTemplate();
 
         public MainPage()
         {
