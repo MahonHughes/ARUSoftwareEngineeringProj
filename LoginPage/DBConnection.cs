@@ -223,6 +223,28 @@ namespace LoginPage
 
         }
 
+        public static string[] GetJobPositionsFromDatabase()
+        {
+
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                List<string> jobTitles = new List<string>();
+                dbConnetion.Open();
+
+                SqlCommand cmd = new SqlCommand(Constants.getJobTitles, dbConnetion);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    string jobTitle = reader[1].ToString();
+                    jobTitles.Add(jobTitle);
+                }
+
+                return jobTitles.ToArray();
+            }
+
+        }
+
         /// <summary>
         ///
         /// </summary>
