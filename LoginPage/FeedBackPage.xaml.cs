@@ -62,6 +62,7 @@ namespace LoginPage
             PopulateApplicantsListBox();
 
             ProvidePreviousFeedbackListsForApplicants();
+
             SetPreviousFeedbackSelectionsInComboBoxes();
         }
 
@@ -333,6 +334,7 @@ namespace LoginPage
             int index = (int) btn.Tag;
 
             comboBoxes[index].IsEnabled = false;
+            comboBoxes[index].SelectedIndex = -1;
 
             MessageBox.Show("Add button clicked.");
         }
@@ -370,32 +372,40 @@ namespace LoginPage
         {
             string name = selectedApplcant.Content.ToString();
 
-            if (!ComboBoxesAreEmpty())
+            if (ComboBoxesAreAllFilled())
             {
+                int applicantIndex = FindSelectedApplicant();
                 int applicantID = GetApplicantID();
 
                 List<int> commentIDs = GetCommentIDs();
 
-                for (int i = 0; i < sections.Count; i++)
+                if (!applicants[applicantIndex].hasSavedFeedback)
                 {
-                    DBConnection.WriteFeedbackEntryToDatabase(applicantID, commentIDs[i]);
-                }
-
-                for (int i = 0; i < applicants.Count; i++)
-                {
-                    if (applicants[i].name == name)
+                    for (int i = 0; i < sections.Count; i++)
                     {
-                        applicants[i].hasSavedFeedback = true;
-
-                        DBConnection.UpdateApplicantsFeedbackStatus(applicants[i].ID);
-
-                        break;
+                        DBConnection.WriteFeedbackEntryToDatabase(applicantID, commentIDs[i]);
                     }
+
+                    applicants[applicantIndex].hasSavedFeedback = true;
+                    DBConnection.UpdateApplicantsFeedbackStatus(applicantID);
+
+                    ProvidePreviousFeedbackListsForApplicants();
+
+                    MessageBox.Show("Feedback for " + name + ", has been saved.");
                 }
+                else
+                {
+                    DBConnection.RemoveOldFeedBackEntires(applicantID);
 
-                ProvidePreviousFeedbackListsForApplicants();
+                    for (int i = 0; i < sections.Count; i++)
+                    {
+                        DBConnection.WriteFeedbackEntryToDatabase(applicantID, commentIDs[i]);
+                    }
 
-                MessageBox.Show("Feedback for " + name + ", has been saved.");
+                    ProvidePreviousFeedbackListsForApplicants();
+
+                    MessageBox.Show("Feedback for " + name + ", has been saved.");
+                }
             }
             else
             {
@@ -481,10 +491,19 @@ namespace LoginPage
         {
             bool noActionRequired = false;
 
-            if (ComboBoxesAreEmpty())
+            if (ComboBoxesAreAllEmpty())
             {
-                //Combo boxes are empty - no action
-                noActionRequired = true;
+                int index = FindSelectedApplicant();
+
+                if (!applicants[index].hasSavedFeedback)
+                {
+                    //Combo boxes are empty, applicant has no saved feedback - no action
+                    noActionRequired = true;
+                }
+                else
+                {
+                    ShowWarning();
+                } 
             }
             else if (IsSelectedFeedbackEqualToSavedFeedback())
             {
@@ -493,11 +512,19 @@ namespace LoginPage
             }
             else
             {
-                //Combo boxes not empty and feedback not saved - warning
-                MessageBox.Show("Warning! There is incomplete or unsaved selections. \nComplete and/or save your feedback before exiting.");
+                ShowWarning();
             }
 
             return noActionRequired;
+        }
+
+        /// <summary>
+        /// Displays a warning when trying to switch applicants or leave the page and there is unsaved work.
+        /// </summary>
+        private void ShowWarning()
+        {
+            //Combo boxes not empty and feedback not saved - warning
+            MessageBox.Show("Warning! There are incomplete or unsaved selections. \nComplete and/or save your feedback before exiting.");
         }
 
         /// <summary>
@@ -516,7 +543,12 @@ namespace LoginPage
                 List<int[]> listOne = new List<int[]>();
                 List<int[]> listTwo = new List<int[]>();
 
-                listOne = ChangeDBCommentIDsToComboBoxIndexes(DBConnection.SearchForPreviousFeedback(applicants[index].ID));
+                for (int i = 0; i < comboBoxes.Count; i++)
+                {
+                    int[] tuple = new int[] { sections[i].sectionID, comboBoxes[i].SelectedIndex };
+                    listOne.Add(tuple);
+                }
+
                 listTwo = applicants[index].previousFeedback;
 
                 for (int i = 0; i < listOne.Count; i++)
@@ -528,10 +560,15 @@ namespace LoginPage
                             if (listOne[i][1] != listTwo[j][1])
                             {
                                 feedbackAndSelectedEqual = false;
+                                break;
                             }
-                        }
+                        }//Possible else when adding customs
                     }
                 }
+            }
+            else
+            {
+                feedbackAndSelectedEqual = false;
             }
 
             return feedbackAndSelectedEqual;
@@ -550,27 +587,74 @@ namespace LoginPage
         }
 
         /// <summary>
-        /// For determining if the combo boxes are unused, returns false if all boxes have a selected item.
+        /// For chencking if any sections have got an option selected.
         /// </summary>
-        /// <returns>Bool, true if applicant has had no feedback selected for one of the combo boxes.</returns>
-        private bool ComboBoxesAreEmpty()
+        /// <returns>Bool, true if applicant has had no feedback selected for any of the sections.</returns>
+        private bool ComboBoxesAreAllEmpty()
         {
-            bool empty = false;
+            bool empty = true;
 
             for (int i = 0; i < comboBoxes.Count; i++)
             {
-                if (comboBoxes[i].SelectedIndex == -1)
+                if (comboBoxes[i].SelectedIndex != -1)
                 {
-                    empty = true;
+                    empty = false;
                     break;
                 }
             }
 
             return empty;
         }
+
+        /// <summary>
+        /// For chencking if any sections haven't got an option selected. 
+        /// </summary>
+        /// <returns>Bool, true if all combo boxes have an option selected.</returns>
+        private bool ComboBoxesAreAllFilled()
+        {
+            bool empty = true;
+
+            for (int i = 0; i < comboBoxes.Count; i++)
+            {
+                if (comboBoxes[i].SelectedIndex == -1)
+                {
+                    empty = false;
+                    break;
+                }
+            }
+
+            return empty;
+        }
+
+        /// <summary>
+        /// Clears the current selections of the combo boxes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ClearSelected_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < comboBoxes.Count; i++)
+            {
+                comboBoxes[i].SelectedIndex = -1;
+            }
+        }
+
+        /// <summary>
+        /// Restores the combo box selections to the saved settings.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Restore_Click(object sender, RoutedEventArgs e)
+        {
+            int index = FindSelectedApplicant();
+
+            for (int i = 0; i < comboBoxes.Count; i++)
+            {
+                comboBoxes[i].SelectedIndex = applicants[index].previousFeedback[i][1];//Also need changes for custom
+            }
+        }
     }
 }
 //To do
-//Sort warnings
-//Delete old entries when altering feedback
+//Not populating the first applicants feedback on load
 //Sort custom comments

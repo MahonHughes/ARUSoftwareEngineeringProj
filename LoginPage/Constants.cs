@@ -66,5 +66,8 @@ namespace LoginPage
 
         //SQL Query - Update the hasFeedback entry of an applicant
         public static string updateFeedbackStatus = "UPDATE [Applicants] SET hasFeedback = 1 WHERE applicant_Id = ";
+
+        //SQL Query - Remove feedback entries from the Applicant_Comment table of the database
+        public static string removeFeedbackEntries = "DELETE FROM Applicant_Comment WHERE applicant_Id = ";
     }
 }

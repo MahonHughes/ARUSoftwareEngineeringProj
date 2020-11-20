@@ -408,6 +408,11 @@ namespace LoginPage
             }
         }
 
+        /// <summary>
+        /// Writes selected feedback to the Applicant_Comment table row by row.
+        /// </summary>
+        /// <param name="_applicantID">The applicant having feedback saved.</param>
+        /// <param name="_commentID">The comment that has been selected for that applicant.</param>
         public static void WriteFeedbackEntryToDatabase(int _applicantID, int _commentID)
         {
             using (dbConnetion = new SqlConnection(connString))
@@ -427,11 +432,35 @@ namespace LoginPage
             dbConnetion.Close();
         }
 
+        /// <summary>
+        /// Alters the hasFeedback entry in the database for an applicant.
+        /// </summary>
+        /// <param name="_applicantID">The applicant that has had feedback saved.</param>
         public static void UpdateApplicantsFeedbackStatus(int _applicantID)
         {
             using (dbConnetion = new SqlConnection(connString))
             {
                 string _query = Constants.updateFeedbackStatus + _applicantID.ToString();
+
+                dbConnetion.Open();
+
+                SqlCommand cmd = new SqlCommand(_query, dbConnetion);
+
+                cmd.ExecuteNonQuery();
+            }
+
+            dbConnetion.Close();
+        }
+
+        /// <summary>
+        /// Removes feedback entries from the Applicant_Commment table using the applicant's ID.
+        /// </summary>
+        /// <param name="_applicantID">The applicant that needs to have their data removed.</param>
+        public static void RemoveOldFeedBackEntires(int _applicantID)
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                string _query = Constants.removeFeedbackEntries + _applicantID.ToString();
 
                 dbConnetion.Open();
 
