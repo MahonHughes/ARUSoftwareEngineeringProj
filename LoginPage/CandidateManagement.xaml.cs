@@ -40,18 +40,27 @@ namespace LoginPage
             if (path != null && path != "")
             {
                 applicants = readApplicantCSVFile(path);
+                candidateListBox.Items.Clear();
                 for (int i = 0; i < applicants.Length; i++)
                 {
                     candidateListBox.Items.Add(applicants[i].name + ": " + applicants[i].emailAddress);
                 }
+
+                //Fetch job positions and populate dropdown.
+                string[] JobPositions = DBConnection.GetJobPositionsFromDatabase();
+                JobPositionsDropdown.Items.Clear();
+                for (int i = 0; i < JobPositions.Length; i++)
+                {
+                    JobPositionsDropdown.Items.Add(JobPositions[i]);
+                }
             }
-            
-            DBConnection.InsertApplicants(applicants);
+
+            /*DBConnection.InsertApplicants(applicants);
             Applicant[] applicants1 = DBConnection.GetApplicantsFromDatabase().ToArray();
             for (int i = 0; i < applicants1.Length; i++)
             {
                 candidateListBox.Items.Add(applicants1[i].name + ": " + applicants1[i].emailAddress);
-            }
+            }*/
         }
 
         private Applicant[] readApplicantCSVFile(string path)
@@ -85,6 +94,26 @@ namespace LoginPage
                 //TextBlock1.Text = System.IO.File.ReadAllText(openFileDlg.FileName);
             }
             return null;
+        }
+
+        private void ConfirmButton_Click(object sender, RoutedEventArgs e)
+        {
+            int groupID = JobPositionsDropdown.SelectedIndex + 1;
+            if (groupID > 0)
+            {
+                for (int i = 0; i < applicants.Length; i++)
+                {
+                    applicants[i].groupID = groupID;
+                }
+                DBConnection.InsertApplicants(applicants);
+                candidateListBox.Items.Clear();
+                JobPositionsDropdown.Items.Clear();
+                MessageBox.Show("Applicants succesfully inserted!");
+            }
+            else
+            {
+                MessageBox.Show("Please select a job position!");
+            }
         }
     }
 }

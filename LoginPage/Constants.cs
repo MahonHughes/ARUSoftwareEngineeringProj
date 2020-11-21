@@ -49,7 +49,7 @@ namespace LoginPage
         public static string getApplicants = "SELECT * FROM Applicants";// WHERE Applicants.job_id = @selected job;
 
         //SQL Query for getting Job IDs
-        public static readonly string getJobTitles = "SELECT * FROM Applicants";
+        public static readonly string getJobTitles = "SELECT * FROM Job_position";
 
         //SQL query for getting the relevant sections for the selected template (using the templates name)
         public static string getTemplatesSections = "SELECT * FROM Sections INNER JOIN Templates ON Sections.template_id = Templates.template_id WHERE Templates.template_name = '";
