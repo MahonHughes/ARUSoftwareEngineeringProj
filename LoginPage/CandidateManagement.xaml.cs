@@ -21,6 +21,7 @@ namespace LoginPage
     /// </summary>
     public partial class CandidateManagement : Page
     {
+        Applicant[] applicants;
         public CandidateManagement()
         {
             InitializeComponent();
@@ -33,14 +34,33 @@ namespace LoginPage
 
         private void ExecuteBtn_Click(object sender, RoutedEventArgs e)
         {
-            candidateListBox.Items.Add("Jane Simmonds: jane@gmail.com");
+            //candidateListBox.Items.Add("Jane Simmonds: jane@gmail.com");
             string path = GetCSVPathFromUser();
-            candidateListBox.Items.Add(path);
-            Applicant[] applicants = readApplicantCSVFile(path);
-            for (int i = 0; i < applicants.Length; i++)
+            //candidateListBox.Items.Add(path);
+            if (path != null && path != "")
             {
-                candidateListBox.Items.Add(applicants[i].name + ": " + applicants[i].emailAddress);
+                applicants = readApplicantCSVFile(path);
+                candidateListBox.Items.Clear();
+                for (int i = 0; i < applicants.Length; i++)
+                {
+                    candidateListBox.Items.Add(applicants[i].name + ": " + applicants[i].emailAddress);
+                }
+
+                //Fetch job positions and populate dropdown.
+                string[] JobPositions = DBConnection.GetJobPositionsFromDatabase();
+                JobPositionsDropdown.Items.Clear();
+                for (int i = 0; i < JobPositions.Length; i++)
+                {
+                    JobPositionsDropdown.Items.Add(JobPositions[i]);
+                }
             }
+
+            /*DBConnection.InsertApplicants(applicants);
+            Applicant[] applicants1 = DBConnection.GetApplicantsFromDatabase().ToArray();
+            for (int i = 0; i < applicants1.Length; i++)
+            {
+                candidateListBox.Items.Add(applicants1[i].name + ": " + applicants1[i].emailAddress);
+            }*/
         }
 
         private Applicant[] readApplicantCSVFile(string path)
@@ -51,7 +71,7 @@ namespace LoginPage
             for (int i = 1; i < CSVLines.Length; i++)
             {
                 string[] cells = CSVLines[i].Split(',');
-                applicants[i-1] = new Applicant(cells[0], cells[1], i);
+                applicants[i-1] = new Applicant(cells[0], cells[1], i, 0);
             }
             return applicants;
         }
@@ -74,6 +94,26 @@ namespace LoginPage
                 //TextBlock1.Text = System.IO.File.ReadAllText(openFileDlg.FileName);
             }
             return null;
+        }
+
+        private void ConfirmButton_Click(object sender, RoutedEventArgs e)
+        {
+            int groupID = JobPositionsDropdown.SelectedIndex + 1;
+            if (groupID > 0)
+            {
+                for (int i = 0; i < applicants.Length; i++)
+                {
+                    applicants[i].groupID = groupID;
+                }
+                DBConnection.InsertApplicants(applicants);
+                candidateListBox.Items.Clear();
+                JobPositionsDropdown.Items.Clear();
+                MessageBox.Show("Applicants succesfully inserted!");
+            }
+            else
+            {
+                MessageBox.Show("Please select a job position!");
+            }
         }
     }
 }

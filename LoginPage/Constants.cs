@@ -43,8 +43,13 @@ namespace LoginPage
             return "DELETE FROM Comments WHERE comment_id = " + comment_id.ToString();
         }
 
+        public static string insertApplicant = "INSERT INTO Applicants (applicant_name, applicant_email, job_Id, hasFeedback) VALUES (@applicant_name, @applicant_email, @job_Id, @hasFeedback)";
+
         //SQL queries for FeedbackPage
         public static string getApplicants = "SELECT * FROM Applicants";// WHERE Applicants.job_id = @selected job;
+
+        //SQL Query for getting Job IDs
+        public static readonly string getJobTitles = "SELECT * FROM Job_position";
 
         //SQL query for getting the relevant sections for the selected template (using the templates name)
         public static string getTemplatesSections = "SELECT * FROM Sections INNER JOIN Templates ON Sections.template_id = Templates.template_id WHERE Templates.template_name = '";
@@ -61,5 +66,8 @@ namespace LoginPage
 
         //SQL Query - Update the hasFeedback entry of an applicant
         public static string updateFeedbackStatus = "UPDATE [Applicants] SET hasFeedback = 1 WHERE applicant_Id = ";
+
+        //SQL Query - Remove feedback entries from the Applicant_Comment table of the database
+        public static string removeFeedbackEntries = "DELETE FROM Applicant_Comment WHERE applicant_Id = ";
     }
 }
