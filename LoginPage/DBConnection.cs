@@ -273,6 +273,24 @@ namespace LoginPage
                 return TemplateNameList.ToArray();
             }
         }
+        public static int GetLastTemplateID()
+        {
+            int last_templateId = -1;
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                
+                dbConnetion.Open();
+                SqlCommand cmd = new SqlCommand(Constants.getTemplatesID, dbConnetion);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Int32.TryParse(reader[0].ToString(), out  last_templateId);
+                    
+                }
+             }
+            return last_templateId ;
+
+        }
 
         /// <summary>
         /// Gets a list of the relevant sections of a template from the database.
@@ -288,7 +306,7 @@ namespace LoginPage
 
                 dbConnetion.Open();
 
-                string _query = Constants.getTemplatesSections + currentlySelectedTemplate + "'";
+                string _query = Constants.getTemplatesSections + currentlySelectedTemplate + "' ";
 
                 SqlCommand cmd = new SqlCommand(_query, dbConnetion);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -470,6 +488,37 @@ namespace LoginPage
             }
 
             dbConnetion.Close();
+        }
+        /// <summary>
+        /// Used to save new template to the database
+        /// </summary>
+        /// <param name="tempateName"> Name of the template </param>
+        public static void InsertTemplate(string tempateName)
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                dbConnetion.Open();
+                SqlCommand cmd = new SqlCommand(Constants.insertTemplate, dbConnetion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.Parameters.Add(new SqlParameter("template_name", tempateName));
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public static void InsertTemplateSection(Template template)
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                dbConnetion.Open();
+                for (int i = 0; i < template.templateSections.Count; i++)
+                {
+                    SqlCommand cmd = new SqlCommand(Constants.insertTemplateSections, dbConnetion);
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.Add(new SqlParameter("template_id", template.id));
+                    cmd.Parameters.Add(new SqlParameter("section_id", template.templateSections[0].sectionID));
+                    cmd.ExecuteNonQuery();
+                }
+            }       
         }
     }
 }

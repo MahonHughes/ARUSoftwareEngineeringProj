@@ -80,6 +80,7 @@ namespace LoginPage
 
             applicants = DBConnection.GetApplicantsFromDatabase();
             sections = DBConnection.GetFeedbackSectionsFromDatabase(currentTemplateSelected);
+            int a = 4;
         }
 
         /// <summary>

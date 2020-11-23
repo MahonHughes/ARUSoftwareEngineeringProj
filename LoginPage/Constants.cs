@@ -53,10 +53,12 @@ namespace LoginPage
 
         //SQL query for getting the relevant sections for the selected template (using the templates name)
         public static string getTemplatesSections = "SELECT * FROM Sections INNER JOIN Templates ON Sections.template_id = Templates.template_id WHERE Templates.template_name = '";
+        public static string getTemplatesID = "SELECT template_id FROM Templates";
+        public static string insertTemplate = " INSERT INTO Templates (template_name)  VALUES (@template_name)";
+        public static string insertTemplateSections = "INSERT INTO Template_has_Sections (template_id, section_id) VALUES (@template_id, @section_id)";
 
         //SQL Query - Gets the comment ID and the Section ID from the Applicant_Comment table in the database
-        public static string getPreviousFeedbackQuery =
-            "SELECT Applicant_Comment.comment_Id, Comments.section_id FROM Applicant_Comment INNER JOIN Comments On Applicant_Comment.comment_Id = Comments.comment_id WHERE Applicant_Comment.applicant_Id = ";
+        public static string getPreviousFeedbackQuery ="SELECT Applicant_Comment.comment_Id, Comments.section_id FROM Applicant_Comment INNER JOIN Comments On Applicant_Comment.comment_Id = Comments.comment_id WHERE Applicant_Comment.applicant_Id = ";
 
         //SQL Query - Get the all comment details from the Comment table
         public static string getAllCommentDetails = "SELECT * FROM Comments WHERE section_id = '";

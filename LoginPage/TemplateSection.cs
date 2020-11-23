@@ -62,6 +62,7 @@ namespace LoginPage
 
         public static List<TemplateSection> SectionsForTemplate(List<Button> buttons )
         {
+            sections = DBConnection.GetSectionsFromDatabase();
             List<TemplateSection> return_sections = new List<TemplateSection>();
             for (int i =0;i< buttons.Count;i++)
             {

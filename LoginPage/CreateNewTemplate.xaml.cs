@@ -61,7 +61,6 @@ namespace LoginPage
                 btn.Background = Brushes.White;
                 btn.Foreground = Brushes.Black;
                 btn.Name = "Selected";
-
             }
              else
             {
@@ -82,8 +81,16 @@ namespace LoginPage
             else
             {
                 List<TemplateSection> sections = TemplateSection.SectionsForTemplate(buttons);
-                Template template = new Template( textBox.Text, sections);
-                //DBConnection.InsertTemplate(template);
+                int template_id = DBConnection.GetLastTemplateID();
+                Template template = new Template(textBox.Text, sections, template_id);
+                DBConnection.InsertTemplate(template.name);
+                DBConnection.InsertTemplateSection(template);
+                for (int i =0 ; i < buttons.Count; i++)
+                {
+                    buttons[i].Foreground = Brushes.White;
+                    buttons[i].Background = null;
+                }
+                textBox.Text = " ";
             }
            
         }
