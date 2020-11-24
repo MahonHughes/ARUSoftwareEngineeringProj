@@ -35,7 +35,7 @@ namespace LoginPage
 
         private static Button selectedApplcant;
 
-        private CustomCommentWindow comWin = new CustomCommentWindow();
+        private CustomCommentWindow comWin = new CustomCommentWindow(MainWindow.mainPage.feedbackPage);
 
         public FeedBackPage()
         {
@@ -344,17 +344,44 @@ namespace LoginPage
         /// <param name="e"></param>
         private void AddCustomComment(object sender, RoutedEventArgs e)
         {
-            //Needs to store reference of custom added so can be reverted---------------------------------------------------------------------------------------
-
             Button btn = (Button)sender;
             int index = (int) btn.Tag;
 
             comboBoxes[index].IsEnabled = false;
             comboBoxes[index].SelectedIndex = -1;
 
-            comWin.Show();
+            comWin.SetTalkingButtonIndex(index);
 
-            MessageBox.Show("Add button clicked.");
+            comWin.Show();
+        }
+
+        public void CustomCommentWindowCallBack(int callingButtonIndex, string addedCustomComment)
+        {
+            if (comWin.validComment)
+            {
+                int sectionID = sections[callingButtonIndex].sectionID;
+                int applicantID = GetApplicantID();
+                int applicantIndex = FindSelectedApplicant();
+
+                //add tempComment to DB
+                //Get tempComment ID
+                //Alter custom comment state in DB
+
+                int[] tuple = new int[2];
+                tuple[0] = sectionID;
+                //tuple[1] = tempCommentID;
+
+                applicants[applicantIndex].previousFeedbackCustomComments.Add(tuple);
+                applicants[applicantIndex].hasSavedCustomFeedback = true;
+
+                customCommentButtons[callingButtonIndex].Background = Brushes.Black;
+                customCommentButtons[callingButtonIndex].Foreground = Brushes.White;
+                customCommentButtons[callingButtonIndex].Content = "Comment Added";
+            }
+            else
+            {
+                comWin = new CustomCommentWindow(MainWindow.mainPage.feedbackPage);
+            }
         }
 
         /// <summary>

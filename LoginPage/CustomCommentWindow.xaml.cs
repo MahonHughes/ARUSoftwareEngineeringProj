@@ -19,26 +19,46 @@ namespace LoginPage
     /// </summary>
     public partial class CustomCommentWindow : Window
     {
-        public CustomCommentWindow()
+        private FeedBackPage parent;
+        private int buttonIndex;
+        private string customComment;
+        public bool validComment = false;
+
+        public CustomCommentWindow(FeedBackPage _parent)
         {
             InitializeComponent();
+            parent = _parent;
 
             txbCustomComment.Focus();
+        }
+
+        public void SetTalkingButtonIndex(int _index)
+        {
+            buttonIndex = _index;
         }
 
         private void windowClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
+
+            parent.CustomCommentWindowCallBack(buttonIndex, customComment);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //if (String.IsNullOrWhiteSpace(tbSectionName.Text))
-            //{
-            //    System.Windows.MessageBox.Show("Invalid data, no input.");
+            if (String.IsNullOrWhiteSpace(txbCustomComment.Text))
+            {
+                validComment = false;
+            }
+            else
+            {
+                validComment = true;
+                customComment = txbCustomComment.Text;
+            }
 
-            //    notInvalid = false;
-            //}
+            Close();
+
+            parent.CustomCommentWindowCallBack(buttonIndex, customComment);
         }
     }
 }

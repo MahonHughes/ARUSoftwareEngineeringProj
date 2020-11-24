@@ -14,6 +14,7 @@ namespace LoginPage
         public int ID;
         public int? groupID;
         public bool hasSavedFeedback = false;
+        public bool hasSavedCustomFeedback = false;
         public int sectionsCount;
 
         public List<int[]> previousFeedback;
