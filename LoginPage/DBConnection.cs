@@ -520,5 +520,40 @@ namespace LoginPage
                 }
             }       
         }
+
+        /// <summary>
+        /// Gets the section ID and the tempComment ID from the database and adds them to a list as arrays.
+        /// </summary>
+        /// <param name="_id">The applicant that comments are required for.</param>
+        /// <returns>List of int arrays that hold the section ID that comment is for and the comment ID.</returns>
+        public static List<int[]> SearchForPreviousCustomCommentFeedback(int _id)
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                List<int[]> sections_comments = new List<int[]>();
+                string _query = Constants.getPreviousCustomComments + _id.ToString();
+
+                dbConnetion.Open();
+                SqlCommand cmd = new SqlCommand(_query, dbConnetion);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        int[] tuple = new int[2];
+
+                        if (Int32.TryParse(reader[0].ToString(), out tuple[0]) && Int32.TryParse(reader[1].ToString(), out tuple[1]))
+                        {
+                            sections_comments.Add(tuple);
+                        }
+                    }
+                }
+
+                dbConnetion.Close();
+
+                return sections_comments;
+            }
+        }
     }
 }

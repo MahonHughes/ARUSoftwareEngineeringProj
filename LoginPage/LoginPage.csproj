@@ -80,6 +80,9 @@
     <Compile Include="CreateNewTemplate.xaml.cs">
       <DependentUpon>CreateNewTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomCommentWindow.xaml.cs">
+      <DependentUpon>CustomCommentWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FeedbackSection.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="Comment.cs" />
@@ -127,6 +130,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CreateNewTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomCommentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

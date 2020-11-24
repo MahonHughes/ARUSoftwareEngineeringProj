@@ -35,6 +35,8 @@ namespace LoginPage
 
         private static Button selectedApplcant;
 
+        private CustomCommentWindow comWin = new CustomCommentWindow();
+
         public FeedBackPage()
         {
             InitializeComponent();
@@ -80,7 +82,8 @@ namespace LoginPage
 
             applicants = DBConnection.GetApplicantsFromDatabase();
             sections = DBConnection.GetFeedbackSectionsFromDatabase(currentTemplateSelected);
-            int a = 4;
+
+            ProvideSectionCountToApplicants();
         }
 
         /// <summary>
@@ -132,6 +135,18 @@ namespace LoginPage
 
                 selectedApplcant = _btn;
                 _btn.Background = Brushes.Blue;
+            }
+        }
+
+        /// <summary>
+        /// Allows each applicant to have a count so each one knows how many 
+        /// values it should have for previous feedback.
+        /// </summary>
+        private void ProvideSectionCountToApplicants()
+        {
+            for (int i = 0; i < applicants.Count; i++)
+            {
+                applicants[i].SetSectionsCount(sections.Count);
             }
         }
 
@@ -336,6 +351,8 @@ namespace LoginPage
 
             comboBoxes[index].IsEnabled = false;
             comboBoxes[index].SelectedIndex = -1;
+
+            comWin.Show();
 
             MessageBox.Show("Add button clicked.");
         }
@@ -649,9 +666,12 @@ namespace LoginPage
         {
             int index = FindSelectedApplicant();
 
-            for (int i = 0; i < comboBoxes.Count; i++)
+            if (applicants[index].hasSavedFeedback)
             {
-                comboBoxes[i].SelectedIndex = applicants[index].previousFeedback[i][1];//Also need changes for custom
+                for (int i = 0; i < comboBoxes.Count; i++)
+                {
+                    comboBoxes[i].SelectedIndex = applicants[index].previousFeedback[i][1];//Also need changes for custom
+                }
             }
         }
     }
