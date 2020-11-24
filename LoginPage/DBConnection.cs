@@ -520,5 +520,29 @@ namespace LoginPage
                 }
             }       
         }
+
+        /// <summary>
+        /// Method for testing the insert templatesections method 
+        /// </summary>
+        public static void GetTemplateSections()
+        {
+            string a = "SELECT * FROM TEMPLATE_has_Sections";
+            List<int> template = new List<int>();
+            List<int> section = new List<int>();
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                dbConnetion.Open();
+                SqlCommand cmd = new SqlCommand(a, dbConnetion);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Int32.TryParse(reader[0].ToString(), out int t);
+                    Int32.TryParse(reader[1].ToString(), out int s);
+                    template.Add(t);
+                    section.Add(s);
+                }
+            }
+            int stop=2;
+        }
     }
 }

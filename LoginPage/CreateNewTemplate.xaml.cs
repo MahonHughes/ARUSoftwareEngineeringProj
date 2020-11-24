@@ -38,6 +38,7 @@ namespace LoginPage
         private void list_box_Loaded(object sender, RoutedEventArgs e)
         {
             list_box.Items.Clear();
+            buttons.Clear(); 
             templateSections = DBConnection.GetSectionsFromDatabase();
             for (int i = 0; i < templateSections.Count; i++)
             {
@@ -92,7 +93,7 @@ namespace LoginPage
                 }
                 textBox.Text = " ";
             }
-           
+            DBConnection.GetTemplateSections();
         }
     }
 }
