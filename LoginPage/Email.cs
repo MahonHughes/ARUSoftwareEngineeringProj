@@ -1,15 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net;
 using System.Net.Mime;
 using System.Net.Mail;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.IO;
+using System.Diagnostics;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 
-    
 
 namespace LoginPage
     {
@@ -22,8 +32,9 @@ namespace LoginPage
                 feedbackEmail.Attachments.Add(pdfFile);
 
             }
-            public static void SendEmail(MailMessage emailTOsend, string applicantName, string applicantEmail)
+            public static void SendEmail(string filename, string applicantName, string applicantEmail, string staffMember, string staffMemberEmail, List<string> comments, List<string> sections)
             {
+            PdfCreator pdf = new PdfCreator(filename, applicantName, applicantEmail, staffMember, staffMemberEmail, comments, sections);
                 try
                 {
                     //Setting up the smtp port
@@ -37,7 +48,7 @@ namespace LoginPage
                     client.DeliveryMethod = SmtpDeliveryMethod.Network;
 
                     emailTOsend.Subject = "Feedback";
-                    emailTOsend.Body = ("Dear " + applicantName + "," + "\n" + "Find attached your feedback");
+                    emailTOsend.Body = ("Dear " + applicantName + "," + "\n" + "Find attached your feedback" + pdf);
 
                     //setting up the credentials of the email used as a sender
                     client.UseDefaultCredentials = false;
