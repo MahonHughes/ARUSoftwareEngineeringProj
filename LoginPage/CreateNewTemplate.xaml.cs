@@ -23,10 +23,12 @@ namespace LoginPage
 
         List<TemplateSection> templateSections = new List<TemplateSection>();
         static List<Button> buttons = new List<Button>();
+        int type;
 
-        public CreateNewTemplate()
+        public CreateNewTemplate(int page_type)
         {
             InitializeComponent();
+            type = page_type;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -36,10 +38,24 @@ namespace LoginPage
 
         private void list_box_Loaded(object sender, RoutedEventArgs e)
         {
-            list_box.Items.Clear();
-            buttons.Clear(); 
-            templateSections = DBConnection.GetSectionsFromDatabase();
 
+            if (type == 1)
+            {
+                CreateNewTemplateInterface();
+            }
+
+            else if (type == 2)
+            {
+                CreateNewTemplateFromSelectedInterface();
+            }
+           
+        }
+
+        private void CreateNewTemplateInterface()
+        {
+            list_box.Items.Clear();
+            buttons.Clear();
+            templateSections = DBConnection.GetSectionsFromDatabase();
             for (int i = 0; i < templateSections.Count; i++)
             {
                 Button btn = new Button();
@@ -53,6 +69,44 @@ namespace LoginPage
                 list_box.Items.Add(btn);
             }
         }
+
+        private void CreateNewTemplateFromSelectedInterface()
+        {
+            list_box.Items.Clear();
+            buttons.Clear();
+            templateSections = DBConnection.GetSectionsFromDatabase();
+            List<string> selectedSections = DBConnection.GetTemplateSection(ManageTemplatesPage.currentTemplate);
+            for (int i = 0; i < templateSections.Count; i++)
+            {
+                Button btn = new Button();
+                btn.Content = templateSections[i].sectionName;
+                btn.Height = 30;
+                btn.Width = 247;
+                btn.Tag = i;
+                btn.Name = "Unselected";
+                btn.Click += ButtonSelected;
+                for (int j = 0; j < selectedSections.Count; j++)
+                {
+                    if (selectedSections[j] == templateSections[i].sectionName)
+                    {
+                        btn.Background = Brushes.White;
+                        btn.Foreground = Brushes.Black;
+                        btn.Name = "Selected";
+                        btn.IsEnabled = false;
+                    }               
+                }
+                buttons.Add(btn);
+                list_box.Items.Add(btn);
+            }
+
+
+        }
+
+        private void SelectedButtons()
+        {
+
+        }
+
 
         private static void ButtonSelected(object sender, EventArgs e)
         {
@@ -71,6 +125,7 @@ namespace LoginPage
             }
         }
 
+       
         private void Submit(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(textBox.Text))
@@ -96,7 +151,11 @@ namespace LoginPage
                 textBox.Text = " ";
             }
 
-            DBConnection.GetTemplateSections();
+            if (type == 2)
+            {
+                MainWindow.mainPage.Content = MainPage.manageTemplatesPage;
+            }
+            
         }
     }
 }

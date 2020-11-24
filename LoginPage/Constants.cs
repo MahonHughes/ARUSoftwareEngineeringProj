@@ -56,6 +56,7 @@ namespace LoginPage
         public static string getTemplatesID = "SELECT template_id FROM Templates";
         public static string insertTemplate = " INSERT INTO Templates (template_name)  VALUES (@template_name)";
         public static string insertTemplateSections = "INSERT INTO Template_has_Sections (template_id, section_id) VALUES (@template_id, @section_id)";
+        public static string getTemplateSectoins = "SELECT section_name FROM Sections WHERE section_id IN (SELECT section_id FROM Template_has_sections WHERE template_id IN (SELECT template_id FROM Templates WHERE template_name = @name))";
 
         //SQL Query - Gets the comment ID and the Section ID from the Applicant_Comment table in the database
         public static string getPreviousFeedbackQuery ="SELECT Applicant_Comment.comment_Id, Comments.section_id FROM Applicant_Comment INNER JOIN Comments On Applicant_Comment.comment_Id = Comments.comment_id WHERE Applicant_Comment.applicant_Id = ";

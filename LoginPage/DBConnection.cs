@@ -523,6 +523,27 @@ namespace LoginPage
             }       
         }
 
+
+        public static List<string> GetTemplateSection (string templateName)
+        {
+            List<string> selectedSections = new List<string>();
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                dbConnetion.Open();
+
+                SqlCommand cmd = new SqlCommand(Constants.getTemplateSectoins,dbConnetion);
+                cmd.Parameters.Add(new SqlParameter("name", templateName));
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    selectedSections.Add(reader[0].ToString());   
+                }
+
+                return selectedSections;
+            }
+        }
+
         /// <summary>
         /// Method for testing the insert templatesections method 
         /// </summary>
