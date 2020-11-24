@@ -35,7 +35,7 @@ namespace LoginPage
 
         private static Button selectedApplcant;
 
-        private CustomCommentWindow comWin = new CustomCommentWindow(MainWindow.mainPage.feedbackPage);
+        private CustomCommentWindow comWin;
 
         public FeedBackPage()
         {
@@ -44,6 +44,8 @@ namespace LoginPage
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
+            comWin = new CustomCommentWindow(MainWindow.mainPage.feedbackPage);
+
             sectionIndex = 0;
             addBtnIndex = 0;
             prevBtnIndex = 0;
