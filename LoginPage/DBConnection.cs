@@ -273,23 +273,24 @@ namespace LoginPage
                 return TemplateNameList.ToArray();
             }
         }
+
         public static int GetLastTemplateID()
         {
             int last_templateId = -1;
+
             using (dbConnetion = new SqlConnection(connString))
-            {
-                
+            {               
                 dbConnetion.Open();
                 SqlCommand cmd = new SqlCommand(Constants.getTemplatesID, dbConnetion);
                 SqlDataReader reader = cmd.ExecuteReader();
+
                 while (reader.Read())
                 {
                     Int32.TryParse(reader[0].ToString(), out  last_templateId);
-                    
                 }
-             }
-            return last_templateId ;
+            }
 
+            return last_templateId ;
         }
 
         /// <summary>
@@ -306,7 +307,7 @@ namespace LoginPage
 
                 dbConnetion.Open();
 
-                string _query = Constants.getTemplatesSections + currentlySelectedTemplate + "' ";
+                string _query = Constants.getTemplatesSections + currentlySelectedTemplate + "'";
 
                 SqlCommand cmd = new SqlCommand(_query, dbConnetion);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -489,6 +490,7 @@ namespace LoginPage
 
             dbConnetion.Close();
         }
+
         /// <summary>
         /// Used to save new template to the database
         /// </summary>

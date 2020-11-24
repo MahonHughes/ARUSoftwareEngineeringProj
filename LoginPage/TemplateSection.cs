@@ -60,10 +60,11 @@ namespace LoginPage
             return comment;
         }
 
-        public static List<TemplateSection> SectionsForTemplate(List<Button> buttons )
+        public static List<TemplateSection> SectionsForTemplate(List<Button> buttons)
         {
             sections = DBConnection.GetSectionsFromDatabase();
             List<TemplateSection> return_sections = new List<TemplateSection>();
+
             for (int i =0;i< buttons.Count;i++)
             {
                 if (buttons[i].Foreground == Brushes.Black)
@@ -71,6 +72,7 @@ namespace LoginPage
                     return_sections.Add(sections[i]);
                 }
             }
+
             return return_sections;
         }
     }

@@ -23,7 +23,6 @@ namespace LoginPage
 
         List<TemplateSection> templateSections = new List<TemplateSection>();
         static List<Button> buttons = new List<Button>();
-        ///List<TemplateSection>
 
         public CreateNewTemplate()
         {
@@ -40,6 +39,7 @@ namespace LoginPage
             list_box.Items.Clear();
             buttons.Clear(); 
             templateSections = DBConnection.GetSectionsFromDatabase();
+
             for (int i = 0; i < templateSections.Count; i++)
             {
                 Button btn = new Button();
@@ -52,8 +52,8 @@ namespace LoginPage
                 buttons.Add(btn);
                 list_box.Items.Add(btn);
             }
-
         }
+
         private static void ButtonSelected(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
@@ -69,8 +69,6 @@ namespace LoginPage
                 btn.Foreground = Brushes.White;
                 btn.Name = "Unselected";
             }
-
-           
         }
 
         private void Submit(object sender, RoutedEventArgs e)
@@ -83,16 +81,21 @@ namespace LoginPage
             {
                 List<TemplateSection> sections = TemplateSection.SectionsForTemplate(buttons);
                 int template_id = DBConnection.GetLastTemplateID();
+                template_id++;//---------------------------------------------------------
                 Template template = new Template(textBox.Text, sections, template_id);
+
                 DBConnection.InsertTemplate(template.name);
                 DBConnection.InsertTemplateSection(template);
+
                 for (int i =0 ; i < buttons.Count; i++)
                 {
                     buttons[i].Foreground = Brushes.White;
                     buttons[i].Background = null;
                 }
+
                 textBox.Text = " ";
             }
+
             DBConnection.GetTemplateSections();
         }
     }

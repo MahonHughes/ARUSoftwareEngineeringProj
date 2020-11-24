@@ -52,7 +52,7 @@ namespace LoginPage
         public static readonly string getJobTitles = "SELECT * FROM Job_position";
 
         //SQL query for getting the relevant sections for the selected template (using the templates name)
-        public static string getTemplatesSections = "SELECT * FROM Template_has_Sections INNER JOIN Templates ON Template_has_Sections.template_id = Templates.template_id WHERE Templates.template_name = '";
+        public static string getTemplatesSections = "SELECT Sections.section_id, Sections.section_name FROM Sections INNER JOIN Template_has_Sections ON Sections.section_id = Template_has_Sections.section_id INNER JOIN Templates ON Template_has_Sections.template_id = Templates.template_id WHERE Templates.template_name = '";
         public static string getTemplatesID = "SELECT template_id FROM Templates";
         public static string insertTemplate = " INSERT INTO Templates (template_name)  VALUES (@template_name)";
         public static string insertTemplateSections = "INSERT INTO Template_has_Sections (template_id, section_id) VALUES (@template_id, @section_id)";
