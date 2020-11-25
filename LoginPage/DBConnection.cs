@@ -131,13 +131,18 @@ namespace LoginPage
                     if (Int32.TryParse(reader[0].ToString(), out _id))
                     {
                         bool hasFeedback = false;
+                        bool hasCustomFeedback = false;
 
                         if (reader[4].ToString().ToLower() == "true")
                         {
                             hasFeedback = true;
                         }
+                        if (reader[5].ToString().ToLower() == "true")
+                        {
+                            hasCustomFeedback = true;
+                        }
 
-                        Applicant _applicant = new Applicant(reader[1].ToString(), reader[2].ToString(), _id, hasFeedback);
+                        Applicant _applicant = new Applicant(reader[1].ToString(), reader[2].ToString(), _id, hasFeedback, hasCustomFeedback);
                         applicants.Add(_applicant);
                     }
                 }
@@ -544,7 +549,6 @@ namespace LoginPage
                     section.Add(s);
                 }
             }
-            int stop=2;
         }
 
         /// <summary>
@@ -580,6 +584,115 @@ namespace LoginPage
 
                 return sections_comments;
             }
+        }
+
+        public static int InsertCustomCommentAndGetItsID(string _commentText, int _sectionID, int _applicantID)
+        {
+            int customCommentID;
+
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                dbConnetion.Open();
+
+                string one = _commentText;
+                string two = _sectionID.ToString();
+                string three = _applicantID.ToString();
+
+                string query = Constants.insertCustomFeedbackEntry(one, two, three);
+
+                SqlCommand cmd = new SqlCommand(query, dbConnetion);
+
+                //cmd.CommandType = System.Data.CommandType.Text;
+                //cmd.Parameters.Add(new SqlParameter("comment_text", one));
+                //cmd.Parameters.Add(new SqlParameter("section_id", two));
+                //cmd.Parameters.Add(new SqlParameter("applicant_Id", three));
+                cmd.ExecuteNonQuery();
+            }
+
+            dbConnetion.Close();
+
+            AlterApplicantCustomFeedbackState(_applicantID);
+            customCommentID = GetCustomCommentID(_commentText);
+
+            return customCommentID;
+        }
+
+        private static void AlterApplicantCustomFeedbackState(int _applicantID)
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                string _query = Constants.updateCustomFeedbackStatus + _applicantID.ToString();
+
+                dbConnetion.Open();
+
+                SqlCommand cmd = new SqlCommand(_query, dbConnetion);
+
+                cmd.ExecuteNonQuery();
+            }
+
+            dbConnetion.Close();
+        }
+
+        private static int GetCustomCommentID(string _commentText)
+        {
+            int _ID = -1;
+
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                string _query = Constants.getCustomCommentID + _commentText + "'";
+
+                dbConnetion.Open();
+                SqlCommand cmd = new SqlCommand(_query, dbConnetion);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Int32.TryParse(reader[0].ToString(), out _ID);
+                }
+
+                dbConnetion.Close();
+
+                return _ID;
+            }
+        }
+
+        public static string GetCustomCommentText(int customCommentId)
+        {
+            string comment = "";
+
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                string _query = Constants.getCustomCommentText + customCommentId.ToString();
+
+                dbConnetion.Open();
+                SqlCommand cmd = new SqlCommand(_query, dbConnetion);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    comment = reader[0].ToString();
+                }
+
+                dbConnetion.Close();
+
+                return comment;
+            }
+        }
+
+        public static void RemoveCustomComment(int _customCommentID)
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                string _query = Constants.removeCustomFeedbackEntry + _customCommentID.ToString();
+
+                dbConnetion.Open();
+
+                SqlCommand cmd = new SqlCommand(_query, dbConnetion);
+
+                cmd.ExecuteNonQuery();
+            }
+
+            dbConnetion.Close();
         }
     }
 }

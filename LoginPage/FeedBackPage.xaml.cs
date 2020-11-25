@@ -22,9 +22,9 @@ namespace LoginPage
     {
         public List<Applicant> applicants;
         public List<FeedbackSection> sections;
-        private List<ComboBox> comboBoxes;
+        public List<ComboBox> comboBoxes;
         private List<Button> previewButtons;
-        private List<Button> customCommentButtons;
+        public List<Button> customCommentButtons;
 
         private string currentJobPosition;
         private string currentTemplateSelected;
@@ -35,7 +35,7 @@ namespace LoginPage
 
         private static Button selectedApplcant;
 
-        private CustomCommentWindow comWin = new CustomCommentWindow(MainWindow.mainPage.feedbackPage);
+        private CustomCommentWindow comWin = new CustomCommentWindow();
 
         public FeedBackPage()
         {
@@ -64,8 +64,6 @@ namespace LoginPage
             PopulateApplicantsListBox();
 
             ProvidePreviousFeedbackListsForApplicants();
-
-            SetPreviousFeedbackSelectionsInComboBoxes();
         }
 
         /// <summary>
@@ -224,7 +222,7 @@ namespace LoginPage
         /// Finds the index in the applicant list of the currently selected applicant (button).
         /// </summary>
         /// <returns>Int, the index in the applicant list.</returns>
-        private int FindSelectedApplicant()
+        public int FindSelectedApplicant()
         {
             int applicantIndex = -1;
 
@@ -347,29 +345,36 @@ namespace LoginPage
             Button btn = (Button)sender;
             int index = (int) btn.Tag;
 
-            comboBoxes[index].IsEnabled = false;
-            comboBoxes[index].SelectedIndex = -1;
+            int sectionID = sections[index].sectionID;
 
-            comWin.SetTalkingButtonIndex(index);
+            comWin.SetCustomCommentWindowDetails(this, index, sectionID);
 
             comWin.Show();
         }
 
-        public void CustomCommentWindowCallBack(int callingButtonIndex, string addedCustomComment)
+        /// <summary>
+        /// Allows the CustomCommentWindow to call back to the Feedback page to set what has been entered,
+        /// if anything, in the DB and on the appliant. then 
+        /// </summary>
+        /// <param name="callingButtonIndex"></param>
+        /// <param name="addedCustomComment"></param>
+        public void CustomCommentWindowCallBack(int callingButtonIndex, string addedCustomComment, int sectionIdNumber)
         {
             if (comWin.validComment)
             {
-                int sectionID = sections[callingButtonIndex].sectionID;
+                comboBoxes[callingButtonIndex].Items.Add("(User defined selection)");
+                comboBoxes[callingButtonIndex].SelectedItem = "(User defined selection)";
+                comboBoxes[callingButtonIndex].IsEnabled = false;
+                comboBoxes[callingButtonIndex].Opacity = 150;
+
                 int applicantID = GetApplicantID();
                 int applicantIndex = FindSelectedApplicant();
 
-                //add tempComment to DB
-                //Get tempComment ID
-                //Alter custom comment state in DB
+                int tempCommentID = DBConnection.InsertCustomCommentAndGetItsID(addedCustomComment, sectionIdNumber, applicantID);
 
                 int[] tuple = new int[2];
-                tuple[0] = sectionID;
-                //tuple[1] = tempCommentID;
+                tuple[0] = sectionIdNumber;
+                tuple[1] = tempCommentID;
 
                 applicants[applicantIndex].previousFeedbackCustomComments.Add(tuple);
                 applicants[applicantIndex].hasSavedCustomFeedback = true;
@@ -378,10 +383,8 @@ namespace LoginPage
                 customCommentButtons[callingButtonIndex].Foreground = Brushes.White;
                 customCommentButtons[callingButtonIndex].Content = "Comment Added";
             }
-            else
-            {
-                comWin = new CustomCommentWindow(MainWindow.mainPage.feedbackPage);
-            }
+
+            comWin = new CustomCommentWindow();
         }
 
         /// <summary>
@@ -406,6 +409,11 @@ namespace LoginPage
             }
 
             sectionIndex++;
+
+            if(sectionIndex >= sections.Count -1)
+            {
+                SetPreviousFeedbackSelectionsInComboBoxes();
+            }
         }
 
         /// <summary>
@@ -701,8 +709,23 @@ namespace LoginPage
                 }
             }
         }
+
+        public void RemoveCustomCommentFromDatabaseAndApplicant(int _customCommentID, int _sectionID)
+        {
+            int _applicant = GetApplicantID();
+            int index = FindSelectedApplicant();
+
+            DBConnection.RemoveCustomComment(_customCommentID);
+
+            for (int i = 0; i < applicants[index].previousFeedbackCustomComments.Count; i++)
+            {
+                if (applicants[index].previousFeedbackCustomComments[i][0] == _sectionID)
+                {
+                    applicants[index].previousFeedbackCustomComments.RemoveAt(i);
+                }
+            }
+        }
     }
 }
 //To do
-//Not populating the first applicants feedback on load
-//Sort custom comments
+//Sort custom comments setting in boxes when switching applicants and loading

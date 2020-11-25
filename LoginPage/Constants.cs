@@ -74,5 +74,20 @@ namespace LoginPage
 
         //SQL Query - Remove feedback entries from the Applicant_Comment table of the database
         public static string removeFeedbackEntries = "DELETE FROM Applicant_Comment WHERE applicant_Id = ";
+
+        //public static string insertCustomFeedbackEntry = "INSERT INTO TemporaryComment (comment_text, section_id, applicant_Id) VALUES ('@comment_text', @section_id, @applicant_Id)";
+        public static string insertCustomFeedbackEntry(string text, string secID, string appID)
+        {
+            string query = "INSERT INTO TemporaryComment (comment_text, section_id, applicant_Id) VALUES ('" + text + "', " + secID + ", " + appID + ")";
+            return query;
+        }
+
+        public static string updateCustomFeedbackStatus = "UPDATE [Applicants] SET hasCustomFeedback = 1 WHERE applicant_Id = ";
+
+        public static string getCustomCommentID = "SELECT tempComment_Id FROM TemporaryComment WHERE comment_text = '";
+
+        public static string getCustomCommentText = "SELECT comment_text FROM TemporaryComment WHERE tempComment_Id = ";
+
+        public static string removeCustomFeedbackEntry = "DELETE FROM TemporaryComment WHERE tempComment_Id = ";
     }
 }

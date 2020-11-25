@@ -21,44 +21,137 @@ namespace LoginPage
     {
         private FeedBackPage parent;
         private int buttonIndex;
-        private string customComment;
+        private string customCommentText;
+        private string startText;
         public bool validComment = false;
+        private int sectionIdNumber;
+        private int customCommentId = -1;
 
-        public CustomCommentWindow(FeedBackPage _parent)
+        public CustomCommentWindow()
         {
             InitializeComponent();
-            parent = _parent;
 
             txbCustomComment.Focus();
         }
 
-        public void SetTalkingButtonIndex(int _index)
+        public void SetCustomCommentWindowDetails(FeedBackPage _parent, int _index, int _sectionID)
         {
+            parent = _parent;
             buttonIndex = _index;
+            sectionIdNumber = _sectionID;
+        }
+
+        private void CustomComment_OnLoad(object sender, RoutedEventArgs e)
+        {
+            int applicantIndex = parent.FindSelectedApplicant();
+
+            if (parent.applicants[applicantIndex].hasSavedCustomFeedback)
+            {
+                int _customCommentId = SearchForCustomCommentID(applicantIndex);
+
+                customCommentText = DBConnection.GetCustomCommentText(_customCommentId);
+
+                customCommentId = _customCommentId;
+
+                txbCustomComment.Text = customCommentText;
+                startText = customCommentText;
+            }
+            else
+            {
+                startText = null;
+            }
+        }
+
+        private int SearchForCustomCommentID(int _index)
+        {
+            int comID = -1;
+
+            for (int i = 0; i < parent.applicants[_index].previousFeedbackCustomComments.Count; i++)
+            {
+                if (parent.applicants[_index].previousFeedbackCustomComments[i][0] == sectionIdNumber)
+                {
+                    comID = parent.applicants[_index].previousFeedbackCustomComments[i][1];
+                }
+            }
+
+            return comID;
+        }
+
+        private bool DecideCloseButtonLeavingCircumstances()
+        {
+            bool canClose = false;
+
+            if (String.IsNullOrWhiteSpace(txbCustomComment.Text))
+            {
+                if (startText != customCommentText)
+                {
+                    MessageBox.Show("Error: To remove this comment press the 'Remove Comment' button.");
+                }
+                else
+                {
+                    canClose = true;
+                }
+            }
+            else
+            {
+                canClose = true;
+            }
+
+            return canClose;
         }
 
         private void windowClose_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            if (DecideCloseButtonLeavingCircumstances())
+            {
+                Close();
 
-            parent.CustomCommentWindowCallBack(buttonIndex, customComment);
+                parent.CustomCommentWindowCallBack(buttonIndex, customCommentText, sectionIdNumber);
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrWhiteSpace(txbCustomComment.Text))
+            if (String.IsNullOrWhiteSpace(txbCustomComment.Text) || txbCustomComment.Text == "")
             {
-                validComment = false;
+                MessageBox.Show("Error: You have not added a valid comment.");
             }
             else
             {
-                validComment = true;
-                customComment = txbCustomComment.Text;
+                if (txbCustomComment.Text == startText)
+                {
+                    MessageBox.Show("Error: The added comment is stored.");
+                }
+                else
+                {
+                    validComment = true;
+                    customCommentText = txbCustomComment.Text;
+
+                    MessageBox.Show("Comment added successfully.");
+                }
             }
+        }
 
-            Close();
+        private void btnRemoveComment_Click(object sender, RoutedEventArgs e)
+        {
+            if (customCommentId != -1)
+            {
+                validComment = false;
 
-            parent.CustomCommentWindowCallBack(buttonIndex, customComment);
+                parent.RemoveCustomCommentFromDatabaseAndApplicant(customCommentId, sectionIdNumber);
+
+                txbCustomComment.Text = null;
+
+                BrushConverter bc = new BrushConverter();
+                parent.customCommentButtons[buttonIndex].Background = (Brush)bc.ConvertFrom("#FF3A7E85");
+                parent.customCommentButtons[buttonIndex].Foreground = Brushes.Black;
+                parent.customCommentButtons[buttonIndex].Content = "Add";
+
+                parent.comboBoxes[buttonIndex].Items.Remove("(User defined selection)");
+                parent.comboBoxes[buttonIndex].SelectedIndex = -1;
+                parent.comboBoxes[buttonIndex].IsEnabled = true;
+                parent.comboBoxes[buttonIndex].Opacity = 255;
+            }
         }
     }
 }

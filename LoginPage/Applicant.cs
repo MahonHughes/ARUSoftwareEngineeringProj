@@ -18,7 +18,7 @@ namespace LoginPage
         public int sectionsCount;
 
         public List<int[]> previousFeedback;
-        public List<int[]> previousFeedbackCustomComments;
+        public List<int[]> previousFeedbackCustomComments = new List<int[]>();
 
         public Applicant(string _name, string _emailAddress, int _ID, int? _groupID)
         {
@@ -38,12 +38,13 @@ namespace LoginPage
             hasSavedFeedback = _hasFeedback;
         }
 
-        public Applicant(string _name, string _emailAddress, int _ID, bool _hasFeedback)
+        public Applicant(string _name, string _emailAddress, int _ID, bool _hasFeedback, bool _hasSavedCustomFeedback)
         {
             name = _name;
             emailAddress = _emailAddress;
             ID = _ID;
             hasSavedFeedback = _hasFeedback;
+            hasSavedCustomFeedback = _hasSavedCustomFeedback;
         }
 
         /// <summary>
@@ -54,9 +55,16 @@ namespace LoginPage
         {
             previousFeedback = _previousFeedback;
 
+            //Need to be moved as this is called after saving
             if (previousFeedback.Count != sectionsCount)
             {
                 previousFeedbackCustomComments = DBConnection.SearchForPreviousCustomCommentFeedback(ID);
+
+                for (int i = 0; i < previousFeedbackCustomComments.Count; i++)
+                {
+                    string msg = "Previous custom feedback for section: " + previousFeedbackCustomComments[i][0].ToString() + ". Comment ID: " + previousFeedbackCustomComments[i][1].ToString() + ".";
+                    MessageBox.Show(msg);
+                }
             }
         }
 
