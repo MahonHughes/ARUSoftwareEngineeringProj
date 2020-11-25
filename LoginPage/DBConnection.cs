@@ -544,6 +544,24 @@ namespace LoginPage
             }
         }
 
+
+        public static void UpdateTemplateSection(Template template)
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                dbConnetion.Open();
+                for (int i = 0; i < template.templateSections.Count; i++)
+                {
+                    SqlCommand cmd = new SqlCommand(Constants.insertTemplateSections, dbConnetion);
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.Add(new SqlParameter("template_id", template.id));
+                    cmd.Parameters.Add(new SqlParameter("section_id", template.templateSections[i].sectionID));
+                    cmd.ExecuteNonQuery();
+
+                }
+
+            }
+        }
         /// <summary>
         /// Method for testing the insert templatesections method 
         /// </summary>
@@ -565,7 +583,6 @@ namespace LoginPage
                     section.Add(s);
                 }
             }
-            int stop=2;
         }
 
         /// <summary>

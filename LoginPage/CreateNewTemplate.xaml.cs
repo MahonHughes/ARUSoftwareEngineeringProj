@@ -102,10 +102,39 @@ namespace LoginPage
 
         }
 
-        private void SelectedButtons()
+        private void EditTemplateInterface()
         {
+            list_box.Items.Clear();
+            buttons.Clear();
+            templateSections = DBConnection.GetSectionsFromDatabase();
+            textBox.Text = ManageTemplatesPage.currentTemplate;
+            textBox.IsEnabled = false;
+            List<string> selectedSections = DBConnection.GetTemplateSection(ManageTemplatesPage.currentTemplate);
+            for (int i = 0; i < templateSections.Count; i++)
+            {
+                Button btn = new Button();
+                btn.Content = templateSections[i].sectionName;
+                btn.Height = 30;
+                btn.Width = 247;
+                btn.Tag = i;
+                btn.Name = "Unselected";
+                btn.Click += ButtonSelected;
+                for (int j = 0; j < selectedSections.Count; j++)
+                {
+                    if (selectedSections[j] == templateSections[i].sectionName)
+                    {
+                        btn.Background = Brushes.White;
+                        btn.Foreground = Brushes.Black;
+                        btn.Name = "Selected";
+                    }
+                }
+                buttons.Add(btn);
+                list_box.Items.Add(btn);
+            }
+
 
         }
+
 
 
         private static void ButtonSelected(object sender, EventArgs e)
@@ -139,16 +168,24 @@ namespace LoginPage
                 template_id++;//You should have no ID and enter it in the table as NULL as it's auto increment but this increment will give you the right one if you still want to use ID
                 Template template = new Template(textBox.Text, sections, template_id);
 
-                DBConnection.InsertTemplate(template.name);
-                DBConnection.InsertTemplateSection(template);
 
-                for (int i =0 ; i < buttons.Count; i++)
+                if (type == 3)
                 {
-                    buttons[i].Foreground = Brushes.White;
-                    buttons[i].Background = null;
+
                 }
+                else
+                {
+                    DBConnection.InsertTemplate(template.name);
+                    DBConnection.InsertTemplateSection(template);
+                }
+          
 
                 textBox.Text = " ";
+            }
+
+            if (type == 1)
+            {
+                CreateNewTemplateInterface();
             }
 
             if (type == 2)

@@ -20,7 +20,7 @@
             <RowDefinition Height="191*"/>
         </Grid.RowDefinitions>
         <Button Content="Back" HorizontalAlignment="Left" Margin="40,77.8,0,0" VerticalAlignment="Top" Width="161" Height="41" FontSize="18" Click="Button_Click_1" Grid.Row="1"/>
-        <Button Content="Edit" HorizontalAlignment="Left" Margin="561,23.8,0,0" VerticalAlignment="Top" Width="166" Height="42" FontSize="18" Click="Button_Click" Grid.Row="1" Tag="3"/>
+        <Button Content="Edit" HorizontalAlignment="Left" Margin="561,23.8,0,0" VerticalAlignment="Top" Width="166" Height="42" FontSize="18" Click="Button_Click3" Grid.Row="1" Tag="3"/>
         <ListBox Name="templatesListBox" HorizontalAlignment="Left" Height="262" Margin="252,85,0,0" VerticalAlignment="Top" Width="280" SelectionMode="Single" Loaded="ListBox_Loaded" Grid.RowSpan="2" BorderBrush="White" BorderThickness="3" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.Resources>
                 <Style TargetType="Border">
