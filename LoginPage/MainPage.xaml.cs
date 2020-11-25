@@ -26,7 +26,9 @@ namespace LoginPage
         public static CreateNewSectionPage createNewSectionPage = new CreateNewSectionPage();
         public  FeedBackPage feedbackPage = new FeedBackPage();
         public CandidateManagement candidateManagementPage = new CandidateManagement();
-        public static CreateNewTemplate createNewTemplate = new CreateNewTemplate();
+        public static CreateNewTemplate createNewTemplate = new CreateNewTemplate(1);
+        public static CreateNewTemplate createNewTemplateFromSelected = new CreateNewTemplate(2);
+        public static CreateNewTemplate editTemplate = new CreateNewTemplate(3);
 
         public MainPage()
         {

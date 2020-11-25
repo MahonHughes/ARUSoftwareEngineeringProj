@@ -522,12 +522,51 @@ namespace LoginPage
                     SqlCommand cmd = new SqlCommand(Constants.insertTemplateSections, dbConnetion);
                     cmd.CommandType = System.Data.CommandType.Text;
                     cmd.Parameters.Add(new SqlParameter("template_id", template.id));
-                    cmd.Parameters.Add(new SqlParameter("section_id", template.templateSections[0].sectionID));
+                    cmd.Parameters.Add(new SqlParameter("section_id", template.templateSections[i].sectionID));
                     cmd.ExecuteNonQuery();
                 }
             }       
         }
 
+
+        public static List<string> GetTemplateSection (string templateName)
+        {
+            List<string> selectedSections = new List<string>();
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                dbConnetion.Open();
+
+                SqlCommand cmd = new SqlCommand(Constants.getTemplateSectoins,dbConnetion);
+                cmd.Parameters.Add(new SqlParameter("name", templateName));
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    selectedSections.Add(reader[0].ToString());   
+                }
+
+                return selectedSections;
+            }
+        }
+
+
+        public static void UpdateTemplateSection(Template template)
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                dbConnetion.Open();
+                for (int i = 0; i < template.templateSections.Count; i++)
+                {
+                    SqlCommand cmd = new SqlCommand(Constants.insertTemplateSections, dbConnetion);
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.Add(new SqlParameter("template_id", template.id));
+                    cmd.Parameters.Add(new SqlParameter("section_id", template.templateSections[i].sectionID));
+                    cmd.ExecuteNonQuery();
+
+                }
+
+            }
+        }
         /// <summary>
         /// Method for testing the insert templatesections method 
         /// </summary>

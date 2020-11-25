@@ -20,6 +20,7 @@ namespace LoginPage
     /// </summary>
     public partial class ManageTemplatesPage : Page
     {
+        public static string currentTemplate;
         public ManageTemplatesPage()
         {
             InitializeComponent();
@@ -31,24 +32,46 @@ namespace LoginPage
             MainWindow.mainPage.Content = MainPage.createNewTemplate;
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void ListBox_Loaded(object sender, RoutedEventArgs e)
         {
             string[] templateNameArray = DBConnection.GetTemplateNamesFromDatabase();
             templatesListBox.Items.Clear();
             for (int i = 0; i < templateNameArray.Length; i++)
             {
-                templatesListBox.Items.Add(templateNameArray[i]);
+                Button btn = new Button();
+                btn.Content = templateNameArray[i];
+                btn.Height = 30;
+                btn.Width = 245;
+                btn.Click += TemplateSelected;
+                templatesListBox.Items.Add(btn);
             }
+        }
+        private static void TemplateSelected(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            currentTemplate = btn.Content.ToString();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
+        }
+
+        private void Button_Click2(object sender, RoutedEventArgs e)
+        {
+            if (currentTemplate != null)
+            {
+                MainWindow.mainPage.Content = MainPage.createNewTemplateFromSelected;
+            }
+          
+        }
+
+        private void Button_Click3(object sender, RoutedEventArgs e)
+        {
+            if (currentTemplate != null)
+            {
+                MainWindow.mainPage.Content = MainPage.editTemplate;
+            }
         }
     }
 }

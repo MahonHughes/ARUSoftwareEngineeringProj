@@ -9,14 +9,18 @@
       Title="CreateNewTemplate">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="553*"/>
+            <ColumnDefinition Width="247*"/>
+        </Grid.ColumnDefinitions>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF4736B3" Offset="1"/>
+                <GradientStop Color="#FF5645C0" Offset="1"/>
                 <GradientStop Color="#FFF60FC5"/>
-                <GradientStop Color="#FF97179D" Offset="0.583"/>
+                <GradientStop Color="#FF5645C0"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <ListBox x:Name="list_box" HorizontalAlignment="Left" Height="281" Margin="279,105,0,0" VerticalAlignment="Top" Width="282" BorderBrush="White" BorderThickness="3" Loaded="list_box_Loaded" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible">
+        <ListBox x:Name="list_box" HorizontalAlignment="Left" Height="281" Margin="279,105,0,0" VerticalAlignment="Top" Width="282" BorderBrush="White" BorderThickness="3" Loaded="list_box_Loaded" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="2">
             <ListBox.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
@@ -24,17 +28,17 @@
             </ListBox.Resources>
             <ListBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF6D33B4" Offset="1"/>
+                    <GradientStop Color="#FF5748B8" Offset="1"/>
                     <GradientStop Color="#FFD120BD"/>
-                    <GradientStop Color="#FF9A199D" Offset="0.58"/>
+                    <GradientStop Color="#FF5645C0"/>
                 </LinearGradientBrush>
             </ListBox.Background>
         </ListBox>
         <Label Content="Template name:" HorizontalAlignment="Left" Margin="126,27,0,0" VerticalAlignment="Top" FontSize="30" Foreground="White" />
 
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="36" Margin="369,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" FontSize="24"/>
-        <Button Content="Submit" HorizontalAlignment="Left" Margin="602,385,0,0" VerticalAlignment="Top" Width="157" Height="40" Click="Submit"/>
-        <Button x:Name="bt_cancel" Content="Cancel" HorizontalAlignment="Left" Margin="79,385,0,0" VerticalAlignment="Top" Width="157" Height="40" Click="Button_Click"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="36" Margin="369,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" FontSize="24" Grid.ColumnSpan="2"/>
+        <Button Content="Submit" HorizontalAlignment="Left" Margin="49.4,385,0,0" VerticalAlignment="Top" Width="157" Height="40" Click="Submit" Grid.Column="1"/>
+        <Button x:Name="bt_cancel" Content="Back" HorizontalAlignment="Left" Margin="79,385,0,0" VerticalAlignment="Top" Width="157" Height="40" Click="Button_Click"/>
 
     </Grid>
 </Page>
