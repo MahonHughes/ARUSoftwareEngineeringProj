@@ -90,6 +90,7 @@
       <DependentUpon>CustomCommentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="FeedbackSection.cs" />
+    <Compile Include="PdfCreator.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="Comment.cs" />
     <Compile Include="Constants.cs" />

@@ -259,7 +259,7 @@ namespace LoginPage
                 }
                 else
                 {
-                    for (int i = 0; i < feedbackListView.Items.Count; i++)
+                    for (int i = 0; i < feedbackListView.Items.Count; i++)//Also need changes for custom------------------------------------------------
                     {
                         comboBoxes[i].SelectedIndex = -1;
                     }
@@ -273,7 +273,7 @@ namespace LoginPage
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PreviewComment(object sender, RoutedEventArgs e)
+        private void PreviewComment(object sender, RoutedEventArgs e)//Also need changes for custom------------------------------------------------------------------------
         {
             //Gets clicked object
             Button btn = (Button) sender;
@@ -421,7 +421,7 @@ namespace LoginPage
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnSaveFeedback_Click(object sender, RoutedEventArgs e)
+        private void btnSaveFeedback_Click(object sender, RoutedEventArgs e)//Also need changes for custom------------------------------------------------
         {
             string name = selectedApplcant.Content.ToString();
 
@@ -615,7 +615,7 @@ namespace LoginPage
                                 feedbackAndSelectedEqual = false;
                                 break;
                             }
-                        }//Possible else when adding customs
+                        }//Possible else when adding customs//Also need changes for custom------------------------------------------------
                     }
                 }
             }
@@ -688,7 +688,7 @@ namespace LoginPage
         {
             for (int i = 0; i < comboBoxes.Count; i++)
             {
-                comboBoxes[i].SelectedIndex = -1;
+                comboBoxes[i].SelectedIndex = -1;//Also need changes for custom------------------------------------------------
             }
         }
 
@@ -705,7 +705,7 @@ namespace LoginPage
             {
                 for (int i = 0; i < comboBoxes.Count; i++)
                 {
-                    comboBoxes[i].SelectedIndex = applicants[index].previousFeedback[i][1];//Also need changes for custom
+                    comboBoxes[i].SelectedIndex = applicants[index].previousFeedback[i][1];//Also need changes for custom------------------------------------------------
                 }
             }
         }
