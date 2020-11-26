@@ -62,7 +62,7 @@ namespace LoginPage
         public static string getPreviousFeedbackQuery ="SELECT Applicant_Comment.comment_Id, Comments.section_id FROM Applicant_Comment INNER JOIN Comments On Applicant_Comment.comment_Id = Comments.comment_id WHERE Applicant_Comment.applicant_Id = ";
 
         //SQL Query - Gets the comment ID and the Section ID from the Applicant_Comment table in the database
-        public static string getPreviousCustomComments = "SELECT TemporaryComment.tempComment_Id, TemporaryComment.section_id FROM TemporaryComment WHERE TemporaryCommet.applicant_Id = ";
+        public static string getPreviousCustomComments = "SELECT TemporaryComment.tempComment_Id, TemporaryComment.section_id FROM TemporaryComment WHERE TemporaryComment.applicant_Id = ";
 
         //SQL Query - Get the all comment details from the Comment table
         public static string getAllCommentDetails = "SELECT * FROM Comments WHERE section_id = '";

@@ -42,6 +42,11 @@ namespace LoginPage
             InitializeComponent();
         }
 
+        /// <summary>
+        /// On page load sets up the pages display and variables.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             sectionIndex = 0;
@@ -86,7 +91,7 @@ namespace LoginPage
 
         /// <summary>
         /// Creates the applicant object (a button) with required settings and adds it to
-        /// the applicant list box.
+        /// the applicant list box. Also selecting the first applicant as the currently selected.
         /// </summary>
         private void PopulateApplicantsListBox()
         {
@@ -129,7 +134,7 @@ namespace LoginPage
             else
             {
                 BrushConverter bc = new BrushConverter();
-                selectedApplcant.Background = (Brush)bc.ConvertFrom("#FF3A7E85");//Colour from 'ListBoxButton' style in resource dictionary
+                selectedApplcant.Background = (Brush)bc.ConvertFrom("#FF3A7E85");
 
                 selectedApplcant = _btn;
                 _btn.Background = Brushes.Blue;
@@ -137,7 +142,7 @@ namespace LoginPage
         }
 
         /// <summary>
-        /// Allows each applicant to have a count so each one knows how many 
+        /// Allows each applicant to have a section count so each one knows how many 
         /// values it should have for previous feedback.
         /// </summary>
         private void ProvideSectionCountToApplicants()
@@ -149,12 +154,14 @@ namespace LoginPage
         }
 
         /// <summary>
-        /// Sets the comboboxes' selections to the previously selected options.
+        /// Sets the comboboxes' selections to the previously selected options and adds the relevant visual cues for a custom comment.
+        /// Called after page has loaded and when applicant transitions are made.
         /// </summary>
         private void SetPreviousFeedbackSelectionsInComboBoxes()
         {
-            int currentIndex = FindSelectedApplicant();
+            int currentIndex = FindSelectedApplicantIndex();
 
+            //Sets the standard feedback selections
             if (applicants[currentIndex].hasSavedFeedback == true)
             {
                 for (int i = 0; i < applicants[currentIndex].previousFeedback.Count; i++)
@@ -168,19 +175,43 @@ namespace LoginPage
                     }
                 }
             }
+
+            //Sets the custom comment selections
+            if (applicants[currentIndex].hasSavedCustomFeedback == true)
+            {
+                for (int i = 0; i < applicants[currentIndex].previousFeedbackCustomComments.Count; i++)
+                {
+                    for (int j = 0; j < comboBoxes.Count; j++)
+                    {
+                        if (sections[j].sectionID == applicants[currentIndex].previousFeedbackCustomComments[i][0])
+                        {
+                            comboBoxes[j].Items.Add("(User defined selection)");
+                            comboBoxes[j].SelectedItem = "(User defined selection)";
+                            comboBoxes[j].IsEnabled = false;
+                            comboBoxes[j].Opacity = 150;
+
+                            customCommentButtons[j].Background = Brushes.Black;
+                            customCommentButtons[j].Foreground = Brushes.White;
+                            customCommentButtons[j].Content = "Comment Added";
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>
         /// Checks if each applicant has saved feedback before calling the database to get a list of the 
         /// section and comment ID's then calls to convert the comment ID's to the relevant combo box 
-        /// indexes for the comment. Then sends the list to the applicant for storage until needed.
+        /// indexes for that comment and sends the list to the applicant for storage until needed.
         /// </summary>
         private void ProvidePreviousFeedbackListsForApplicants()
         {
             for (int i = 0; i < applicants.Count; i++)
             {
+                //for each applicant
                 if (applicants[i].hasSavedFeedback)
                 {
+                    //Gets saved standard feedback if they have any
                     List<int[]> sections_comments = new List<int[]>();
 
                     sections_comments = DBConnection.SearchForPreviousFeedback(applicants[i].ID);
@@ -189,6 +220,19 @@ namespace LoginPage
 
                     applicants[i].CreatePreviousFeedbackList(sections_comments);
                 }
+
+                //Gets saved custom feedback if they have any
+                if (applicants[i].hasSavedCustomFeedback)
+                {
+                    List<int[]> sections_commentsCust = new List<int[]>();
+
+                    sections_commentsCust = DBConnection.SearchForPreviousCustomCommentFeedback(applicants[i].ID);
+
+                    for (int j = 0; j < sections_commentsCust.Count; j++)
+                    {
+                        applicants[i].previousFeedbackCustomComments.Add(sections_commentsCust[j]);
+                    }
+                }
             }
         }
 
@@ -196,7 +240,7 @@ namespace LoginPage
         /// Takes a list of int arrays where each array holds the section ID and Comment ID for previously selected 
         /// feedback then alters the comment ID to the required combo box index.
         /// </summary>
-        /// <param name="_list">List to have the second int in each array changed from comment ID to combo box index.</param>
+        /// <param name="_list">List containing int arrays holding a section ID and a comment ID.</param>
         /// <returns>List of int arrays, the second int in each array altered to be the combo box index for that comment.</returns>
         private List<int[]> ChangeDBCommentIDsToComboBoxIndexes(List<int[]> _list)
         {
@@ -221,8 +265,8 @@ namespace LoginPage
         /// <summary>
         /// Finds the index in the applicant list of the currently selected applicant (button).
         /// </summary>
-        /// <returns>Int, the index in the applicant list.</returns>
-        public int FindSelectedApplicant()
+        /// <returns>Int, currently selected applicants index in the applicant list.</returns>
+        public int FindSelectedApplicantIndex()
         {
             int applicantIndex = -1;
 
@@ -251,18 +295,50 @@ namespace LoginPage
                 Button btn = (Button)sender;
 
                 SetSelectedApplicantButton(btn);
-                int appIndex = FindSelectedApplicant();
+                int appIndex = FindSelectedApplicantIndex();
 
                 if (applicants[appIndex].hasSavedFeedback)
                 {
+                    ResetAllListViewElements();
                     SetPreviousFeedbackSelectionsInComboBoxes();
                 }
                 else
                 {
-                    for (int i = 0; i < feedbackListView.Items.Count; i++)//Also need changes for custom------------------------------------------------
-                    {
-                        comboBoxes[i].SelectedIndex = -1;
-                    }
+                    ResetAllListViewElements();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Resets all the combo box and button elements in the list view to starting values.
+        /// </summary>
+        private void ResetAllListViewElements()
+        {
+            BrushConverter bc = new BrushConverter();
+
+            for (int i = 0; i < sections.Count; i++)
+            {
+                comboBoxes[i].SelectedIndex = -1;
+                comboBoxes[i].IsEnabled = true;
+
+                customCommentButtons[i].Background = (Brush)bc.ConvertFrom("#FF3A7E85");
+                customCommentButtons[i].Foreground = Brushes.Black;
+                customCommentButtons[i].Content = "Add";
+            }
+
+            RemoveUserSelectionElementFromComboBoxes();
+        }
+
+        /// <summary>
+        /// Removes the added element "(User defined selection)" from any combo boxes it has been added to.
+        /// </summary>
+        private void RemoveUserSelectionElementFromComboBoxes()
+        {
+            for (int i = 0; i < comboBoxes.Count; i++)
+            {
+                if (comboBoxes[i].Items.Contains("(User defined selection)"))
+                {
+                    comboBoxes[i].Items.Remove("(User defined selection)");
                 }
             }
         }
@@ -273,7 +349,7 @@ namespace LoginPage
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void PreviewComment(object sender, RoutedEventArgs e)//Also need changes for custom------------------------------------------------------------------------
+        private void PreviewComment(object sender, RoutedEventArgs e)
         {
             //Gets clicked object
             Button btn = (Button) sender;
@@ -283,15 +359,22 @@ namespace LoginPage
             //Only if an option is selected
             if (comboBoxes[index].SelectedIndex != -1)
             {
-                //Gets the selected item from the relevant combo box
-                string code = comboBoxes[index].SelectedItem.ToString();
-
-                //Searches for the correct comment with the given code to display the full comment
-                for (int i = 0; i < sections[index].comments.Count; i++)
+                if (comboBoxes[index].SelectedItem.ToString() == "(User defined selection)")
                 {
-                    if (sections[index].comments[i].code_name == code)
+                    MessageBox.Show("Error: To view a user defined comment open the custom comment window.");
+                }
+                else
+                {
+                    //Gets the selected item from the relevant combo box
+                    string code = comboBoxes[index].SelectedItem.ToString();
+
+                    //Searches for the correct comment with the given code to display the full comment
+                    for (int i = 0; i < sections[index].comments.Count; i++)
                     {
-                        MessageBox.Show("The full comment is: \n" + sections[index].comments[i].text);
+                        if (sections[index].comments[i].code_name == code)
+                        {
+                            MessageBox.Show("The full comment is: \n" + sections[index].comments[i].text);
+                        }
                     }
                 }
             }
@@ -336,7 +419,7 @@ namespace LoginPage
         }
 
         /// <summary>
-        /// Called by the 'Add' button to save a custom comment for a section.
+        /// Called by the 'Add' button to save a custom comment for a section (showing the add custom comment window).
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -354,7 +437,7 @@ namespace LoginPage
 
         /// <summary>
         /// Allows the CustomCommentWindow to call back to the Feedback page to set what has been entered,
-        /// if anything, in the DB and on the appliant. then 
+        /// if anything, in the DB and on the appliant. Also alter the UI.
         /// </summary>
         /// <param name="callingButtonIndex"></param>
         /// <param name="addedCustomComment"></param>
@@ -368,7 +451,7 @@ namespace LoginPage
                 comboBoxes[callingButtonIndex].Opacity = 150;
 
                 int applicantID = GetApplicantID();
-                int applicantIndex = FindSelectedApplicant();
+                int applicantIndex = FindSelectedApplicantIndex();
 
                 int tempCommentID = DBConnection.InsertCustomCommentAndGetItsID(addedCustomComment, sectionIdNumber, applicantID);
 
@@ -410,6 +493,7 @@ namespace LoginPage
 
             sectionIndex++;
 
+            //Allows the setting of previous feedback after the boxes have all loaded
             if(sectionIndex >= sections.Count -1)
             {
                 SetPreviousFeedbackSelectionsInComboBoxes();
@@ -421,20 +505,20 @@ namespace LoginPage
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnSaveFeedback_Click(object sender, RoutedEventArgs e)//Also need changes for custom------------------------------------------------
+        private void btnSaveFeedback_Click(object sender, RoutedEventArgs e)
         {
             string name = selectedApplcant.Content.ToString();
 
             if (ComboBoxesAreAllFilled())
             {
-                int applicantIndex = FindSelectedApplicant();
+                int applicantIndex = FindSelectedApplicantIndex();
                 int applicantID = GetApplicantID();
 
                 List<int> commentIDs = GetCommentIDs();
 
                 if (!applicants[applicantIndex].hasSavedFeedback)
                 {
-                    for (int i = 0; i < sections.Count; i++)
+                    for (int i = 0; i < commentIDs.Count; i++)
                     {
                         DBConnection.WriteFeedbackEntryToDatabase(applicantID, commentIDs[i]);
                     }
@@ -450,7 +534,7 @@ namespace LoginPage
                 {
                     DBConnection.RemoveOldFeedBackEntires(applicantID);
 
-                    for (int i = 0; i < sections.Count; i++)
+                    for (int i = 0; i < applicants[applicantIndex].previousFeedback.Count; i++)
                     {
                         DBConnection.WriteFeedbackEntryToDatabase(applicantID, commentIDs[i]);
                     }
@@ -467,8 +551,8 @@ namespace LoginPage
         }
 
         /// <summary>
-        /// Gets the currently selected comments codes converts them to their ID's 
-        /// and adds them to the list.
+        /// Gets the currently selected combo box items (comment codes) and converts them to their ID's 
+        /// then adds them to the list.
         /// </summary>
         /// <returns>List of an applicants currently selected comment ID's.</returns>
         private List<int> GetCommentIDs()
@@ -479,20 +563,24 @@ namespace LoginPage
             {
                 if (comboBoxes[i].SelectedIndex == -1)
                 {
-                    MessageBox.Show("Error! You have not filled in all the sections.");//Need to be altered for custom comments-----------------------------------------
+                    MessageBox.Show("Error! You have not filled in all the sections.");
                     break;
                 }
                 else
                 {
-                    //Gets the selected item from the relevant combo box
-                    string code = comboBoxes[i].SelectedItem.ToString();
-
-                    //Searches for the correct comment with the given code to display the full comment
-                    for (int j = 0; j < sections[i].comments.Count; j++)
+                    if (customCommentButtons[i].Content.ToString() == "Add")
                     {
-                        if (sections[i].comments[j].code_name == code)
+                        //Gets the selected item from the relevant combo box
+                        string code = comboBoxes[i].SelectedItem.ToString();
+
+                        //Searches for the correct comment with the given code to display the full comment
+                        for (int j = 0; j < sections[i].comments.Count; j++)
                         {
-                            list.Add(sections[i].comments[j].comment_id);
+                            if (sections[i].comments[j].code_name == code)
+                            {
+                                list.Add(sections[i].comments[j].comment_id);
+                                break;
+                            }
                         }
                     }
                 }
@@ -502,7 +590,7 @@ namespace LoginPage
         }
 
         /// <summary>
-        /// Uses the currently selected applicants name to find the correct ID
+        /// Uses the currently selected applicants name to find the correct applicant ID,
         /// for writing feedback to the database.
         /// </summary>
         /// <returns>Int the currently selected applicant's ID.</returns>
@@ -523,7 +611,7 @@ namespace LoginPage
         }
 
         /// <summary>
-        /// Takes user back a page when 'Back' button is pushed.
+        /// Takes user back a page when 'Back' button is pushed. If this will not cause data loss.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -539,33 +627,41 @@ namespace LoginPage
         /// Checks if it is ok to leave feedback page or transition to a different applicant.
         /// Prevents loss of unsaved progress.
         /// </summary>
-        /// <returns>Bool, true if the selected feedback is either saved or there is none.</returns>
+        /// <returns>Bool, true if no errors will be caused by a page or applicant transition.</returns>
         private bool CheckIfCanTransitionWithoutLossOfData()
         {
             bool noActionRequired = false;
 
-            if (ComboBoxesAreAllEmpty())
+            if (ComboBoxesAreAllEmpty())//If combo boxes are empty
             {
-                int index = FindSelectedApplicant();
+                int index = FindSelectedApplicantIndex();
 
-                if (!applicants[index].hasSavedFeedback)
+                if (!applicants[index].hasSavedFeedback)//If applicant does not have feedback
                 {
-                    //Combo boxes are empty, applicant has no saved feedback - no action
-                    noActionRequired = true;
+                    noActionRequired = true;//Combo boxes are empty, applicant has no saved feedback - no action
                 }
                 else
                 {
-                    ShowWarning();
+                    ShowWarning();//Combo boxes are empty but applicant has feedback - error
                 } 
             }
-            else if (IsSelectedFeedbackEqualToSavedFeedback())
+            else//Combo boxes are not empty
             {
-                //Combo boxes not empty but feedback saved - no atcion
-                noActionRequired = true;
-            }
-            else
-            {
-                ShowWarning();
+                if (ComboBoxesAreAllFilled())//If combo boxes are all filled
+                {
+                    if (IsSelectedFeedbackEqualToSavedFeedback())//(Combo boxes are all filled) If the selections are equal to what the applicant has record of
+                    {
+                        noActionRequired = true;//Combo boxes are filled but selections saved - no atcion
+                    }
+                    else//Combo boxes are all filled but the selections are not saved - error
+                    {
+                        ShowWarning();
+                    }
+                }
+                else//Combo boxes are not empty but not all filled - error
+                {
+                    ShowWarning();
+                } 
             }
 
             return noActionRequired;
@@ -576,7 +672,6 @@ namespace LoginPage
         /// </summary>
         private void ShowWarning()
         {
-            //Combo boxes not empty and feedback not saved - warning
             MessageBox.Show("Warning! There are incomplete or unsaved selections. \nComplete and/or save your feedback before exiting.");
         }
 
@@ -589,7 +684,7 @@ namespace LoginPage
         {
             bool feedbackAndSelectedEqual = true;
 
-            int index = FindSelectedApplicant();
+            int index = FindSelectedApplicantIndex();
 
             if (applicants[index].hasSavedFeedback)
             {
@@ -598,8 +693,8 @@ namespace LoginPage
 
                 for (int i = 0; i < comboBoxes.Count; i++)
                 {
-                    int[] tuple = new int[] { sections[i].sectionID, comboBoxes[i].SelectedIndex };
-                    listOne.Add(tuple);
+                    int[] pair = new int[] { sections[i].sectionID, comboBoxes[i].SelectedIndex };
+                    listOne.Add(pair);
                 }
 
                 listTwo = applicants[index].previousFeedback;
@@ -615,7 +710,7 @@ namespace LoginPage
                                 feedbackAndSelectedEqual = false;
                                 break;
                             }
-                        }//Possible else when adding customs//Also need changes for custom------------------------------------------------
+                        }
                     }
                 }
             }
@@ -628,7 +723,8 @@ namespace LoginPage
         }
 
         /// <summary>
-        /// Takes user to dashboard when 'Finish' button is pushed.
+        /// Saves the feedback for the current job position as a pdf, sends this feedback as an email 
+        /// then takes user to dashboard when 'Finish' button is pushed.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -680,7 +776,8 @@ namespace LoginPage
         }
 
         /// <summary>
-        /// Clears the current selections of the combo boxes.
+        /// Clears the current selections of the combo boxes 
+        /// (not the custom comments which are done via the custom comment window).
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -688,32 +785,38 @@ namespace LoginPage
         {
             for (int i = 0; i < comboBoxes.Count; i++)
             {
-                comboBoxes[i].SelectedIndex = -1;//Also need changes for custom------------------------------------------------
+                if (customCommentButtons[i].Content.ToString() == "Add")
+                {
+                    comboBoxes[i].SelectedIndex = -1;
+                }
             }
         }
 
         /// <summary>
-        /// Restores the combo box selections to the saved settings.
+        /// Restores the combo box selections to the saved settings (If the clear button has been pressed
+        /// or an unwanted change has been made).
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Restore_Click(object sender, RoutedEventArgs e)
         {
-            int index = FindSelectedApplicant();
+            int index = FindSelectedApplicantIndex();
 
             if (applicants[index].hasSavedFeedback)
             {
-                for (int i = 0; i < comboBoxes.Count; i++)
-                {
-                    comboBoxes[i].SelectedIndex = applicants[index].previousFeedback[i][1];//Also need changes for custom------------------------------------------------
-                }
+                SetPreviousFeedbackSelectionsInComboBoxes();
             }
         }
 
+        /// <summary>
+        /// Called by the custom comment window to remove a custom comment (from the applicant and the DB).
+        /// </summary>
+        /// <param name="_customCommentID">Int, the ID of the comment to be removed.</param>
+        /// <param name="_sectionID">Int, the ID of the section that comment was made for.</param>
         public void RemoveCustomCommentFromDatabaseAndApplicant(int _customCommentID, int _sectionID)
         {
             int _applicant = GetApplicantID();
-            int index = FindSelectedApplicant();
+            int index = FindSelectedApplicantIndex();
 
             DBConnection.RemoveCustomComment(_customCommentID);
 
@@ -727,5 +830,3 @@ namespace LoginPage
         }
     }
 }
-//To do
-//Sort custom comments setting in boxes when switching applicants and loading

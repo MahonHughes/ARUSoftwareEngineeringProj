@@ -54,18 +54,6 @@ namespace LoginPage
         public void CreatePreviousFeedbackList(List<int[]> _previousFeedback)
         {
             previousFeedback = _previousFeedback;
-
-            //Need to be moved as this is called after saving
-            if (previousFeedback.Count != sectionsCount)
-            {
-                previousFeedbackCustomComments = DBConnection.SearchForPreviousCustomCommentFeedback(ID);
-
-                for (int i = 0; i < previousFeedbackCustomComments.Count; i++)
-                {
-                    string msg = "Previous custom feedback for section: " + previousFeedbackCustomComments[i][0].ToString() + ". Comment ID: " + previousFeedbackCustomComments[i][1].ToString() + ".";
-                    MessageBox.Show(msg);
-                }
-            }
         }
 
         /// <summary>

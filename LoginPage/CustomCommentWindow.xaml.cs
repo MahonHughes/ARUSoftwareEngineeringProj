@@ -26,6 +26,7 @@ namespace LoginPage
         public bool validComment = false;
         private int sectionIdNumber;
         private int customCommentId = -1;
+        private int applicantIndex;
 
         public CustomCommentWindow()
         {
@@ -43,7 +44,7 @@ namespace LoginPage
 
         private void CustomComment_OnLoad(object sender, RoutedEventArgs e)
         {
-            int applicantIndex = parent.FindSelectedApplicant();
+            applicantIndex = parent.FindSelectedApplicantIndex();
 
             if (parent.applicants[applicantIndex].hasSavedCustomFeedback)
             {

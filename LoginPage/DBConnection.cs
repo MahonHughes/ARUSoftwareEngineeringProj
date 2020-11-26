@@ -610,11 +610,11 @@ namespace LoginPage
                 {
                     while (reader.Read())
                     {
-                        int[] tuple = new int[2];
+                        int[] pair = new int[2];
 
-                        if (Int32.TryParse(reader[0].ToString(), out tuple[0]) && Int32.TryParse(reader[1].ToString(), out tuple[1]))
+                        if (Int32.TryParse(reader[0].ToString(), out pair[1]) && Int32.TryParse(reader[1].ToString(), out pair[0]))
                         {
-                            sections_comments.Add(tuple);
+                            sections_comments.Add(pair);
                         }
                     }
                 }
@@ -641,10 +641,6 @@ namespace LoginPage
 
                 SqlCommand cmd = new SqlCommand(query, dbConnetion);
 
-                //cmd.CommandType = System.Data.CommandType.Text;
-                //cmd.Parameters.Add(new SqlParameter("comment_text", one));
-                //cmd.Parameters.Add(new SqlParameter("section_id", two));
-                //cmd.Parameters.Add(new SqlParameter("applicant_Id", three));
                 cmd.ExecuteNonQuery();
             }
 
