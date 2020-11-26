@@ -43,7 +43,7 @@ namespace LoginPage
             return "DELETE FROM Comments WHERE comment_id = " + comment_id.ToString();
         }
 
-        public static string insertApplicant = "INSERT INTO Applicants (applicant_name, applicant_email, job_Id, hasFeedback) VALUES (@applicant_name, @applicant_email, @job_Id, @hasFeedback)";
+        public static string insertApplicant = "INSERT INTO Applicants (applicant_name, applicant_email, job_Id, hasFeedback, hasCustomFeedback) VALUES (@applicant_name, @applicant_email, @job_Id, @hasFeedback, @hasCustomFeedback)";
 
         //SQL queries for FeedbackPage
         public static string getApplicants = "SELECT * FROM Applicants";// WHERE Applicants.job_id = @selected job;

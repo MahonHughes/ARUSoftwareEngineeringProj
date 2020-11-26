@@ -104,6 +104,8 @@ namespace LoginPage
                 for (int i = 0; i < applicants.Length; i++)
                 {
                     applicants[i].groupID = groupID;
+                    applicants[i].hasSavedFeedback = false;
+                    applicants[i].hasSavedCustomFeedback = false;
                 }
                 DBConnection.InsertApplicants(applicants);
                 candidateListBox.Items.Clear();

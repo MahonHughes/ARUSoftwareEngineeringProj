@@ -200,6 +200,7 @@ namespace LoginPage
                     cmd.Parameters.Add(new SqlParameter("applicant_email", ApplicantArray[i].emailAddress));
                     cmd.Parameters.Add(new SqlParameter("job_Id", ApplicantArray[i].groupID));
                     cmd.Parameters.Add(new SqlParameter("hasFeedback", ApplicantArray[i].hasSavedFeedback));
+                    cmd.Parameters.Add(new SqlParameter("hasCustomFeedback", ApplicantArray[i].hasSavedCustomFeedback));
                     cmd.ExecuteNonQuery();
                 }
             }
