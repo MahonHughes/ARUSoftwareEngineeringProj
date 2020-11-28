@@ -18,55 +18,57 @@ using System.IO;
 using System.Diagnostics;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-
+using System;
 
 
 namespace LoginPage
 {
     class Email
     {
-        //public Email(System.Net.Mail.Attachment pdfFile)
-        //{
-        //    MailMessage feedbackEmail = new MailMessage();
-        //    feedbackEmail.Attachments.Add(pdfFile);
-        //}
+        public Email(System.Net.Mail.Attachment pdfFile)
+        {
+            MailMessage feedbackEmail = new MailMessage();
+            feedbackEmail.Attachments.Add(pdfFile);
+        }
 
-        //public static void SendEmail(string filename, string applicantName, string applicantEmail, string staffMember, string staffMemberEmail, List<string> comments, List<string> sections)
-        //{
-        //    PdfCreator pdf = new PdfCreator(filename, applicantName, applicantEmail, staffMember, staffMemberEmail, comments, sections);
-        //    try
-        //    {
-        //        //Setting up the smtp port
-        //        SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
-        //        client.EnableSsl = true;
+        public static void SendEmail(string filename, string applicantName, string applicantEmail, string staffMember, string staffMemberEmail, List<string> comments, List<string> sections)
+        {
+            MailMessage emailTOsend = new MailMessage();
 
-        //        //Setting up a timer before showing wether the email was sent or not 
-        //        client.Timeout = 2000;
+            PdfCreator pdf = new PdfCreator(filename, applicantName, applicantEmail, staffMember, staffMemberEmail, comments, sections);
+            try
+            {
+                //Setting up the smtp port
+                SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+                client.EnableSsl = true;
 
-        //        // email delivery method
-        //        client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                //Setting up a timer before showing wether the email was sent or not 
+                client.Timeout = 2000;
 
-        //        emailTOsend.Subject = "Feedback";
-        //        emailTOsend.Body = ("Dear " + applicantName + "," + "\n" + "Find attached your feedback" + pdf);
+                // email delivery method
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
 
-        //        //setting up the credentials of the email used as a sender
-        //        client.UseDefaultCredentials = false;
-        //        client.Credentials = new NetworkCredential("staff999111@gmail.com", "Password123@");
+                emailTOsend.Subject = "Feedback";
+                emailTOsend.Body = ("Dear " + applicantName + "," + "\n" + "Find attached your feedback" + pdf);
 
-        //        //Setting up the sender
-        //        emailTOsend.From = new MailAddress("staff999111@gmail.com");
+                //setting up the credentials of the email used as a sender
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential("staff999111@gmail.com", "Password123@");
+
+                //Setting up the sender
+                emailTOsend.From = new MailAddress("staff999111@gmail.com");
 
 
-        //        // Setting up the recipient
-        //        emailTOsend.To.Add(applicantEmail);
-        //        client.Send(emailTOsend);
-        //        MessageBox.Show("Successfuly sent");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //    }
-        //}
+                // Setting up the recipient
+                emailTOsend.To.Add(applicantEmail);
+                client.Send(emailTOsend);
+                MessageBox.Show("Successfuly sent");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
 
