@@ -8,6 +8,7 @@ using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Drawing;
+using System.Drawing.Design;
 
 
 namespace LoginPage
@@ -199,9 +200,9 @@ namespace LoginPage
                 iTextSharp.text.Font font = new iTextSharp.text.Font(bf, 15, iTextSharp.text.Font.NORMAL);
                 iTextSharp.text.Font fontbold = new iTextSharp.text.Font(bf, 15, iTextSharp.text.Font.BOLD);
                 mydoc.Add(new iTextSharp.text.Paragraph("  ", font));
-                Paragraph sectionpar = new Paragraph(sections[i], FontFactory.GetFont("Garamond", 20, Font.BOLD));
+                Paragraph sectionpar = new Paragraph(sections[i], FontFactory.GetFont("Garamond", 20, iTextSharp.text.Font.BOLD));
                 sectionpar.Font.Color = new iTextSharp.text.BaseColor(00, 168, 243);
-                Paragraph commentpar = new Paragraph(comments[i], FontFactory.GetFont("Arial", 15, Font.NORMAL));
+                Paragraph commentpar = new Paragraph(comments[i], FontFactory.GetFont("Arial", 15, iTextSharp.text.Font.NORMAL));
                 sectionpar.Alignment = Element.ALIGN_CENTER;
 
 
