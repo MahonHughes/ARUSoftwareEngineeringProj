@@ -75,5 +75,19 @@ namespace LoginPage
 
             return return_sections;
         }
+
+        public static bool TemplateExists(string text)
+        {
+            bool flag = false;
+            foreach (string a in ManageTemplatesPage.templateNameArray)
+            {
+                if (a == text)
+                {
+                    flag = true;
+                    break;
+                }
+            }
+            return flag;
+        }
     }
 }
