@@ -20,6 +20,7 @@ namespace LoginPage
         {
             return "DELETE FROM Sections WHERE section_id = " + section_id.ToString();
         }
+        public static string deleteSection = "DELETE FROM Sections WHERE section_id = @section";
 
 
         //SQL queries for ProceedToFeedback
@@ -28,20 +29,11 @@ namespace LoginPage
         public static int templatesNameColumnIndex = 0;
         public static int jobPositionsNameColumnIndex = 0;
 
-        //SQL queris for Comment class
-        public static string GetCommets(int section_id)
-        {
-            return  "SELECT code_name, comment_text, comment_id FROM [Comments] WHERE Comments.section_id = " + section_id.ToString();
-        }
+        //SQL queries for Comment class
+        public static string getComments = "SELECT code_name, comment_text, comment_id FROM [Comments] WHERE Comments.section_id = @section";
         public static string insertComment = "INSERT INTO Comments (code_name, comment_text, section_id) VALUES (@code_name, @comment_text, @section_id)";
-        public static string DeleteComments(int section_id)
-        {
-            return "DELETE FROM Comments WHERE section_id = " + section_id.ToString();
-        }
-        public static string DeleteComment(int comment_id)
-        {
-            return "DELETE FROM Comments WHERE comment_id = " + comment_id.ToString();
-        }
+        public static string deleteComment = "DELETE FROM Comments WHERE comment_id = @comment";
+        public static string deleteComments = "DELETE FROM Comments WHERE section_id = @section";
 
         public static string insertApplicant = "INSERT INTO Applicants (applicant_name, applicant_email, job_Id, hasFeedback, hasCustomFeedback) VALUES (@applicant_name, @applicant_email, @job_Id, @hasFeedback, @hasCustomFeedback)";
 
@@ -56,8 +48,9 @@ namespace LoginPage
         public static string getTemplatesID = "SELECT template_id FROM Templates";
         public static string insertTemplate = " INSERT INTO Templates (template_name)  VALUES (@template_name)";
         public static string insertTemplateSections = "INSERT INTO Template_has_Sections (template_id, section_id) VALUES (@template_id, @section_id)";
-        public static string getTemplateSectoins = "SELECT section_name FROM Sections WHERE section_id IN (SELECT section_id FROM Template_has_sections WHERE template_id IN (SELECT template_id FROM Templates WHERE template_name = @name))";
-
+        public static string getTemplateSections = "SELECT section_name FROM Sections WHERE section_id IN (SELECT section_id FROM Template_has_sections WHERE template_id IN (SELECT template_id FROM Templates WHERE template_name = @name))";
+        public static string deleteTemplate = "DELETE FROM Templates WHERE template_name = @name";
+        public static string deleteTemplateSections = "DELETE FROM Template_has_Sections WHERE template_id = (SELECT template_id FROM Templates WHERE template_name = @name)";
         //SQL Query - Gets the comment ID and the Section ID from the Applicant_Comment table in the database
         public static string getPreviousFeedbackQuery ="SELECT Applicant_Comment.comment_Id, Comments.section_id FROM Applicant_Comment INNER JOIN Comments On Applicant_Comment.comment_Id = Comments.comment_id WHERE Applicant_Comment.applicant_Id = ";
 

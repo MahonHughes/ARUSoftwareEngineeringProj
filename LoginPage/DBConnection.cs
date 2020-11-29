@@ -214,7 +214,8 @@ namespace LoginPage
                 List<Comment> comments = new List<Comment>();
                 dbConnetion.Open();
 
-                SqlCommand cmd = new SqlCommand(Constants.GetCommets(section_id), dbConnetion);
+                SqlCommand cmd = new SqlCommand(Constants.getComments, dbConnetion);
+                cmd.Parameters.Add(new SqlParameter("section", section_id));
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
@@ -344,11 +345,14 @@ namespace LoginPage
             using (dbConnetion = new SqlConnection(connString))
             {
                 dbConnetion.Open();
-                SqlCommand cmd = new SqlCommand(Constants.DeleteComments(section_id), dbConnetion);
+                SqlCommand cmd = new SqlCommand(Constants.deleteComments, dbConnetion);
+                cmd.Parameters.Add(new SqlParameter("section",section_id));
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.ExecuteNonQuery();
 
-                SqlCommand cmd2 = new SqlCommand(Constants.DeleteSection(section_id), dbConnetion);
+                
+                SqlCommand cmd2 = new SqlCommand(Constants.deleteSection, dbConnetion);
+                cmd2.Parameters.Add(new SqlParameter("section", section_id) );
                 cmd2.CommandType = System.Data.CommandType.Text;
                 cmd2.ExecuteNonQuery();
             }
@@ -359,7 +363,8 @@ namespace LoginPage
             using (dbConnetion = new SqlConnection(connString))
             {
                 dbConnetion.Open();
-                SqlCommand cmd = new SqlCommand(Constants.DeleteComment(comment_id), dbConnetion);
+                SqlCommand cmd = new SqlCommand(Constants.deleteComment, dbConnetion);
+                cmd.Parameters.Add(new SqlParameter("comment", comment_id));
                 cmd.CommandType = System.Data.CommandType.Text;
                 cmd.ExecuteReader();
             }
@@ -537,7 +542,7 @@ namespace LoginPage
             {
                 dbConnetion.Open();
 
-                SqlCommand cmd = new SqlCommand(Constants.getTemplateSectoins,dbConnetion);
+                SqlCommand cmd = new SqlCommand(Constants.getTemplateSections,dbConnetion);
                 cmd.Parameters.Add(new SqlParameter("name", templateName));
                 SqlDataReader reader = cmd.ExecuteReader();
 
@@ -714,6 +719,31 @@ namespace LoginPage
                 return comment;
             }
         }
+
+        /// <summary>
+        /// Metod is called from Create new Template page, used when the user wants to edit the existing template 
+        /// This method will delete the old version of template, which than can be replaced with a new one 
+        /// </summary>
+        /// <param name="template_name"></param>
+        public static void DeleteTemplate(string template_name)
+        {
+            using (dbConnetion = new SqlConnection(connString)) {
+
+
+                dbConnetion.Open();
+                //Code for deleting the data from  Template_has_Sections table in the db 
+                SqlCommand cmd = new SqlCommand(Constants.deleteTemplateSections, dbConnetion);
+                cmd.Parameters.Add(new SqlParameter("name", template_name));
+                cmd.ExecuteNonQuery();
+
+                //Code for deleting the data fom Templates table in the db
+                SqlCommand cmd2 = new SqlCommand(Constants.deleteTemplate, dbConnetion);
+                cmd2.Parameters.Add(new SqlParameter("name", template_name));
+                cmd2.ExecuteNonQuery();
+            }
+        }
+        
+      
 
         public static void RemoveCustomComment(int _customCommentID)
         {

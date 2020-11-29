@@ -21,6 +21,8 @@ namespace LoginPage
     public partial class ManageTemplatesPage : Page
     {
         public static string currentTemplate;
+        public static string[] templateNameArray;
+
         public ManageTemplatesPage()
         {
             InitializeComponent();
@@ -34,7 +36,7 @@ namespace LoginPage
 
         private void ListBox_Loaded(object sender, RoutedEventArgs e)
         {
-            string[] templateNameArray = DBConnection.GetTemplateNamesFromDatabase();
+            templateNameArray = DBConnection.GetTemplateNamesFromDatabase();
             templatesListBox.Items.Clear();
             for (int i = 0; i < templateNameArray.Length; i++)
             {

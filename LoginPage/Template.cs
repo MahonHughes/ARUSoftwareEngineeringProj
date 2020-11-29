@@ -28,5 +28,6 @@ namespace LoginPage
             templateSections = sections;
             id = temp_id;    
         }        
+       
     }
 }

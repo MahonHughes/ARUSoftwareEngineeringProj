@@ -48,6 +48,11 @@ namespace LoginPage
             {
                 CreateNewTemplateFromSelectedInterface();
             }
+
+            else if (type == 3)
+            {
+                EditTemplateInterface();
+            }
            
         }
 
@@ -161,37 +166,44 @@ namespace LoginPage
             {
                 MessageBox.Show("Invalid data");
             }
+            else if (type !=3 && TemplateSection.TemplateExists(textBox.Text))
+            {
+                MessageBox.Show("Template alreade exists, chage the name");
+            }
             else
             {
+               
                 List<TemplateSection> sections = TemplateSection.SectionsForTemplate(buttons);
                 int template_id = DBConnection.GetLastTemplateID();
                 template_id++;//You should have no ID and enter it in the table as NULL as it's auto increment but this increment will give you the right one if you still want to use ID
                 Template template = new Template(textBox.Text, sections, template_id);
-
+            
+              
 
                 if (type == 3)
                 {
+                    DBConnection.DeleteTemplate(template.name);
+                }
 
+                DBConnection.InsertTemplate(template.name);
+                DBConnection.InsertTemplateSection(template);
+                
+                textBox.Text = " ";
+
+                if (type == 1)
+                {
+                    ManageTemplatesPage.templateNameArray = DBConnection.GetTemplateNamesFromDatabase();
+                    CreateNewTemplateInterface();
                 }
                 else
                 {
-                    DBConnection.InsertTemplate(template.name);
-                    DBConnection.InsertTemplateSection(template);
+                    MainWindow.mainPage.Content = MainPage.manageTemplatesPage;
                 }
           
 
-                textBox.Text = " ";
             }
 
-            if (type == 1)
-            {
-                CreateNewTemplateInterface();
-            }
-
-            if (type == 2)
-            {
-                MainWindow.mainPage.Content = MainPage.manageTemplatesPage;
-            }
+           
             
         }
 

@@ -146,6 +146,7 @@ namespace LoginPage
 
         private void bt_goBack_Click(object sender, RoutedEventArgs e)
         {
+            commentsListBox.Items.Clear();
             MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
         }
 
@@ -163,8 +164,8 @@ namespace LoginPage
         public void ResetPage()
         {
             sectionsListBox_Loaded(this, null);
-          
         }
+
         private void bt_Delete_Section(object sender, RoutedEventArgs e)
         {
             DBConnection.DeleteSectionFromDatabase(TemplateSection.sections[currentSectionID].sectionID);
