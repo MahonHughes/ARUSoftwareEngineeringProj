@@ -194,5 +194,22 @@ namespace LoginPage
             }
             
         }
+
+        private void Maximise_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainWindow.mainPage.WindowState == WindowState.Normal)
+            {
+                MainWindow.mainPage.WindowState = WindowState.Maximized;
+            }
+            else
+            {
+                MainWindow.mainPage.WindowState = WindowState.Normal;
+            }
+        }
+
+        private void Minimise_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.mainPage.WindowState = WindowState.Minimized;
+        }
     }
 }

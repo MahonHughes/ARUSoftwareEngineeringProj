@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LoginPage"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="700" d:DesignWidth="1200"
       Title="CandidateManagement">
 
     <Grid Background="#FF9BBFA3">
@@ -15,12 +15,14 @@
         </Grid.ColumnDefinitions>
 
 
-        <Label Content="Candidate Management" HorizontalAlignment="Left" Margin="259,31,0,0" VerticalAlignment="Top" Height="43" Width="303" FontSize="24" Grid.ColumnSpan="2"/>
-        <Button x:Name="bt_goBack" Content="Back" HorizontalAlignment="Left" Margin="31,375,0,0" VerticalAlignment="Top" Width="161" Height="41" FontSize="18" Grid.ColumnSpan="2" Click="bt_goBack_Click"/>
-        <ListBox x:Name="candidateListBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="178" Margin="109,79,0,0" VerticalAlignment="Top" Width="577"/>
-        <Button x:Name="ExecuteBtn" Content="Upload CSV..." HorizontalAlignment="Left" Margin="109,262,0,0" VerticalAlignment="Top" Width="161" Height="40" FontSize="18" Grid.ColumnSpan="2" Click="ExecuteBtn_Click" />
-        <Button x:Name="ConfirmButton" Content="Confirm" HorizontalAlignment="Left" Margin="525,262,0,0" VerticalAlignment="Top" Width="161" Height="40" FontSize="18" Grid.ColumnSpan="2" Click="ConfirmButton_Click" />
-        <ComboBox x:Name="JobPositionsDropdown" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="333,275,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Candidate Management" HorizontalAlignment="Center" Margin="331,31,330,0" VerticalAlignment="Top" Height="79" Width="539" FontSize="48" Grid.ColumnSpan="2"/>
+        <Button x:Name="bt_goBack" Content="Back" HorizontalAlignment="Left" Margin="37,0,0,26" VerticalAlignment="Bottom" Width="250" Height="65" FontSize="30" Grid.ColumnSpan="2" Click="bt_goBack_Click"/>
+        <ListBox x:Name="candidateListBox" Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="336" Margin="137,120,140,244" VerticalAlignment="Center" Width="923"/>
+        <Button x:Name="ExecuteBtn" Content="Upload CSV..." HorizontalAlignment="Center" Margin="137,476,813,158" VerticalAlignment="Center" Width="250" Height="66" FontSize="30" Grid.ColumnSpan="2" Click="ExecuteBtn_Click" />
+        <Button x:Name="ConfirmButton" Content="Confirm" HorizontalAlignment="Center" Margin="810,476,140,158" VerticalAlignment="Center" Width="250" Height="66" FontSize="30" Grid.ColumnSpan="2" Click="ConfirmButton_Click" />
+        <ComboBox x:Name="JobPositionsDropdown" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="462,490,466,172" VerticalAlignment="Center" Width="272" Height="38"/>
+        <Button x:Name="btnMaximise" Grid.ColumnSpan="2" Content="+" HorizontalAlignment="Right" Margin="0,10,18,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Maximise_Click"/>
+        <Button x:Name="btnMinimise" Grid.ColumnSpan="2" Content="-" HorizontalAlignment="Right" Margin="0,10,83,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Minimise_Click"/>
 
     </Grid>
 </Page>

@@ -106,7 +106,8 @@ namespace LoginPage
                 btn.Click += ApplicantSelected;
                 //Sets the buttons width and height
                 btn.Width = applicantListBox.Width - 15;
-                btn.Height = 25;
+                btn.Height = 45;
+                btn.FontSize = 20;
                 //Set button style
                 btn.Style = Application.Current.TryFindResource("ListBoxButton") as Style;
                 //Adds the button to the list box
@@ -129,7 +130,7 @@ namespace LoginPage
             if(selectedApplcant == null)
             {
                 selectedApplcant = _btn;
-                _btn.Background = Brushes.Blue;
+                _btn.Background = Brushes.CornflowerBlue;
             }
             else
             {
@@ -137,7 +138,7 @@ namespace LoginPage
                 selectedApplcant.Background = (Brush)bc.ConvertFrom("#FF3A7E85");
 
                 selectedApplcant = _btn;
-                _btn.Background = Brushes.Blue;
+                _btn.Background = Brushes.CornflowerBlue;
             }
         }
 
@@ -827,6 +828,23 @@ namespace LoginPage
                     applicants[index].previousFeedbackCustomComments.RemoveAt(i);
                 }
             }
+        }
+
+        private void Maximise_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainWindow.mainPage.WindowState == WindowState.Normal)
+            {
+                MainWindow.mainPage.WindowState = WindowState.Maximized;
+            }
+            else
+            {
+                MainWindow.mainPage.WindowState = WindowState.Normal;
+            }
+        }
+
+        private void Minimise_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.mainPage.WindowState = WindowState.Minimized;
         }
     }
 }

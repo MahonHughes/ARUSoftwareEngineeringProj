@@ -40,8 +40,9 @@ namespace LoginPage
             {
                 Button btn = new Button();
                 btn.Content = templateNameArray[i];
-                btn.Height = 30;
-                btn.Width = 245;
+                btn.Height = 50;
+                btn.Width = 465;
+                btn.FontSize = 23;
                 btn.Click += TemplateSelected;
                 templatesListBox.Items.Add(btn);
             }
@@ -72,6 +73,23 @@ namespace LoginPage
             {
                 MainWindow.mainPage.Content = MainPage.editTemplate;
             }
+        }
+
+        private void Maximise_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainWindow.mainPage.WindowState == WindowState.Normal)
+            {
+                MainWindow.mainPage.WindowState = WindowState.Maximized;
+            }
+            else
+            {
+                MainWindow.mainPage.WindowState = WindowState.Normal;
+            }
+        }
+
+        private void Minimise_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.mainPage.WindowState = WindowState.Minimized;
         }
     }
 }

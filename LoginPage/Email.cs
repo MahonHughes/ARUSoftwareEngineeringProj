@@ -50,6 +50,8 @@ namespace LoginPage
 
                 emailTOsend.Subject = "Feedback";
                 emailTOsend.Body = ("Dear " + applicantName + "," + "\n" + "Find attached your feedback" + pdf);
+                System.Net.Mail.Attachment attachment = new System.Net.Mail.Attachment((filename + ".pdf"));
+                emailTOsend.Attachments.Add(attachment);
 
                 //setting up the credentials of the email used as a sender
                 client.UseDefaultCredentials = false;

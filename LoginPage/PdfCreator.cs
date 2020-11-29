@@ -33,6 +33,7 @@ namespace LoginPage
 
                 Chunk cnkFooter = new Chunk("Application feedback", FontFactory.GetFont("Garamond"));
 
+
                 cnkFooter.Font.Size = 30;
                 pdfTableFooter.AddCell(new Phrase(cnkFooter));
                 //End of footer section
@@ -45,7 +46,6 @@ namespace LoginPage
 
                 pdfTableBlank.AddCell(new Phrase("Reviewer details", fonti));
                 pdfTableBlank.DefaultCell.Border = 0;
-
 
 
                 pdfTableBlank1.AddCell(new Phrase("Applicant details", fonti));
@@ -64,8 +64,6 @@ namespace LoginPage
                 //Font Style
                 System.Drawing.Font fontH1 = new System.Drawing.Font("Calibri", 12);
 
-                //pdfTable1.DefaultCell.Padding = 5;
-
 
                 pdfTable2.DefaultCell.Padding = 5;
                 pdfTable2.WidthPercentage = 80;
@@ -80,6 +78,7 @@ namespace LoginPage
                 pdfTable3.DefaultCell.Padding = 5;
                 pdfTable3.WidthPercentage = 80;
                 pdfTable3.DefaultCell.BorderWidth = 0;
+
 
                 pdfTable3prim.DefaultCell.Padding = 5;
                 pdfTable3prim.WidthPercentage = 80;
@@ -103,6 +102,7 @@ namespace LoginPage
                 p2bis.Add(c2bis);
                 pdfTable2.AddCell(p2bis);
 
+
                 Chunk c2prim = new Chunk("E-mail of the applicant", FontFactory.GetFont("Calibri"));
                 c2prim.Font.Color = new iTextSharp.text.BaseColor(0, 0, 0);
                 c2prim.Font.SetStyle(0); //0 For normal font
@@ -120,6 +120,7 @@ namespace LoginPage
                 p2primbis.Add(c2primbis);
                 pdfTable2prim.AddCell(p2primbis);
 
+
                 Chunk c3 = new Chunk("Review written by ", FontFactory.GetFont("Calibri"));
                 c3.Font.Color = new iTextSharp.text.BaseColor(0, 0, 0);
                 c3.Font.SetStyle(0); //0 For normal font
@@ -127,6 +128,7 @@ namespace LoginPage
                 Phrase p3 = new Phrase();
                 p3.Add(c3);
                 pdfTable3.AddCell(p3);
+
 
                 Chunk c4 = new Chunk(staffMember, FontFactory.GetFont("Calibri"));
                 c4.Font.Color = new iTextSharp.text.BaseColor(0, 0, 200);
@@ -136,6 +138,7 @@ namespace LoginPage
                 p4.Add(c4);
                 pdfTable3.AddCell(p4);
 
+
                 Chunk c3prim = new Chunk("E-mail of " + staffMember, FontFactory.GetFont("Calibri"));
                 c3prim.Font.Color = new iTextSharp.text.BaseColor(0, 0, 0);
                 c3prim.Font.SetStyle(0); //0 For normal font
@@ -144,17 +147,17 @@ namespace LoginPage
                 p3prim.Add(c3prim);
                 pdfTable3prim.AddCell(p3prim);
 
+
                 Chunk c4prim = new Chunk(staffMemberEmail, FontFactory.GetFont("Calibri"));
                 c4prim.Font.Color = new iTextSharp.text.BaseColor(0, 0, 200);
                 c4prim.Font.SetStyle(0); //0 For normal font
                 c4prim.Font.Size = 9;
                 Phrase p4prim = new Phrase();
-                p4.Add(c4);
-                pdfTable3prim.AddCell(p4);
+                p4prim.Add(c4prim);
+                pdfTable3prim.AddCell(p4prim);
 
 
                 #endregion
-
 
                 #endregion
                 string cfname = (filename + ".pdf");
@@ -165,7 +168,6 @@ namespace LoginPage
                 mydocu.Add(pdfTable2);
                 mydocu.Add(pdfTable2prim);
                 mydocu.Add(pdfTableBlank);
-
                 mydocu.Add(pdfTable3);
                 mydocu.Add(pdfTable3prim);
 
@@ -176,8 +178,6 @@ namespace LoginPage
                 BaseFont bf = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 iTextSharp.text.Font font = new iTextSharp.text.Font(bf, 15, iTextSharp.text.Font.NORMAL);
                 PdfCreator.commentsections(mydocu, comments, sections);
-                // mydocu.Add(new iTextSharp.text.Paragraph(pargr,font));
-
             }
             catch (DocumentException de)
             {
@@ -204,8 +204,6 @@ namespace LoginPage
                 sectionpar.Font.Color = new iTextSharp.text.BaseColor(00, 168, 243);
                 Paragraph commentpar = new Paragraph(comments[i], FontFactory.GetFont("Arial", 15, iTextSharp.text.Font.NORMAL));
                 sectionpar.Alignment = Element.ALIGN_CENTER;
-
-
                 commentpar.Alignment = Element.ALIGN_CENTER;
 
                 mydoc.Add(new iTextSharp.text.Paragraph(sectionpar));
