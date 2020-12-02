@@ -104,8 +104,9 @@ namespace LoginPage
                 //Adds click event to the button
                 btn.Click += SectionSelected;
                 //Sets the buttons width and height
-                btn.Width = 232;
-                btn.Height = 30;
+                btn.Width = 290;
+                btn.Height = 45;
+                btn.FontSize = 20;
                 // Set button style
                 // btn.Background = Brushes.;
                 btn.Tag = sectionButtonTag;
