@@ -66,7 +66,7 @@ namespace LoginPage
                 Button btn = new Button();
                 btn.Content = templateSections[i].sectionName;
                 btn.Height = 30;
-                btn.Width = 247;
+                btn.Width = 420;
                 btn.Tag = i;
                 btn.Click += ButtonSelected;
                 btn.Name = "Unselected";
@@ -86,7 +86,7 @@ namespace LoginPage
                 Button btn = new Button();
                 btn.Content = templateSections[i].sectionName;
                 btn.Height = 30;
-                btn.Width = 247;
+                btn.Width = 420;
                 btn.Tag = i;
                 btn.Name = "Unselected";
                 btn.Click += ButtonSelected;
@@ -120,7 +120,7 @@ namespace LoginPage
                 Button btn = new Button();
                 btn.Content = templateSections[i].sectionName;
                 btn.Height = 30;
-                btn.Width = 247;
+                btn.Width = 420;
                 btn.Tag = i;
                 btn.Name = "Unselected";
                 btn.Click += ButtonSelected;

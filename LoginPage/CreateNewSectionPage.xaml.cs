@@ -104,7 +104,7 @@ namespace LoginPage
                 //Adds click event to the button
                 btn.Click += SectionSelected;
                 //Sets the buttons width and height
-                btn.Width = 232;
+                btn.Width = 290;
                 btn.Height = 30;
                 // Set button style
                 // btn.Background = Brushes.;
@@ -126,7 +126,7 @@ namespace LoginPage
                 button.Content = TemplateSection.sections[currentSectionID].comments[i];
                 button.Click += CommentSelected;
                 button.Content = TemplateSection.sections[currentSectionID].comments[i].code_name;
-                button.Width = 232;
+                button.Width = 630;
                 button.Height = 30;
                 button.Opacity = 255;
                 button.Tag = CommentButtontTag;
