@@ -198,5 +198,15 @@ namespace LoginPage
         {
             MainWindow.mainPage.WindowState = WindowState.Minimized;
         }
+
+        private void commentsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void sectionsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

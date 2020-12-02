@@ -20,7 +20,7 @@
             <RowDefinition Height="191*"/>
         </Grid.RowDefinitions>
         <Button Content="Back" HorizontalAlignment="Left" Margin="42,0,0,30" VerticalAlignment="Bottom" Width="250" Height="65" FontSize="30" Click="Button_Click_1" Grid.Row="1"/>
-        <Button Content="Edit" HorizontalAlignment="Right" Margin="0,0,40,30" VerticalAlignment="Bottom" Width="250" Height="65" FontSize="30" Click="Button_Click3" Grid.Row="1" Tag="3"/>
+        <Button Content="Edit" HorizontalAlignment="Right" Margin="0,0,59,191" VerticalAlignment="Bottom" Width="250" Height="54" FontSize="24" Click="Button_Click3" Tag="3" Grid.Row="1"/>
         <ListBox Name="templatesListBox" HorizontalAlignment="Center" Height="456" Margin="347,108,349,136" VerticalAlignment="Center" Width="504" SelectionMode="Single" Loaded="ListBox_Loaded" Grid.RowSpan="2" BorderBrush="White" BorderThickness="3" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.Resources>
                 <Style TargetType="Border">
@@ -35,9 +35,9 @@
             </ListBox.Background>
         </ListBox>
 
-        <Button Content="New from selected" HorizontalAlignment="Center" Margin="891,368,59,278" VerticalAlignment="Center" Width="250" Height="54" FontSize="25" Click="Button_Click2" Tag="2" Grid.RowSpan="2"/>
-        <Button x:Name="bt_CreateNewTemplate" Content="Create New Template" HorizontalAlignment="Center" Margin="891,190,59,162" VerticalAlignment="Center" Width="250" Height="50" FontSize="25" Click="Button_Click" Tag="1"/>
-        <Label Content="Tempates:" HorizontalAlignment="Center" Margin="422,22,412,0" VerticalAlignment="Top" Height="81" Width="366" FontSize="45" HorizontalContentAlignment="Center"/>
+        <Button Content="New from selected" HorizontalAlignment="Center" Margin="891,314,59,34.4" VerticalAlignment="Center" Width="250" Height="54" FontSize="25" Click="Button_Click2" Tag="2"/>
+        <Button x:Name="bt_CreateNewTemplate" Content="Create New Template" HorizontalAlignment="Center" Margin="891,182,59,170.4" VerticalAlignment="Center" Width="250" Height="50" FontSize="25" Click="Button_Click" Tag="1"/>
+        <Label Content="Templates:" HorizontalAlignment="Center" Margin="422,22,412,0" VerticalAlignment="Top" Height="81" Width="366" FontSize="45" HorizontalContentAlignment="Center"/>
         <Button x:Name="btnMaximise" Grid.ColumnSpan="2" Content="+" HorizontalAlignment="Right" Margin="0,10,18,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Maximise_Click"/>
         <Button x:Name="btnMinimise" Grid.ColumnSpan="2" Content="-" HorizontalAlignment="Right" Margin="0,10,83,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Minimise_Click"/>
     </Grid>
