@@ -106,6 +106,7 @@ namespace LoginPage
                 //Sets the buttons width and height
                 btn.Width = 290;
                 btn.Height = 30;
+                btn.FontSize = 20;
                 // Set button style
                 // btn.Background = Brushes.;
                 btn.Tag = sectionButtonTag;
@@ -128,6 +129,7 @@ namespace LoginPage
                 button.Content = TemplateSection.sections[currentSectionID].comments[i].code_name;
                 button.Width = 630;
                 button.Height = 30;
+                button.FontSize = 15;
                 button.Opacity = 255;
                 button.Tag = CommentButtontTag;
                 CommentButtontTag++;
