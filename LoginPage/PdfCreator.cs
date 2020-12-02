@@ -33,7 +33,6 @@ namespace LoginPage
 
                 Chunk cnkFooter = new Chunk("Application feedback", FontFactory.GetFont("Garamond"));
 
-
                 cnkFooter.Font.Size = 30;
                 pdfTableFooter.AddCell(new Phrase(cnkFooter));
                 //End of footer section
@@ -167,6 +166,7 @@ namespace LoginPage
                 mydocu.Add(pdfTableBlank1);
                 mydocu.Add(pdfTable2);
                 mydocu.Add(pdfTable2prim);
+
                 mydocu.Add(pdfTableBlank);
                 mydocu.Add(pdfTable3);
                 mydocu.Add(pdfTable3prim);

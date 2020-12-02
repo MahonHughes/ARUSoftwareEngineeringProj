@@ -732,6 +732,10 @@ namespace LoginPage
         private void btnFinish_Click(object sender, RoutedEventArgs e)
         {
             //Send feedback to pdf compile---------------------------------------------------------------------------------------------------------------
+            //string filename, string applicantName, string applicantEmail, string staffMember, string staffMemberEmail, List<string> comments, List<string> sections
+            //Check all applicants have feedback
+            //for each get above and send
+            //Email.SendEmail();
 
             MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
         }

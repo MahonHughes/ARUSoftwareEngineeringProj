@@ -58,17 +58,15 @@ namespace LoginPage
                 client.Credentials = new NetworkCredential("staff999111@gmail.com", "Password123@");
 
                 //Setting up the sender
-                emailTOsend.From = new MailAddress("staff999111@gmail.com");
+                emailTOsend.From = new MailAddress("staff999111@gmail.com", staffMemberEmail);
 
 
                 // Setting up the recipient
                 emailTOsend.To.Add(applicantEmail);
                 client.Send(emailTOsend);
-                MessageBox.Show("Successfuly sent");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
             }
         }
     }
