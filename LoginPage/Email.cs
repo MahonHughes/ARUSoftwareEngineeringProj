@@ -48,25 +48,29 @@ namespace LoginPage
                 // email delivery method
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
 
-                emailTOsend.Subject = "Feedback";
-                emailTOsend.Body = ("Dear " + applicantName + "," + "\n" + "Find attached your feedback" + pdf);
-                System.Net.Mail.Attachment attachment = new System.Net.Mail.Attachment((filename + ".pdf"));
-                emailTOsend.Attachments.Add(attachment);
 
                 //setting up the credentials of the email used as a sender
                 client.UseDefaultCredentials = false;
                 client.Credentials = new NetworkCredential("staff999111@gmail.com", "Password123@");
 
+
+                MailMessage msg = new MailMessage();
+                msg = emailTOsend;
+                msg.Subject = "Feedback";
+                msg.Body = ("Dear " + applicantName + "," + "\n" + "Find attached your feedback");
+
                 //Setting up the sender
-                emailTOsend.From = new MailAddress("staff999111@gmail.com", staffMemberEmail);
+                msg.From = new MailAddress("staff999111@gmail.com");
 
 
                 // Setting up the recipient
-                emailTOsend.To.Add(applicantEmail);
-                client.Send(emailTOsend);
+                msg.To.Add(applicantEmail);
+                client.Send(msg);
+                MessageBox.Show("Successfuly sent");
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
             }
         }
     }
