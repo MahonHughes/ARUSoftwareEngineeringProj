@@ -15,8 +15,8 @@
         <Label Content="Job position:" HorizontalAlignment="Center" Margin="270,239,710,397" VerticalAlignment="Center" Height="64" Width="220" FontSize="30"/>
         <Label Content="Template:" HorizontalAlignment="Center" Margin="270,391,678,247" VerticalAlignment="Center" Width="252" Height="62" FontSize="30"/>
         <Button x:Name="btnProceed" Content="Proceed" HorizontalAlignment="Right" Margin="0,0,18,34" VerticalAlignment="Bottom" Width="250" Height="55" FontSize="30" Click="btnProceed_Click"/>
-        <Button x:Name="btnMaximise" Grid.ColumnSpan="2" Content="+" HorizontalAlignment="Right" Margin="0,10,18,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Maximise_Click"/>
-        <Button x:Name="btnMinimise" Grid.ColumnSpan="2" Content="-" HorizontalAlignment="Right" Margin="0,10,83,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Minimise_Click"/>
-
+        <Button x:Name="btnMaximise" Grid.ColumnSpan="2" Content="+" HorizontalAlignment="Right" Margin="0,10,83,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Maximise_Click"/>
+        <Button x:Name="btnClose" Grid.ColumnSpan="2" Content="x" HorizontalAlignment="Right" Margin="0,10,18,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Close_Click"/>
+        <Button x:Name="btnMinimise" Content="-" HorizontalAlignment="Right" Margin="0,10,147,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Minimise_Click"/>
     </Grid>
 </Page>

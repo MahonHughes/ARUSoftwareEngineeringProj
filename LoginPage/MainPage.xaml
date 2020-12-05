@@ -21,8 +21,6 @@
                 </Border.Background>
             </Border>
         </Grid>
-        <Button x:Name="CloseBut" Content="X" HorizontalAlignment="Right" Height="40" Width="40" VerticalAlignment="Top" Click="CloseBut_Click" 
-             />
     </Grid>
 </Window>
     

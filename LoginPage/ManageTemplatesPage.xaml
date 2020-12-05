@@ -39,7 +39,8 @@
         <Button x:Name="bt_CreateNewTemplate" Content="Create New Template" HorizontalAlignment="Center" Margin="891,122,59,230.4" VerticalAlignment="Center" Width="250" Height="50" FontSize="25" Click="Button_Click" Tag="1"/>
         <Button Content="Edit" HorizontalAlignment="Center" Margin="891,86.6,59,157" VerticalAlignment="Center" Width="250" Height="54" FontSize="24" Click="Button_Click3" Tag="3" Grid.Row="1"/>
         <Label Content="Templates:" HorizontalAlignment="Center" Margin="422,22,412,0" VerticalAlignment="Top" Height="81" Width="366" FontSize="45" HorizontalContentAlignment="Center"/>
-        <Button x:Name="btnMaximise" Grid.ColumnSpan="2" Content="+" HorizontalAlignment="Right" Margin="0,10,18,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Maximise_Click"/>
-        <Button x:Name="btnMinimise" Grid.ColumnSpan="2" Content="-" HorizontalAlignment="Right" Margin="0,10,83,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Minimise_Click"/>
+        <Button x:Name="btnMaximise" Grid.ColumnSpan="2" Content="+" HorizontalAlignment="Right" Margin="0,10,83,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Maximise_Click"/>
+        <Button x:Name="btnClose" Grid.ColumnSpan="2" Content="x" HorizontalAlignment="Right" Margin="0,10,18,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Close_Click"/>
+        <Button x:Name="btnMinimise" Content="-" HorizontalAlignment="Right" Margin="0,10,147,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Minimise_Click"/>
     </Grid>
 </Page>

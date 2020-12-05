@@ -57,20 +57,20 @@ namespace LoginPage
                 MailMessage msg = new MailMessage();
                 msg = emailTOsend;
                 msg.Subject = "Feedback";
-                msg.Body = ("Dear " + applicantName + "," + "\n" + "Find attached your feedback");
+                msg.Body = ("Dear " + applicantName + "," + "\n" + "Find attached your feedback"); 
+                System.Net.Mail.Attachment attachment = new System.Net.Mail.Attachment((filename + ".pdf"));
+                msg.Attachments.Add(attachment);
 
                 //Setting up the sender
-                msg.From = new MailAddress("staff999111@gmail.com");
+                msg.From = new MailAddress("staff999111@gmail.com", staffMemberEmail);
 
 
                 // Setting up the recipient
                 msg.To.Add(applicantEmail);
                 client.Send(msg);
-                MessageBox.Show("Successfuly sent");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
             }
         }
     }

@@ -69,5 +69,10 @@ namespace LoginPage
         {
             MainWindow.mainPage.WindowState = WindowState.Minimized;
         }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

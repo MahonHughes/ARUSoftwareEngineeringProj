@@ -121,7 +121,9 @@ namespace LoginPage
 
                 dbConnetion.Open();
 
-                SqlCommand cmd = new SqlCommand(Constants.getApplicants, dbConnetion);
+                string _query = Constants.getApplicants + CurrentUser.selectedJobPosition + "'";
+
+                SqlCommand cmd = new SqlCommand(_query, dbConnetion);
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())

@@ -184,5 +184,15 @@ namespace LoginPage
         {
             MainWindow.mainPage.WindowState = WindowState.Minimized;
         }
+
+        /// <summary>
+        /// Closes the application.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

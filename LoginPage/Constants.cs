@@ -38,7 +38,7 @@ namespace LoginPage
         public static string insertApplicant = "INSERT INTO Applicants (applicant_name, applicant_email, job_Id, hasFeedback, hasCustomFeedback) VALUES (@applicant_name, @applicant_email, @job_Id, @hasFeedback, @hasCustomFeedback)";
 
         //SQL queries for FeedbackPage
-        public static string getApplicants = "SELECT * FROM Applicants";// WHERE Applicants.job_id = @selected job;
+        public static string getApplicants = "SELECT * FROM Applicants INNER JOIN Job_position ON Applicants.job_Id = Job_position.position_Id WHERE Job_position.position_title = '";
 
         //SQL Query for getting Job IDs
         public static readonly string getJobTitles = "SELECT * FROM Job_position";

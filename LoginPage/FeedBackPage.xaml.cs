@@ -731,13 +731,61 @@ namespace LoginPage
         /// <param name="e"></param>
         private void btnFinish_Click(object sender, RoutedEventArgs e)
         {
-            //Send feedback to pdf compile---------------------------------------------------------------------------------------------------------------
-            //string filename, string applicantName, string applicantEmail, string staffMember, string staffMemberEmail, List<string> comments, List<string> sections
-            //Check all applicants have feedback
-            //for each get above and send
-            //Email.SendEmail();
+            if (DoAllApplicantsHaveFeedback())
+            {
+                for (int i = 0; i < applicants.Count; i++)
+                {
+                    CreatePDFAndSendFeedback(i);
 
-            MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
+                    //RemoveApplicantAndTheirRecords(i); //Disabled while testing so new data does not need to be added each time program is run
+                }
+
+                MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
+            }
+            else
+            {
+                MessageBox.Show("Error! Feedback is not complete for all applicants. \nFinish the feedback for all applicants before finishing the group and sending the feedback.");
+            }
+        }
+
+        /// <summary>
+        /// Creates the necessary lists and variables and calls the Email class to create the PDF and send the email.
+        /// </summary>
+        /// <param name="_applicantIndex">The index of the current applicant to have their feedback sent.</param>
+        private void CreatePDFAndSendFeedback(int _applicantIndex)
+        {
+            //string filename, string applicantName, string applicantEmail, string staffMember, string staffMemberEmail, List<string> comments, List<string> sections
+            //Email.SendEmail();
+        }
+
+        /// <summary>
+        /// Removes an applicant from the database and all the entries for their saved feedback.
+        /// </summary>
+        /// <param name="_applicantIndex">The index of the current applicant to have their data removed.</param>
+        private void RemoveApplicantAndTheirRecords(int _applicantIndex)
+        {
+
+        }
+
+        /// <summary>
+        /// Checks that all applicants have had their feedback completed so blank feedback 
+        /// letters will not be sent and applicants will not be forgotten.
+        /// </summary>
+        /// <returns>Bool, true if feedback is complete for all applicants in current group.</returns>
+        private bool DoAllApplicantsHaveFeedback()
+        {
+            bool allHaveFeedback = true;
+
+            for (int i = 0; i < applicants.Count; i++)
+            {
+                if (applicants[i].hasSavedFeedback == false)
+                {
+                    allHaveFeedback = false;
+                    break;
+                }
+            }
+
+            return allHaveFeedback;
         }
 
         /// <summary>
@@ -849,6 +897,14 @@ namespace LoginPage
         private void Minimise_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.mainPage.WindowState = WindowState.Minimized;
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            if (CheckIfCanTransitionWithoutLossOfData())
+            {
+                Application.Current.Shutdown();
+            }
         }
     }
 }

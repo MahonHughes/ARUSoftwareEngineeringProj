@@ -28,7 +28,7 @@
         </Grid.RowDefinitions>
 
         <Button x:Name="bt_goBack" Content="Back" HorizontalAlignment="Left" Margin="49,0,0,42" VerticalAlignment="Bottom" Width="250" Height="65" FontSize="30" Click="bt_goBack_Click" Grid.Row="1"/>
-        <ListBox x:Name="sectionsListBox" HorizontalAlignment="Center" Height="382" Margin="69,101,449,217" VerticalAlignment="Center" Width="331" Loaded="sectionsListBox_Loaded" Grid.RowSpan="2" BorderBrush="#FFFDFEFF" BorderThickness="3" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="sectionsListBox_SelectionChanged">
+        <ListBox x:Name="sectionsListBox" HorizontalAlignment="Center" Height="382" Margin="69,101,449,217" VerticalAlignment="Center" Width="331" Loaded="sectionsListBox_Loaded" Grid.RowSpan="2" BorderBrush="#FFFDFEFF" BorderThickness="3" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible">
             <ListBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFD21AEA" Offset="0"/>
@@ -42,7 +42,7 @@
                 </Style>
             </ListBox.Resources>
         </ListBox>
-        <ListBox x:Name="commentsListBox" HorizontalAlignment="Center" Height="169" Margin="434,101,97,430" VerticalAlignment="Center" Width="669" BorderBrush="#FFFDFEFF" BorderThickness="3" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.ColumnSpan="2" Grid.RowSpan="2" SelectionChanged="commentsListBox_SelectionChanged">
+        <ListBox x:Name="commentsListBox" HorizontalAlignment="Center" Height="169" Margin="434,101,97,430" VerticalAlignment="Center" Width="669" BorderBrush="#FFFDFEFF" BorderThickness="3" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <ListBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFD11BEA" Offset="0"/>
@@ -62,8 +62,8 @@
         </Border>
         <Button Content="Delete section" HorizontalAlignment="Center" Margin="240,277,449,142" VerticalAlignment="Center" Width="160" Height="50" FontSize="25" Click="bt_Delete_Section" Grid.Row="1"/>
         <Button x:Name="bt_delete_Comment_" Content="Delete Comment" HorizontalAlignment="Center" Margin="4,279,97,140" VerticalAlignment="Center" Width="250" Height="50" FontSize="30" Grid.Row="1" IsEnabled="False" RenderTransformOrigin="-0.086,0.683" Click="bt_Delete_Comment" Grid.Column="1"/>
-        <Button x:Name="btnMaximise" Grid.ColumnSpan="2" Content="+" HorizontalAlignment="Right" Margin="0,10,18,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Maximise_Click"/>
-        <Button x:Name="btnMinimise" Grid.ColumnSpan="2" Content="-" HorizontalAlignment="Right" Margin="0,10,83,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Minimise_Click"/>
-
+        <Button x:Name="btnMaximise" Grid.ColumnSpan="2" Content="+" HorizontalAlignment="Right" Margin="0,10,83,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Maximise_Click"/>
+        <Button x:Name="btnClose" Grid.ColumnSpan="2" Content="x" HorizontalAlignment="Right" Margin="0,10,18,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Close_Click"/>
+        <Button x:Name="btnMinimise" Content="-" HorizontalAlignment="Right" Margin="0,10,148,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Minimise_Click" Grid.Column="1"/>
     </Grid>
 </Page>

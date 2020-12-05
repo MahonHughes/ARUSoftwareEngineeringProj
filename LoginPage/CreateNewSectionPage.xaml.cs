@@ -201,14 +201,9 @@ namespace LoginPage
             MainWindow.mainPage.WindowState = WindowState.Minimized;
         }
 
-        private void commentsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Close_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void sectionsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+            Application.Current.Shutdown();
         }
     }
 }

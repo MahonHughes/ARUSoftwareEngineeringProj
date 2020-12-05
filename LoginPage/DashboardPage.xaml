@@ -22,7 +22,8 @@
         <Button x:Name="btnManageCandidates" Content="Manage candidates" HorizontalAlignment="Center" Margin="328,270,564,360" VerticalAlignment="Center" Width="306" FontSize="30" Height="70" Grid.ColumnSpan="2" Click="btnManageCandidates_Click" />
         <Button x:Name="btnToFeedback" Content="Proceed to Feedback" HorizontalAlignment="Center" Margin="127,150,765,480" VerticalAlignment="Center" Width="306" FontSize="30" Height="70" Click="btnToFeedback_Click" Grid.ColumnSpan="2"/>
         <Button x:Name="btnLogout" Content="Logout" HorizontalAlignment="Center"  VerticalAlignment="Bottom" Width="200" FontSize="30" Height="58" Click="btnLogout_Click" Grid.ColumnSpan="2" Margin="487,0,511,32"/>
-        <Button x:Name="btnMaximise" Grid.ColumnSpan="2" Content="+" HorizontalAlignment="Right" Margin="0,10,18,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Maximise_Click"/>
-        <Button x:Name="btnMinimise" Grid.ColumnSpan="2" Content="-" HorizontalAlignment="Right" Margin="0,10,83,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Minimise_Click"/>
+        <Button x:Name="btnMaximise" Grid.ColumnSpan="2" Content="+" HorizontalAlignment="Right" Margin="0,10,83,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Maximise_Click"/>
+        <Button x:Name="btnClose" Grid.ColumnSpan="2" Content="x" HorizontalAlignment="Right" Margin="0,10,18,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Close_Click"/>
+        <Button x:Name="btnMinimise" Content="-" HorizontalAlignment="Right" Margin="0,10,147,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Minimise_Click" Grid.ColumnSpan="2"/>
     </Grid>
 </Page>
