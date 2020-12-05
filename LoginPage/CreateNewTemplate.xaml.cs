@@ -23,12 +23,12 @@ namespace LoginPage
 
         List<TemplateSection> templateSections = new List<TemplateSection>();
         static List<Button> buttons = new List<Button>();
-        int type;
+        int pageType;
 
         public CreateNewTemplate(int page_type)
         {
             InitializeComponent();
-            type = page_type;
+            pageType = page_type;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -39,17 +39,17 @@ namespace LoginPage
         private void list_box_Loaded(object sender, RoutedEventArgs e)
         {
 
-            if (type == 1)
+            if (pageType == 1)
             {
                 CreateNewTemplateInterface();
             }
 
-            else if (type == 2)
+            else if (pageType == 2)
             {
                 CreateNewTemplateFromSelectedInterface();
             }
 
-            else if (type == 3)
+            else if (pageType == 3)
             {
                 EditTemplateInterface();
             }
@@ -166,7 +166,7 @@ namespace LoginPage
             {
                 MessageBox.Show("Invalid data");
             }
-            else if (type !=3 && TemplateSection.TemplateExists(textBox.Text))
+            else if (pageType !=3 && TemplateSection.TemplateExists(textBox.Text))
             {
                 MessageBox.Show("Template alreade exists, chage the name");
             }
@@ -180,7 +180,7 @@ namespace LoginPage
             
               
 
-                if (type == 3)
+                if (pageType == 3)
                 {
                     DBConnection.DeleteTemplate(template.name);
                 }
@@ -188,9 +188,9 @@ namespace LoginPage
                 DBConnection.InsertTemplate(template.name);
                 DBConnection.InsertTemplateSection(template);
                 
-                textBox.Text = " ";
+                textBox.Text = "";
 
-                if (type == 1)
+                if (pageType == 1)
                 {
                     ManageTemplatesPage.templateNameArray = DBConnection.GetTemplateNamesFromDatabase();
                     CreateNewTemplateInterface();
@@ -201,10 +201,7 @@ namespace LoginPage
                 }
           
 
-            }
-
-           
-            
+            }          
         }
 
         private void Maximise_Click(object sender, RoutedEventArgs e)
