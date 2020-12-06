@@ -303,6 +303,32 @@ namespace LoginPage
         }
 
         /// <summary>
+        /// Gets the current users email address from the database when they sign in.
+        /// </summary>
+        /// <returns>String, current users email address.</returns>
+        public static string GetUserEmailAddress(string _userName)
+        {
+            string _email = "";
+
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                dbConnetion.Open();
+
+                string _query = Constants.getUsersEmail + _userName + "'";
+
+                SqlCommand cmd = new SqlCommand(_query, dbConnetion);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    _email = reader[0].ToString();
+                }
+            }
+
+            return _email;
+        }
+
+        /// <summary>
         /// Gets a list of the relevant sections of a template from the database.
         /// </summary>
         /// <param name="currentlySelectedTemplate">The template that the sections are needed for.</param>
@@ -465,46 +491,6 @@ namespace LoginPage
         }
 
         /// <summary>
-        /// Alters the hasFeedback entry in the database for an applicant.
-        /// </summary>
-        /// <param name="_applicantID">The applicant that has had feedback saved.</param>
-        public static void UpdateApplicantsFeedbackStatus(int _applicantID)
-        {
-            using (dbConnetion = new SqlConnection(connString))
-            {
-                string _query = Constants.updateFeedbackStatus + _applicantID.ToString();
-
-                dbConnetion.Open();
-
-                SqlCommand cmd = new SqlCommand(_query, dbConnetion);
-
-                cmd.ExecuteNonQuery();
-            }
- 
-            dbConnetion.Close();
-        }
-
-        /// <summary>
-        /// Removes feedback entries from the Applicant_Commment table using the applicant's ID.
-        /// </summary>
-        /// <param name="_applicantID">The applicant that needs to have their data removed.</param>
-        public static void RemoveOldFeedBackEntires(int _applicantID)
-        {
-            using (dbConnetion = new SqlConnection(connString))
-            {
-                string _query = Constants.removeFeedbackEntries + _applicantID.ToString();
-
-                dbConnetion.Open();
-
-                SqlCommand cmd = new SqlCommand(_query, dbConnetion);
-
-                cmd.ExecuteNonQuery();
-            }
-
-            dbConnetion.Close();
-        }
-
-        /// <summary>
         /// Used to save new template to the database
         /// </summary>
         /// <param name="tempateName"> Name of the template </param>
@@ -570,30 +556,6 @@ namespace LoginPage
                     cmd.Parameters.Add(new SqlParameter("template_id", template.id));
                     cmd.Parameters.Add(new SqlParameter("section_id", template.templateSections[i].sectionID));
                     cmd.ExecuteNonQuery();
-
-                }
-
-            }
-        }
-        /// <summary>
-        /// Method for testing the insert templatesections method 
-        /// </summary>
-        public static void GetTemplateSections()
-        {
-            string a = "SELECT * FROM TEMPLATE_has_Sections";
-            List<int> template = new List<int>();
-            List<int> section = new List<int>();
-            using (dbConnetion = new SqlConnection(connString))
-            {
-                dbConnetion.Open();
-                SqlCommand cmd = new SqlCommand(a, dbConnetion);
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    Int32.TryParse(reader[0].ToString(), out int t);
-                    Int32.TryParse(reader[1].ToString(), out int s);
-                    template.Add(t);
-                    section.Add(s);
                 }
             }
         }
@@ -654,26 +616,10 @@ namespace LoginPage
 
             dbConnetion.Close();
 
-            AlterApplicantCustomFeedbackState(_applicantID);
+            RunQuery(Constants.updateCustomFeedbackStatus, _applicantID);
             customCommentID = GetCustomCommentID(_commentText);
 
             return customCommentID;
-        }
-
-        private static void AlterApplicantCustomFeedbackState(int _applicantID)
-        {
-            using (dbConnetion = new SqlConnection(connString))
-            {
-                string _query = Constants.updateCustomFeedbackStatus + _applicantID.ToString();
-
-                dbConnetion.Open();
-
-                SqlCommand cmd = new SqlCommand(_query, dbConnetion);
-
-                cmd.ExecuteNonQuery();
-            }
-
-            dbConnetion.Close();
         }
 
         private static int GetCustomCommentID(string _commentText)
@@ -699,13 +645,20 @@ namespace LoginPage
             }
         }
 
-        public static string GetCustomCommentText(int customCommentId)
+        /// <summary>
+        /// Fetches a comment from the database using the comment ID. With the passed in query it
+        /// can be used to fetch custom and standard comments.
+        /// </summary>
+        /// <param name="_queryBase">The base query used (for custom or standard) before the ID is added.</param>
+        /// <param name="CommentId">The ID of the wanted comment.</param>
+        /// <returns></returns>
+        public static string GetCommentText(string _queryBase, int CommentId)
         {
             string comment = "";
 
             using (dbConnetion = new SqlConnection(connString))
             {
-                string _query = Constants.getCustomCommentText + customCommentId.ToString();
+                string _query = _queryBase + CommentId.ToString();
 
                 dbConnetion.Open();
                 SqlCommand cmd = new SqlCommand(_query, dbConnetion);
@@ -744,14 +697,17 @@ namespace LoginPage
                 cmd2.ExecuteNonQuery();
             }
         }
-        
-      
 
-        public static void RemoveCustomComment(int _customCommentID)
+        /// <summary>
+        /// Used for deleteing database entires via an ID (... WHERE X.Id = (sent ID)).
+        /// </summary>
+        /// <param name="_queryBase">String, the query to run.</param>
+        /// <param name="_id">Int, the ID for the entity to delete.</param>
+        public static void RunQuery(string _queryBase, int _id)
         {
             using (dbConnetion = new SqlConnection(connString))
             {
-                string _query = Constants.removeCustomFeedbackEntry + _customCommentID.ToString();
+                string _query = _queryBase + _id.ToString();
 
                 dbConnetion.Open();
 

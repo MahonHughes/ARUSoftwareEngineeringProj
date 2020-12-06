@@ -525,7 +525,7 @@ namespace LoginPage
                     }
 
                     applicants[applicantIndex].hasSavedFeedback = true;
-                    DBConnection.UpdateApplicantsFeedbackStatus(applicantID);
+                    DBConnection.RunQuery(Constants.updateFeedbackStatus, applicantID);
 
                     ProvidePreviousFeedbackListsForApplicants();
 
@@ -533,7 +533,7 @@ namespace LoginPage
                 }
                 else
                 {
-                    DBConnection.RemoveOldFeedBackEntires(applicantID);
+                    DBConnection.RunQuery(Constants.removeFeedbackEntries, applicantID);
 
                     for (int i = 0; i < applicants[applicantIndex].previousFeedback.Count; i++)
                     {
@@ -740,6 +740,8 @@ namespace LoginPage
                     //RemoveApplicantAndTheirRecords(i); //Disabled while testing so new data does not need to be added each time program is run
                 }
 
+                MessageBox.Show("Feedback saved as PDF's and sent to applicants.");
+
                 MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
             }
             else
@@ -754,8 +756,68 @@ namespace LoginPage
         /// <param name="_applicantIndex">The index of the current applicant to have their feedback sent.</param>
         private void CreatePDFAndSendFeedback(int _applicantIndex)
         {
-            //string filename, string applicantName, string applicantEmail, string staffMember, string staffMemberEmail, List<string> comments, List<string> sections
-            //Email.SendEmail();
+            string filename = applicants[_applicantIndex].name + " - " + DateTime.Now.ToString("dd MMMM yyyy");
+            string applicantName = applicants[_applicantIndex].name;
+            string applicantEmail = applicants[_applicantIndex].emailAddress;
+            string staffMember = CurrentUser.userName;
+            string staffMemberEmail = CurrentUser.emailAddress;
+
+            List<int[]> sections_comments = new List<int[]>();
+            sections_comments = DBConnection.SearchForPreviousFeedback(applicants[_applicantIndex].ID);
+
+            List<string> _comments = new List<string>();
+
+            if (applicants[_applicantIndex].hasSavedCustomFeedback)
+            {
+                List<int[]> custom_sections_comments = new List<int[]>();
+                custom_sections_comments = DBConnection.SearchForPreviousCustomCommentFeedback(applicants[_applicantIndex].ID);
+
+                for (int i = 0; i < sections.Count; i++)
+                {
+                    for (int j = 0; j < sections_comments.Count; j++)
+                    {
+                        if (sections[i].sectionID == sections_comments[j][0])
+                        {
+                            string _comment = DBConnection.GetCommentText(Constants.getStandardCommentText, sections_comments[j][1]);
+                            _comments.Add(_comment);
+                            break;
+                        }
+                    }
+
+                    for (int j = 0; j < custom_sections_comments.Count; j++)
+                    {
+                        if (sections[i].sectionID == custom_sections_comments[j][0])
+                        {
+                            string _comment = DBConnection.GetCommentText(Constants.getCustomCommentText, custom_sections_comments[j][1]);
+                            _comments.Add(_comment);
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < sections.Count; i++)
+                {
+                    for (int j = 0; j < sections_comments.Count; j++)
+                    {
+                        if (sections[i].sectionID == sections_comments[j][0])
+                        {
+                            string _comment = DBConnection.GetCommentText(Constants.getStandardCommentText, sections_comments[j][1]);
+                            _comments.Add(_comment);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            List<string> _sections = new List<string>();
+            for (int i = 0; i < sections.Count; i++)
+            {
+                _sections.Add(sections[i].sectionName);
+            }
+            
+            Email.SendEmail(filename, applicantName, applicantEmail, staffMember, staffMemberEmail, _comments, _sections);
         }
 
         /// <summary>
@@ -764,7 +826,11 @@ namespace LoginPage
         /// <param name="_applicantIndex">The index of the current applicant to have their data removed.</param>
         private void RemoveApplicantAndTheirRecords(int _applicantIndex)
         {
+            int _applicantID = applicants[_applicantIndex].ID;
 
+            DBConnection.RunQuery(Constants.removeApplicant, _applicantID);
+            DBConnection.RunQuery(Constants.removeApplicantFeedback, _applicantID);
+            DBConnection.RunQuery(Constants.removeApplicantCustomFeedback, _applicantID);
         }
 
         /// <summary>
@@ -871,7 +937,7 @@ namespace LoginPage
             int _applicant = GetApplicantID();
             int index = FindSelectedApplicantIndex();
 
-            DBConnection.RemoveCustomComment(_customCommentID);
+            DBConnection.RunQuery(Constants.removeCustomFeedbackEntry, _customCommentID);
 
             for (int i = 0; i < applicants[index].previousFeedbackCustomComments.Count; i++)
             {
@@ -882,6 +948,11 @@ namespace LoginPage
             }
         }
 
+        /// <summary>
+        /// Maximises or normalises the window size when button pushed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Maximise_Click(object sender, RoutedEventArgs e)
         {
             if (MainWindow.mainPage.WindowState == WindowState.Normal)
@@ -894,11 +965,21 @@ namespace LoginPage
             }
         }
 
+        /// <summary>
+        /// Minimises the window when button pushed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Minimise_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.mainPage.WindowState = WindowState.Minimized;
         }
 
+        /// <summary>
+        /// Closes the application when close button is pushed if this will not result in loss of data.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             if (CheckIfCanTransitionWithoutLossOfData())

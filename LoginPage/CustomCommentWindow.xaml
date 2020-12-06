@@ -13,7 +13,7 @@
             <Button x:Name="windowClose" Content="X" HorizontalAlignment="Right" VerticalAlignment="Top" Click="windowClose_Click" Width="40" Height="40" Margin="0,5,4.8,0"/>
             <Label Content="Enter Custom Comment: " HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="232" FontSize="20"/>
             <TextBox x:Name="txbCustomComment" Height="127" Margin="10,50,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="White" BorderThickness="0" FontSize="14"/>
-            <Button x:Name="btnAddComment" Content="Add Comment" HorizontalAlignment="Left" VerticalAlignment="Top" Width="101" Margin="33,191,0,0" Height="29" Click="Button_Click" IsDefault="True"/>
+            <Button x:Name="btnAddComment" Content="Add Comment" HorizontalAlignment="Left" VerticalAlignment="Top" Width="101" Margin="33,191,0,0" Height="29" Click="AddComment_Click" IsDefault="True"/>
             <Button x:Name="btnRemoveComment" Content="Remove Comment" HorizontalAlignment="Left" Margin="167,191,0,0" VerticalAlignment="Top" Width="105" Height="29" Click="btnRemoveComment_Click"/>
         </Grid>
     </Grid>

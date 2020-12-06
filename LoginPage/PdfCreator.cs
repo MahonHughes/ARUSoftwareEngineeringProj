@@ -17,7 +17,7 @@ namespace LoginPage
     {
         public PdfCreator(string filename, string nameapplicant, string applicantEmail, string staffMember, string staffMemberEmail, List<string> comments, List<string> sections)
         {
-            Document mydocu = new Document(PageSize.A4.Rotate());
+            Document mydocu = new Document(PageSize.A4);
 
             try
             {
@@ -138,7 +138,7 @@ namespace LoginPage
                 pdfTable3.AddCell(p4);
 
 
-                Chunk c3prim = new Chunk("E-mail of " + staffMember, FontFactory.GetFont("Calibri"));
+                Chunk c3prim = new Chunk("E-mail sent from", FontFactory.GetFont("Calibri"));
                 c3prim.Font.Color = new iTextSharp.text.BaseColor(0, 0, 0);
                 c3prim.Font.SetStyle(0); //0 For normal font
                 c3prim.Font.Size = 9;

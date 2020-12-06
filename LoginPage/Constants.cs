@@ -39,6 +39,7 @@ namespace LoginPage
 
         //SQL queries for FeedbackPage
         public static string getApplicants = "SELECT * FROM Applicants INNER JOIN Job_position ON Applicants.job_Id = Job_position.position_Id WHERE Job_position.position_title = '";
+        public static string getUsersEmail = "SELECT user_email FROM Users WHERE user_name = '";
 
         //SQL Query for getting Job IDs
         public static readonly string getJobTitles = "SELECT * FROM Job_position";
@@ -51,6 +52,7 @@ namespace LoginPage
         public static string getTemplateSections = "SELECT section_name FROM Sections WHERE section_id IN (SELECT section_id FROM Template_has_sections WHERE template_id IN (SELECT template_id FROM Templates WHERE template_name = @name))";
         public static string deleteTemplate = "DELETE FROM Templates WHERE template_name = @name";
         public static string deleteTemplateSections = "DELETE FROM Template_has_Sections WHERE template_id = (SELECT template_id FROM Templates WHERE template_name = @name)";
+        
         //SQL Query - Gets the comment ID and the Section ID from the Applicant_Comment table in the database
         public static string getPreviousFeedbackQuery ="SELECT Applicant_Comment.comment_Id, Comments.section_id FROM Applicant_Comment INNER JOIN Comments On Applicant_Comment.comment_Id = Comments.comment_id WHERE Applicant_Comment.applicant_Id = ";
 
@@ -76,12 +78,24 @@ namespace LoginPage
             return query;
         }
 
+        //SQL query to alter an applicants hasCustomFeedback entry
         public static string updateCustomFeedbackStatus = "UPDATE [Applicants] SET hasCustomFeedback = 1 WHERE applicant_Id = ";
 
+        //SQL query to retrive a newly created custom comments ID from the database
         public static string getCustomCommentID = "SELECT tempComment_Id FROM TemporaryComment WHERE comment_text = '";
 
+        //SQL query to retrive custom comment text from the database
         public static string getCustomCommentText = "SELECT comment_text FROM TemporaryComment WHERE tempComment_Id = ";
 
+        //SQL query to retrive comment text from the database
+        public static string getStandardCommentText = "SELECT comment_text FROM Comments WHERE comment_id = ";
+
+        //SQL query for removing a custom query
         public static string removeCustomFeedbackEntry = "DELETE FROM TemporaryComment WHERE tempComment_Id = ";
+
+        //SQL Queries for the removal of an applicant and their data after the feedback has been completed and sent.
+        public static string removeApplicant = "DELETE FROM Applicants WHERE applicant_Id = ";
+        public static string removeApplicantFeedback = "DELETE FROM Applicant_Comment WHERE applicant_Id = ";
+        public static string removeApplicantCustomFeedback = "DELETE FROM TemporaryComment WHERE applicant_Id = ";
     }
 }

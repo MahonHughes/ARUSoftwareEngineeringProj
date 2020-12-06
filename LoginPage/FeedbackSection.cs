@@ -30,7 +30,7 @@ namespace LoginPage
         }
 
         /// <summary>
-        /// Used by the FeedbackSection object to get the Section to ppulate it's list of comments.
+        /// Used by the FeedbackSection object to get the Section to populate it's list of comments.
         /// </summary>
         private void GetComments()
         {

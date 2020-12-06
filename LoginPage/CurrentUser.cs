@@ -13,6 +13,9 @@ namespace LoginPage
         //Current user's name
         public static string userName;
 
+        //Current user's email address
+        public static string emailAddress; 
+
         //Current user's template and job position selection
         public static string selectedJobPosition;
         public static string currentlySelectedTemplate;

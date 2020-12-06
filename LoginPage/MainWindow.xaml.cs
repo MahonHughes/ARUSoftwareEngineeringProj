@@ -30,54 +30,22 @@ namespace LoginPage
 
         private void Submit_Button_Click(object sender, RoutedEventArgs e)
         {
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //To be deleted, to avoid retyping user details when testing
-            if (this.Name_Text_Box.Text == "Username" &&  this.Password_Text_Box.Password == "Password")
+            DBConnection.GetInstance();
+            bool flag = UserAuthorization.Verification(this.Name_Text_Box.Text, this.Password_Text_Box.Password);
+            if (flag)
             {
-                DBConnection.GetInstance();
                 //Sets the username in the CurrentUser class
-                CurrentUser.userName = "Test User";
+                CurrentUser.userName = Name_Text_Box.Text;
+                CurrentUser.emailAddress = DBConnection.GetUserEmailAddress(CurrentUser.userName);
 
                 mainPage = new MainPage();
                 mainPage.Show();
-                this.Hide();
+                Hide();
             }
             else
             {
-                DBConnection.GetInstance();
-                bool flag = UserAuthorization.Verification(this.Name_Text_Box.Text, this.Password_Text_Box.Password);
-                if (flag)
-                {
-                    //Sets the username in the CurrentUser class
-                    CurrentUser.userName = this.Name_Text_Box.Text;
-
-                    mainPage = new MainPage();
-                    mainPage.Show();
-                    this.Hide();
-                }
-                else
-                {
-                    System.Windows.MessageBox.Show("Invalid data");
-                }
+                System.Windows.MessageBox.Show("Invalid data");
             }
-
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            //DBConnection.GetInstance();
-            //bool flag = UserAuthorization.Verification(this.Name_Text_Box.Text, this.Password_Text_Box.Text);
-            //if (flag)
-            //{
-            //    //Sets the username in the CurrentUser class
-            //    user = new CurrentUser(this.Name_Text_Box.Text);
-
-            //    mainPage = new MainPage();
-            //    mainPage.Show();
-            //    this.Hide();
-            //}
-            //else
-            //{
-            //    System.Windows.MessageBox.Show("Invalid data");
-            //}
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
