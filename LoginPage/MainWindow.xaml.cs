@@ -44,7 +44,7 @@ namespace LoginPage
             }
             else
             {
-                System.Windows.MessageBox.Show("Invalid data");
+                System.Windows.MessageBox.Show("Invalid username or password.");
             }
         }
 
