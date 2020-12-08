@@ -718,5 +718,64 @@ namespace LoginPage
 
             dbConnetion.Close();
         }
+
+        public static void DeleteUser(string username)
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                dbConnetion.Open();
+
+                SqlCommand cmd = new SqlCommand(Constants.deleteUser, dbConnetion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.Parameters.Add(new SqlParameter("user_name", username));
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public static void InsertUser(string username, string password, string emailAddress)
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                dbConnetion.Open();
+
+                SqlCommand cmd = new SqlCommand(Constants.insertUser, dbConnetion);
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.Parameters.Add(new SqlParameter("user_name", username));
+                cmd.Parameters.Add(new SqlParameter("user_password", password));
+                cmd.Parameters.Add(new SqlParameter("user_email", emailAddress));
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public static User[] GetUsersFromDatabase()
+        {
+            using (dbConnetion = new SqlConnection(connString))
+            {
+                List<User> users = new List<User>();
+
+                dbConnetion.Open();
+
+                SqlCommand cmd = new SqlCommand(Constants.getUsers, dbConnetion);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int _id = 0;
+
+                    if (Int32.TryParse(reader[0].ToString(), out _id))
+                    {
+                        User user = new User();
+                        user.id = _id;
+                        user.username = reader[1].ToString();
+                        user.emailAddress = reader[2].ToString();
+                        users.Add(user);
+                    }
+                }
+
+                dbConnetion.Close();
+
+                return users.ToArray(); 
+            }
+        }
     }
 }

@@ -83,6 +83,10 @@
       <DependentUpon>AddSectionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Applicant.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="UserManagementPage.xaml.cs">
+      <DependentUpon>UserManagementPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CandidateManagement.xaml.cs">
       <DependentUpon>CandidateManagement.xaml</DependentUpon>
     </Compile>
@@ -93,6 +97,9 @@
       <DependentUpon>CustomCommentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="FeedbackSection.cs" />
+    <Compile Include="AdminPage.xaml.cs">
+      <DependentUpon>AdminPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PdfCreator.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="Comment.cs" />
@@ -127,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UserManagementPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CandidateManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -154,6 +165,10 @@
     <Page Include="FeedBackPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>

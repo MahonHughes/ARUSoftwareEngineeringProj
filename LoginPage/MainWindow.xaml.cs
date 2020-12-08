@@ -22,7 +22,7 @@ namespace LoginPage
     public partial class MainWindow : Window
     {
         public static MainPage mainPage;
-
+        public static AdminPage adminPage;
         public MainWindow()
         {
             InitializeComponent();
@@ -32,7 +32,17 @@ namespace LoginPage
         {
             DBConnection.GetInstance();
             bool flag = UserAuthorization.Verification(this.Name_Text_Box.Text, this.Password_Text_Box.Password);
-            if (flag)
+            if (flag && Name_Text_Box.Text == "admin")
+            {
+                //Sets the username in the CurrentUser class
+                CurrentUser.userName = Name_Text_Box.Text;
+                CurrentUser.emailAddress = null;
+
+                adminPage = new AdminPage();
+                adminPage.Show();
+                Hide();
+            }
+            else if (flag)
             {
                 //Sets the username in the CurrentUser class
                 CurrentUser.userName = Name_Text_Box.Text;

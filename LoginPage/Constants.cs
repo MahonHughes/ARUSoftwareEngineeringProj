@@ -97,5 +97,10 @@ namespace LoginPage
         public static string removeApplicant = "DELETE FROM Applicants WHERE applicant_Id = ";
         public static string removeApplicantFeedback = "DELETE FROM Applicant_Comment WHERE applicant_Id = ";
         public static string removeApplicantCustomFeedback = "DELETE FROM TemporaryComment WHERE applicant_Id = ";
+
+        //SQL Queries for User Management
+        public static string deleteUser = "DELETE FROM users WHERE user_name = @user_name";
+        public static string insertUser = "INSERT INTO users (user_name, user_password, user_email) VALUES (@user_name, @user_password, @user_email)";
+        public static string getUsers = "SELECT user_id, user_name, user_email FROM [users]";
     }
 }
