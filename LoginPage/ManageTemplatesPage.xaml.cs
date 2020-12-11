@@ -28,7 +28,7 @@ namespace LoginPage
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Create_new_template_Click(object sender, RoutedEventArgs e)
         {
           
             MainWindow.mainPage.Content = MainPage.createNewTemplate;
@@ -55,12 +55,12 @@ namespace LoginPage
             currentTemplate = btn.Content.ToString();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Back__click(object sender, RoutedEventArgs e)
         {
             MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
         }
 
-        private void Button_Click2(object sender, RoutedEventArgs e)
+        private void New_from_selected_click(object sender, RoutedEventArgs e)
         {
             if (currentTemplate != null)
             {
@@ -69,7 +69,7 @@ namespace LoginPage
           
         }
 
-        private void Button_Click3(object sender, RoutedEventArgs e)
+        private void Edit_click(object sender, RoutedEventArgs e)
         {
             if (currentTemplate != null)
             {
@@ -98,5 +98,7 @@ namespace LoginPage
         {
             Application.Current.Shutdown();
         }
+
+ 
     }
 }

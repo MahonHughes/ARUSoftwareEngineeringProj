@@ -21,16 +21,18 @@ namespace LoginPage
     /// </summary>
     public partial class CreateNewSectionPage : Page
     {
-        //Declares sectionWindow
+        // Declares sectionWindow
         AddSectionWindow sectionWindow;
-
+       
+        // Declared createCommentWindow
         public CreateCommentWindow commentWindow;
 
+        // save the indexes of currently selected buttons on the page
         public static int currentSectionID = 0;
         public static int currentCommentID = 0;
 
 
-
+        // used to attach a tag to a newly created button 
         static int sectionButtonTag;
  
 
@@ -80,6 +82,10 @@ namespace LoginPage
             
 
         }
+
+        /// <summary>
+        /// Method called when the page is loaded, populates the list box with sections (one button per section)
+        /// </summary>
         public static void ShowSectionButtons()
         {
             MainPage.createNewSectionPage.sectionsListBox.Items.Clear();
@@ -117,6 +123,11 @@ namespace LoginPage
             }
             MainPage.createNewSectionPage.text_box.Text = "";
         }
+
+
+        /// <summary>
+        /// Method called When the section is selected, populates list box with button for the comments 
+        /// </summary>
         public static void ShowCommentsButtons()
         {
             MainPage.createNewSectionPage.commentsListBox.Items.Clear();

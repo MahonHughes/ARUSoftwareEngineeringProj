@@ -21,8 +21,8 @@
         </Grid.Background>
         <Label x:Name="lb1" Content="Code name:" HorizontalAlignment="Left" Margin="66,39,0,0" VerticalAlignment="Top" Height="31" Width="104" FontSize="18"/>
         <TextBox x:Name="tb_codeName" HorizontalAlignment="Left" Height="23" Margin="175,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182"/>
-        <TextBox x:Name="tb_comment" HorizontalAlignment="Left" Height="226" Margin="66,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="520" Grid.ColumnSpan="2" TextChanged="TextBox_TextChanged"/>
-        <Button Content="Submit" HorizontalAlignment="Left" Margin="544,329,0,0" VerticalAlignment="Top" Width="86" Height="43" Click="Button_Click" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="tb_comment" HorizontalAlignment="Left" Height="226" Margin="66,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="520" Grid.ColumnSpan="2"/>
+        <Button Content="Submit" HorizontalAlignment="Left" Margin="544,329,0,0" VerticalAlignment="Top" Width="86" Height="43" Click="Submit_click" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>

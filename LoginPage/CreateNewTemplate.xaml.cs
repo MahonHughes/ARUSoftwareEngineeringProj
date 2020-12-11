@@ -175,7 +175,7 @@ namespace LoginPage
                
                 List<TemplateSection> sections = TemplateSection.SectionsForTemplate(buttons);
                 int template_id = DBConnection.GetLastTemplateID();
-                template_id++;//You should have no ID and enter it in the table as NULL as it's auto increment but this increment will give you the right one if you still want to use ID
+                template_id++;
                 Template template = new Template(textBox.Text, sections, template_id);
             
               

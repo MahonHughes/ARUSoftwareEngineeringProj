@@ -49,7 +49,7 @@ namespace LoginPage
         }
 
         /// <summary>
-        /// Method to creat a new comment for the section 
+        /// Method to create a new comment for the section 
         /// </summary>
         /// <param name="code_name"></param>
         /// <param name="text"></param>
@@ -60,6 +60,12 @@ namespace LoginPage
             return comment;
         }
 
+        /// <summary>
+        /// Takes the section bttons from Manage Template class and checks whether the foregroud of the butonn is black, if yes, this means 
+        /// thhe 
+        /// </summary>
+        /// <param name="buttons"></param>
+        /// <returns></returns>
         public static List<TemplateSection> SectionsForTemplate(List<Button> buttons)
         {
             sections = DBConnection.GetSectionsFromDatabase();
@@ -71,7 +77,7 @@ namespace LoginPage
                 {
                     return_sections.Add(sections[i]);
                 }
-            }
+            } 
 
             return return_sections;
         }
