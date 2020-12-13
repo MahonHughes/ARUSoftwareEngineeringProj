@@ -57,7 +57,8 @@ namespace LoginPage
             currentJobPosition = CurrentUser.selectedJobPosition;
             currentTemplateSelected = CurrentUser.currentlySelectedTemplate;
 
-            //Set text labels to show current info --------------------------------------------------------------------------------------------------
+            txbJobPosition.Content = "Current Positon: " + CurrentUser.selectedJobPosition;
+            txbSelectedTemplate.Content = "Selected Template: " + CurrentUser.currentlySelectedTemplate;
 
             applicantListBox.Items.Clear();
 
