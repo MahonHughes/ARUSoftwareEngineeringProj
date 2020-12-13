@@ -98,6 +98,7 @@ namespace LoginPage
             Application.Current.Shutdown();
         }
 
+        // Resets the content of the page 
        private static void  ReloadPage() {
 
             templateNameArray = DBConnection.GetTemplateNamesFromDatabase();

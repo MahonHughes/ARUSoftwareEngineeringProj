@@ -28,7 +28,7 @@ namespace LoginPage
         {
             connString = Properties.Settings.Default.userDBconnStr;
         }
-
+      
         public static DBConnection GetInstance()
         {
             if (instance == null)
@@ -156,7 +156,7 @@ namespace LoginPage
         }
 
         /// <summary>
-        /// Called by AddSectionWindow to insert a new section into the database.
+        /// Called by AddSectionWindow to save a new section into the database.
         /// </summary>
         /// <param name="_section">Newly created template section.</param>
         public static void InsertAddedSection(TemplateSection _section)
@@ -173,7 +173,10 @@ namespace LoginPage
                 dbConnetion.Close();
             }
         }
-
+        /// <summary>
+        /// Saves newly created comment to a database 
+        /// </summary>
+        /// <param name="comment"></param>
         public static void InsertComment(Comment comment)
         {
             using (dbConnetion = new SqlConnection(connString))
@@ -208,6 +211,11 @@ namespace LoginPage
             }
         }
 
+       /// <summary>
+       /// Gets the list of all comments from the database 
+       /// </summary>
+       /// <param name="section_id"></param>
+       /// <returns></returns>
         public static List<Comment> GetCommentFromDatabase(int section_id)
         {
 
@@ -255,7 +263,7 @@ namespace LoginPage
         }
 
         /// <summary>
-        ///
+        /// Gets the name of name of the templates to populate the template box list in the ManageTemplate page
         /// </summary>
         /// <returns>A list of Template objects.</returns>
         public static string[] GetTemplateNamesFromDatabase()
@@ -282,7 +290,8 @@ namespace LoginPage
                 return TemplateNameList.ToArray();
             }
         }
-
+        
+        // Gets the id of the last template  from the database in order to increment this number by 1 and to set it as an id for new template 
         public static int GetLastTemplateID()
         {
             int last_templateId = -1;
@@ -368,6 +377,13 @@ namespace LoginPage
             }
         }
 
+     
+        /// <summary>
+        ///  Deletes the selected section from the database, called from CreateNewSection class
+        ///  In order to delete the section completl, first the comments attached to the section should be deleted
+        ///  Than the section itself is removed from the database
+        /// </summary>
+
         public static void DeleteSectionFromDatabase(int section_id)
         {
             using (dbConnetion = new SqlConnection(connString))
@@ -386,6 +402,10 @@ namespace LoginPage
             }
         }
 
+        /// <summary>
+        /// Deletes the selected comment from the database. This mathod is called from the CreateNewSection page
+        /// </summary>
+        /// <param name="comment_id"></param>
         public static void DeleteComment(int comment_id)
         {
             using (dbConnetion = new SqlConnection(connString))
@@ -434,7 +454,7 @@ namespace LoginPage
         }
 
         /// <summary>
-        /// Allows for creation of comments with all their details.
+        /// Gets the comments attached to a particular section from the database 
         /// </summary>
         /// <param name="section_id">Relevant section to get comments for.</param>
         /// <returns>List of comments.</returns>
@@ -491,7 +511,7 @@ namespace LoginPage
         }
 
         /// <summary>
-        /// Used to save new template to the database
+        /// Used to save a new template to the database
         /// </summary>
         /// <param name="tempateName"> Name of the template </param>
         public static void InsertTemplate(string tempateName)
@@ -506,6 +526,10 @@ namespace LoginPage
             }
         }
 
+        /// <summary>
+        /// Used to save sections attached to a particular template in the database 
+        /// </summary>
+        /// <param name="template"></param>
         public static void InsertTemplateSection(Template template)
         {
             using (dbConnetion = new SqlConnection(connString))
@@ -522,7 +546,11 @@ namespace LoginPage
             }       
         }
 
-
+        /// <summary>
+        /// Gets the sections attached to a particular template fromt the database 
+        /// </summary>
+        /// <param name="templateName"></param>
+        /// <returns></returns>
         public static List<string> GetTemplateSection (string templateName)
         {
             List<string> selectedSections = new List<string>();

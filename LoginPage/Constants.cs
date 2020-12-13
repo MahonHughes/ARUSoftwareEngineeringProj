@@ -16,10 +16,6 @@ namespace LoginPage
         // SQl commands for Sections class
         public static string sectionsFetchData = "select * from [Sections]";
         public static string insertSection = "INSERT INTO Sections (section_name) VALUES (@section_name)";
-        public static string DeleteSection(int section_id)
-        {
-            return "DELETE FROM Sections WHERE section_id = " + section_id.ToString();
-        }
         public static string deleteSection = "DELETE FROM Sections WHERE section_id = @section";
 
 
