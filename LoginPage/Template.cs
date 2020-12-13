@@ -16,7 +16,7 @@ namespace LoginPage
         public List<TemplateSection> templateSections = new List<TemplateSection>();
 
          /// <summary>
-         /// Contructor for Table class
+         /// Constructor for Table class
          /// </summary>
          /// <param name="template_name"></param>
          /// <param name="sections"></param>

@@ -28,13 +28,24 @@ namespace LoginPage
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Opens the page dor creating new template
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Create_new_template_Click(object sender, RoutedEventArgs e)
         {
           
             MainWindow.mainPage.Content = MainPage.createNewTemplate;
         }
 
-        private void ListBox_Loaded(object sender, RoutedEventArgs e)
+
+        /// <summary>
+        /// Opens the page for populating the list box wiith the existing templates 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TemplateListBox_Loaded(object sender, RoutedEventArgs e)
         {
             templateNameArray = DBConnection.GetTemplateNamesFromDatabase();
             templatesListBox.Items.Clear();

@@ -20,7 +20,7 @@ namespace LoginPage
     /// </summary>
     public partial class CreateNewTemplate : Page
     {
-
+        
         List<TemplateSection> templateSections = new List<TemplateSection>();
         static List<Button> buttons = new List<Button>();
         int pageType;

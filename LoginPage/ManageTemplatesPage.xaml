@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
         <Button x:Name="Back" Content="Back" HorizontalAlignment="Left" Margin="42,0,0,30" VerticalAlignment="Bottom" Width="250" Height="65" FontSize="30" Click="Back__click" Grid.Row="1"/>
       
-        <ListBox Name="templatesListBox" HorizontalAlignment="Center" Height="456" Margin="347,108,349,136" VerticalAlignment="Center" Width="504" SelectionMode="Single" Loaded="ListBox_Loaded" Grid.RowSpan="2" BorderBrush="White" BorderThickness="3" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListBox Name="templatesListBox" HorizontalAlignment="Center" Height="456" Margin="347,108,349,136" VerticalAlignment="Center" Width="504" SelectionMode="Single" Loaded="TemplateListBox_Loaded" Grid.RowSpan="2" BorderBrush="White" BorderThickness="3" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
