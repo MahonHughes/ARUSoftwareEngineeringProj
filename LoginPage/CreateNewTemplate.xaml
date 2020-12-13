@@ -15,9 +15,9 @@
         </Grid.ColumnDefinitions>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF5645C0" Offset="1"/>
+                <GradientStop Color="#FF3420AD" Offset="1"/>
                 <GradientStop Color="#FFF60FC5"/>
-                <GradientStop Color="#FF5645C0"/>
+                <GradientStop Color="#FF443F60"/>
             </LinearGradientBrush>
         </Grid.Background>
         <ListBox x:Name="list_box" HorizontalAlignment="Center" Height="401" Margin="382,160,354,139" VerticalAlignment="Center" Width="464" BorderBrush="White" BorderThickness="3" Loaded="list_box_Loaded" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="2">
@@ -28,9 +28,10 @@
             </ListBox.Resources>
             <ListBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF5748B8" Offset="1"/>
+                    <GradientStop Color="#FF4737AE" Offset="1"/>
                     <GradientStop Color="#FFD120BD"/>
-                    <GradientStop Color="#FF5645C0"/>
+                    <GradientStop Color="#FF403775"/>
+                    <GradientStop Color="#FF3D3182" Offset="0.505"/>
                 </LinearGradientBrush>
             </ListBox.Background>
         </ListBox>
