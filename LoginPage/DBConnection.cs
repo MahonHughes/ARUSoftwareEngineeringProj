@@ -595,6 +595,13 @@ namespace LoginPage
             }
         }
 
+        /// <summary>
+        /// Used when a custom comment is made to insert the comment into the database and retrieve it's ID number.
+        /// </summary>
+        /// <param name="_commentText">Comment added.</param>
+        /// <param name="_sectionID">The ID of the section the comment is for.</param>
+        /// <param name="_applicantID">The ID of the applicant the comment is for.</param>
+        /// <returns>The newly created custom comments ID number in the database.</returns>
         public static int InsertCustomCommentAndGetItsID(string _commentText, int _sectionID, int _applicantID)
         {
             int customCommentID;
@@ -622,6 +629,11 @@ namespace LoginPage
             return customCommentID;
         }
 
+        /// <summary>
+        /// Used by InsertCustomCommentAndGetItsID() to get the newly added comments ID.
+        /// </summary>
+        /// <param name="_commentText">Used to get match for the comment.</param>
+        /// <returns>The comments ID.</returns>
         private static int GetCustomCommentID(string _commentText)
         {
             int _ID = -1;

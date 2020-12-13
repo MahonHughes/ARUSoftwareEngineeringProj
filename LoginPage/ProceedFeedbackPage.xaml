@@ -9,7 +9,7 @@
       Title="ProceedFeedbackPage">
 
     <Grid Background="#FFD3DC7B" Loaded="Grid_Loaded">
-        <Button Content="Back" HorizontalAlignment="Left" Margin="45,0,0,34" VerticalAlignment="Bottom" Width="250" Height="55" FontSize="30" Click="Button_Click"/>
+        <Button Content="Back" HorizontalAlignment="Left" Margin="45,0,0,34" VerticalAlignment="Bottom" Width="250" Height="55" FontSize="30" Click="Back"/>
         <ComboBox x:Name="selectJobDropdown" Background="Transparent" HorizontalAlignment="Center" Margin="577,239,255,416" VerticalAlignment="Center" Width="368" Height="45" FontSize="20"/>
         <ComboBox x:Name="selectTemplateDropdown" Background="Transparent" HorizontalAlignment="Center" Margin="577,391,255,264" VerticalAlignment="Center" Width="368" Height="45" FontSize="20"/>
         <Label Content="Job position:" HorizontalAlignment="Center" Margin="270,239,710,397" VerticalAlignment="Center" Height="64" Width="220" FontSize="30"/>
