@@ -8,7 +8,13 @@
       d:DesignHeight="700" d:DesignWidth="1200"
       Title="DashboardPage">
 
-    <Grid Background="#FF9BBFA3" Margin="0,0,2,0">
+    <Grid Margin="0,0,2,0">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF8DC3CF" Offset="0.0"/>
+                    <GradientStop Color="#FF73A27B" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>
