@@ -25,7 +25,12 @@ namespace LoginPage
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Takes user back to Dashboard
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Back(object sender, RoutedEventArgs e)
         {
             MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
         }
@@ -66,6 +71,11 @@ namespace LoginPage
             }
         }
 
+        /// <summary>
+        /// Maximises the window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Maximise_Click(object sender, RoutedEventArgs e)
         {
             if (MainWindow.mainPage.WindowState == WindowState.Normal)
@@ -78,11 +88,21 @@ namespace LoginPage
             }
         }
 
+        /// <summary>
+        /// Minimises the window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Minimise_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.mainPage.WindowState = WindowState.Minimized;
         }
 
+        /// <summary>
+        /// Closes the application.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

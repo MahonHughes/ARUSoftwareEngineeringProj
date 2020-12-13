@@ -21,16 +21,18 @@ namespace LoginPage
     /// </summary>
     public partial class CreateNewSectionPage : Page
     {
-        //Declares sectionWindow
+        // Declares sectionWindow
         AddSectionWindow sectionWindow;
-
+       
+        // Declared createCommentWindow
         public CreateCommentWindow commentWindow;
 
+        // save the indexes of currently selected buttons on the page
         public static int currentSectionID = 0;
         public static int currentCommentID = 0;
 
 
-
+        // used to attach a tag to a newly created button 
         static int sectionButtonTag;
  
 
@@ -80,6 +82,10 @@ namespace LoginPage
             
 
         }
+
+        /// <summary>
+        /// Method called when the page is loaded, populates the list box with sections (one button per section)
+        /// </summary>
         public static void ShowSectionButtons()
         {
             MainPage.createNewSectionPage.sectionsListBox.Items.Clear();
@@ -117,6 +123,11 @@ namespace LoginPage
             }
             MainPage.createNewSectionPage.text_box.Text = "";
         }
+
+
+        /// <summary>
+        /// Method called When the section is selected, populates list box with button for the comments 
+        /// </summary>
         public static void ShowCommentsButtons()
         {
             MainPage.createNewSectionPage.commentsListBox.Items.Clear();
@@ -138,6 +149,11 @@ namespace LoginPage
             MainPage.createNewSectionPage.text_box.Text = "";
         }
 
+        /// <summary>
+        /// Saved the id button of the selected comment 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void CommentSelected(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
@@ -146,17 +162,25 @@ namespace LoginPage
             MainPage.createNewSectionPage.bt_delete_Comment_.IsEnabled = true;
         }
 
+        /// <summary>
+        /// Opens the dashboard page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bt_goBack_Click(object sender, RoutedEventArgs e)
         {
             commentsListBox.Items.Clear();
             MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
         }
 
+        /// <summary>
+        /// Opens a new window to create a new comment for the selected template  
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bt_comment_Click(object sender, RoutedEventArgs e)
         {
-                    
             commentWindow = new CreateCommentWindow();
-
             commentWindow.Show();
         }
 
@@ -168,6 +192,11 @@ namespace LoginPage
             sectionsListBox_Loaded(this, null);
         }
 
+        /// <summary>
+        /// Deletes the selected section with comments attached to it from the databasse and upadates the interface
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bt_Delete_Section(object sender, RoutedEventArgs e)
         {
             DBConnection.DeleteSectionFromDatabase(TemplateSection.sections[currentSectionID].sectionID);
@@ -176,7 +205,11 @@ namespace LoginPage
 
         }
 
-
+        /// <summary>
+        /// Deletes the selected comment from the static list and the database and updated the interface
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bt_Delete_Comment(object sender, RoutedEventArgs e)
         {
             DBConnection.DeleteComment(TemplateSection.sections[currentSectionID].comments[currentCommentID].comment_id);

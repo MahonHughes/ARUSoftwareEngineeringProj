@@ -33,7 +33,7 @@ namespace LoginPage
         /// <param name="sender"></param>
         /// <param name="e"></param>
         
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Add_Click(object sender, RoutedEventArgs e)
         {
             bool notInvalid = true;
 
@@ -78,6 +78,5 @@ namespace LoginPage
             Close();
         }
 
-      
     }
 }

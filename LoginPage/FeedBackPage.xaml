@@ -8,12 +8,19 @@
       d:DesignHeight="700" d:DesignWidth="1200"
       Title="FeedBackPage">
 
-    <Grid Background="#FF389CA0" Loaded="Grid_Loaded">
+    <Grid Loaded="Grid_Loaded">
+        <Border CornerRadius="20" Grid.RowSpan="2">
+            <Border.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#FFBCE2F7" Offset="0.0"/>
+                    <GradientStop Color="#FF0D0872" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
         <ListBox x:Name="applicantListBox" HorizontalAlignment="Center" Height="461" Margin="39,141,909,98" VerticalAlignment="Center" Width="252"/>
         <Button x:Name="btnCancel" Content="Back" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10" Width="175" Height="55" FontSize="30" Click="btnCancel_Click"/>
-        <Label Content="Template: Random" HorizontalAlignment="Center" Margin="311,33,700,630" VerticalAlignment="Center" FontSize="20" Width="189"/>
-        <Label Content="Job Position: Random" HorizontalAlignment="Center" Margin="778,33,222,630" VerticalAlignment="Center" FontSize="20" Height="37"/>
-        <Label Content="User: Random" HorizontalAlignment="Center" Margin="778,85,288,578" VerticalAlignment="Center" FontSize="20" Height="37"/>
+        <Label x:Name="txbSelectedTemplate" Content="Template: Random" HorizontalAlignment="Center" Margin="321,94,48,569" VerticalAlignment="Center" FontSize="20" Width="831"/>
+        <Label x:Name="txbJobPosition" Content="Job Position: Random" HorizontalAlignment="Center" Margin="321,52,220,611" VerticalAlignment="Center" FontSize="20" Height="37" Width="659"/>
         <ListView x:Name="feedbackListView" HorizontalAlignment="Center" Height="461" Margin="311,141,18,98" VerticalAlignment="Center" Width="871" ItemsSource="{Binding sections}" FontSize="20">
             <ListView.View>
                 <GridView>
@@ -55,7 +62,6 @@
         </ListView>
         <Button x:Name="btnFinish" Content="Finish Group and Send Feedback" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Width="390" Height="54" FontSize="27" Click="btnFinish_Click"/>
         <Button x:Name="btnSaveFeedback" Content="Save Applicant Feedback" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,408,10" Width="292" Height="55" FontSize="27" Click="btnSaveFeedback_Click"/>
-        <Label Content="Template Subject: Random" HorizontalAlignment="Center" Margin="311,85,644,578" VerticalAlignment="Center" FontSize="20"/>
         <Button x:Name="btnClearSelections" Content="Clear Current" HorizontalAlignment="Right" Margin="0,0,870,10" VerticalAlignment="Bottom" Width="140" Height="55" FontSize="20" Click="ClearSelected_Click"/>
         <Button x:Name="btnRestore" Content="Restore Previous" HorizontalAlignment="Right" Margin="0,0,705,10" VerticalAlignment="Bottom" Width="160" Height="55" FontSize="20" Click="Restore_Click"/>
         <Button x:Name="btnMaximise" Grid.ColumnSpan="2" Content="+" HorizontalAlignment="Right" Margin="0,10,83,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Maximise_Click"/>

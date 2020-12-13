@@ -57,7 +57,8 @@ namespace LoginPage
             currentJobPosition = CurrentUser.selectedJobPosition;
             currentTemplateSelected = CurrentUser.currentlySelectedTemplate;
 
-            //Set text labels to show current info --------------------------------------------------------------------------------------------------
+            txbJobPosition.Content = "Current Positon: " + CurrentUser.selectedJobPosition;
+            txbSelectedTemplate.Content = "Selected Template: " + CurrentUser.currentlySelectedTemplate;
 
             applicantListBox.Items.Clear();
 
@@ -135,7 +136,7 @@ namespace LoginPage
             else
             {
                 BrushConverter bc = new BrushConverter();
-                selectedApplcant.Background = (Brush)bc.ConvertFrom("#FF3A7E85");
+                selectedApplcant.Background = (Brush)bc.ConvertFrom("#FF7C96C3");
 
                 selectedApplcant = _btn;
                 _btn.Background = Brushes.CornflowerBlue;
@@ -322,7 +323,7 @@ namespace LoginPage
                 comboBoxes[i].SelectedIndex = -1;
                 comboBoxes[i].IsEnabled = true;
 
-                customCommentButtons[i].Background = (Brush)bc.ConvertFrom("#FF3A7E85");
+                customCommentButtons[i].Background = (Brush)bc.ConvertFrom("#FF7C96C3");
                 customCommentButtons[i].Foreground = Brushes.Black;
                 customCommentButtons[i].Content = "Add";
             }

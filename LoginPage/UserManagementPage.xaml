@@ -8,7 +8,13 @@
       d:DesignHeight="700" d:DesignWidth="1200"
       Title="UserManagementPage">
 
-    <Grid Background="#FF9BBFA3">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFB4BFAB" Offset="0"/>
+                <GradientStop Color="#FF0D8287" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="27*"/>
             <RowDefinition Height="323*"/>

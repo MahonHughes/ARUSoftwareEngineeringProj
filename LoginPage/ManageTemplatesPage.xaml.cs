@@ -28,26 +28,25 @@ namespace LoginPage
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Opens the page dor creating new template
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Create_new_template_Click(object sender, RoutedEventArgs e)
         {
-          
             MainWindow.mainPage.Content = MainPage.createNewTemplate;
         }
 
-        private void ListBox_Loaded(object sender, RoutedEventArgs e)
+
+        /// <summary>
+        /// Opens the page for populating the list box wiith the existing templates 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TemplateListBox_Loaded(object sender, RoutedEventArgs e)
         {
-            templateNameArray = DBConnection.GetTemplateNamesFromDatabase();
-            templatesListBox.Items.Clear();
-            for (int i = 0; i < templateNameArray.Length; i++)
-            {
-                Button btn = new Button();
-                btn.Content = templateNameArray[i];
-                btn.Height = 50;
-                btn.Width = 465;
-                btn.FontSize = 23;
-                btn.Click += TemplateSelected;
-                templatesListBox.Items.Add(btn);
-            }
+            ReloadPage();
         }
         private static void TemplateSelected(object sender, RoutedEventArgs e)
         {
@@ -55,12 +54,12 @@ namespace LoginPage
             currentTemplate = btn.Content.ToString();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Back__click(object sender, RoutedEventArgs e)
         {
             MainWindow.mainPage.Content = MainWindow.mainPage.dashboard;
         }
 
-        private void Button_Click2(object sender, RoutedEventArgs e)
+        private void New_from_selected_click(object sender, RoutedEventArgs e)
         {
             if (currentTemplate != null)
             {
@@ -69,7 +68,7 @@ namespace LoginPage
           
         }
 
-        private void Button_Click3(object sender, RoutedEventArgs e)
+        private void Edit_click(object sender, RoutedEventArgs e)
         {
             if (currentTemplate != null)
             {
@@ -97,6 +96,33 @@ namespace LoginPage
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        // Resets the content of the page 
+       private static void  ReloadPage() {
+
+            templateNameArray = DBConnection.GetTemplateNamesFromDatabase();
+            MainPage.manageTemplatesPage.templatesListBox.Items.Clear();
+            for (int i = 0; i < templateNameArray.Length; i++)
+            {
+                Button btn = new Button();
+                btn.Content = templateNameArray[i];
+                btn.Height = 50;
+                btn.Width = 465;
+                btn.FontSize = 23;
+                btn.Click += TemplateSelected;
+                MainPage.manageTemplatesPage.templatesListBox.Items.Add(btn);
+            }
+        }
+
+        // Deletes the selected template
+        private void Delete_click(object sender, RoutedEventArgs e)
+        {
+            if (currentTemplate != null)
+            {
+                DBConnection.DeleteTemplate(currentTemplate);
+                ReloadPage();
+            }
         }
     }
 }

@@ -24,7 +24,13 @@ namespace LoginPage
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Method is used to submit the creatinon of new comment, 
+        /// if comment name is typed along with the text of the comment, new comment will be created and added to the database  
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Submit_click(object sender, RoutedEventArgs e)
         {
          
             if (string.IsNullOrEmpty(tb_codeName.Text)  || string.IsNullOrEmpty(tb_comment.Text))
@@ -42,9 +48,8 @@ namespace LoginPage
             }
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
+  
 
-        }
+      
     }
 }

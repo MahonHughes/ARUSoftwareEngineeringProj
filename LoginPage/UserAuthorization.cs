@@ -42,11 +42,18 @@ namespace LoginPage
             return result;
         }
       
+        /// <summary>
+        /// Looks for the user in the database and checks whether the passwird is correct 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public static bool Verification(string name, string password)
         {
             bool result = false;
-
-            bool flag1 = SearchData(name, Constants.userAuthorizaztionName);
+            //flag for user name, if there is a name in the database, variable will be set to true
+            bool flag1 = SearchData(name, Constants.userAuthorizaztionName); 
+            //flag for the password if there is a password in the database will be set to true
             bool flag2 = SearchData(password, Constants.userAuthorizaztionPassword);
 
             if (flag1 && flag2)

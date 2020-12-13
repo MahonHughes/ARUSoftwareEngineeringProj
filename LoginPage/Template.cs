@@ -15,13 +15,12 @@ namespace LoginPage
         //List of section objects
         public List<TemplateSection> templateSections = new List<TemplateSection>();
 
-
-        public Template(string template_name, List<TemplateSection> sections )
-        {
-            name = template_name;
-            templateSections = sections;
-        }
-         
+         /// <summary>
+         /// Constructor for Table class
+         /// </summary>
+         /// <param name="template_name"></param>
+         /// <param name="sections"></param>
+         /// <param name="temp_id"></param>
         public Template(string template_name, List<TemplateSection> sections, int temp_id)
         {
             name = template_name;

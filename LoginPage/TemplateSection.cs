@@ -49,7 +49,7 @@ namespace LoginPage
         }
 
         /// <summary>
-        /// Method to creat a new comment for the section 
+        /// Method to create a new comment for the section 
         /// </summary>
         /// <param name="code_name"></param>
         /// <param name="text"></param>
@@ -60,6 +60,12 @@ namespace LoginPage
             return comment;
         }
 
+        /// <summary>
+        /// Takes the section bttons from CreateNewTemplate class and checks whether the foregroud of the butonn is black, if yes, this means 
+        /// that this section is selected, so it is added to the list which will be returned to the Mange Template class and whichc willl be used for creating new template
+        /// </summary>
+        /// <param name="buttons"></param>
+        /// <returns></returns>
         public static List<TemplateSection> SectionsForTemplate(List<Button> buttons)
         {
             sections = DBConnection.GetSectionsFromDatabase();
@@ -71,11 +77,18 @@ namespace LoginPage
                 {
                     return_sections.Add(sections[i]);
                 }
-            }
+            } 
 
             return return_sections;
         }
 
+
+        /// <summary>
+        /// This method is used in the CreateNewTemplate class, it checks whether the name of the template, which the user is trying to create, is unique
+        /// id there exists a template with the same name, method will return false bool value and the new template will not be created
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static bool TemplateExists(string text)
         {
             bool flag = false;
