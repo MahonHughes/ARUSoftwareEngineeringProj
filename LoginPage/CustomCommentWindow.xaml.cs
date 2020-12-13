@@ -185,7 +185,7 @@ namespace LoginPage
                 txbCustomComment.Text = null;
 
                 BrushConverter bc = new BrushConverter();
-                parent.customCommentButtons[buttonIndex].Background = (Brush)bc.ConvertFrom("#FF3A7E85");
+                parent.customCommentButtons[buttonIndex].Background = (Brush)bc.ConvertFrom("#FF7C96C3");
                 parent.customCommentButtons[buttonIndex].Foreground = Brushes.Black;
                 parent.customCommentButtons[buttonIndex].Content = "Add";
 

@@ -8,7 +8,15 @@
         Title="CustomCommentWindow" Height="250" Width="300"
         AllowsTransparency="True" WindowStyle="None" Background="Transparent">
     <Grid>
-        <Border CornerRadius="20" Grid.RowSpan="2" Background="#FF389CA0" Loaded="CustomComment_OnLoad"/>
+        <Border CornerRadius="20" Grid.RowSpan="2" Loaded="CustomComment_OnLoad">
+            <Border.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#FFBCE2F7" Offset="0.0"/>
+                    <GradientStop Color="#FF0D0872" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        
         <Grid  VerticalAlignment="Center" Height="230" Margin="0,10">
             <Button x:Name="windowClose" Content="X" HorizontalAlignment="Right" VerticalAlignment="Top" Click="windowClose_Click" Width="40" Height="40" Margin="0,5,4.8,0"/>
             <Label Content="Enter Custom Comment: " HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="232" FontSize="20"/>

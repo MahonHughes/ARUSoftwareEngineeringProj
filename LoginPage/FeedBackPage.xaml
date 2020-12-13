@@ -8,7 +8,15 @@
       d:DesignHeight="700" d:DesignWidth="1200"
       Title="FeedBackPage">
 
-    <Grid Background="#FF389CA0" Loaded="Grid_Loaded">
+    <Grid Loaded="Grid_Loaded">
+        <Border CornerRadius="20" Grid.RowSpan="2">
+            <Border.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#FFBCE2F7" Offset="0.0"/>
+                    <GradientStop Color="#FF0D0872" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
         <ListBox x:Name="applicantListBox" HorizontalAlignment="Center" Height="461" Margin="39,141,909,98" VerticalAlignment="Center" Width="252"/>
         <Button x:Name="btnCancel" Content="Back" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10" Width="175" Height="55" FontSize="30" Click="btnCancel_Click"/>
         <Label x:Name="txbSelectedTemplate" Content="Template: Random" HorizontalAlignment="Center" Margin="321,94,48,569" VerticalAlignment="Center" FontSize="20" Width="831"/>

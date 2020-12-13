@@ -8,7 +8,15 @@
       d:DesignHeight="700" d:DesignWidth="1200"
       Title="ProceedFeedbackPage">
 
-    <Grid Background="#FFD3DC7B" Loaded="Grid_Loaded">
+    <Grid Loaded="Grid_Loaded">
+        <Border CornerRadius="20" Grid.RowSpan="2">
+            <Border.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#FFBCE2F7" Offset="0.0"/>
+                    <GradientStop Color="#FF0D0872" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
         <Button Content="Back" HorizontalAlignment="Left" Margin="45,0,0,34" VerticalAlignment="Bottom" Width="250" Height="55" FontSize="30" Click="Back"/>
         <ComboBox x:Name="selectJobDropdown" Background="Transparent" HorizontalAlignment="Center" Margin="577,239,255,416" VerticalAlignment="Center" Width="368" Height="45" FontSize="20"/>
         <ComboBox x:Name="selectTemplateDropdown" Background="Transparent" HorizontalAlignment="Center" Margin="577,391,255,264" VerticalAlignment="Center" Width="368" Height="45" FontSize="20"/>

@@ -136,7 +136,7 @@ namespace LoginPage
             else
             {
                 BrushConverter bc = new BrushConverter();
-                selectedApplcant.Background = (Brush)bc.ConvertFrom("#FF3A7E85");
+                selectedApplcant.Background = (Brush)bc.ConvertFrom("#FF7C96C3");
 
                 selectedApplcant = _btn;
                 _btn.Background = Brushes.CornflowerBlue;
@@ -323,7 +323,7 @@ namespace LoginPage
                 comboBoxes[i].SelectedIndex = -1;
                 comboBoxes[i].IsEnabled = true;
 
-                customCommentButtons[i].Background = (Brush)bc.ConvertFrom("#FF3A7E85");
+                customCommentButtons[i].Background = (Brush)bc.ConvertFrom("#FF7C96C3");
                 customCommentButtons[i].Foreground = Brushes.Black;
                 customCommentButtons[i].Content = "Add";
             }
