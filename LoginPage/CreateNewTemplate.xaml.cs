@@ -20,9 +20,17 @@ namespace LoginPage
     /// </summary>
     public partial class CreateNewTemplate : Page
     {
-        
+        /// <summary>
+        /// List of templates to populate the list box
+        /// </summary>
         List<TemplateSection> templateSections = new List<TemplateSection>();
-        static List<Button> buttons = new List<Button>();
+
+        /// <summary>
+        /// lisst of buttons 
+        /// </summary>
+        static List<Button> sectionButtons = new List<Button>();
+        
+        // Type of the page which will be loaded (there are there types: Create new template, Create new template from Selected, Edit selected template)
         int pageType;
 
         public CreateNewTemplate(int page_type)
@@ -31,11 +39,22 @@ namespace LoginPage
             pageType = page_type;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Go back button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void back_btn_click(object sender, RoutedEventArgs e)
         {
             MainWindow.mainPage.Content = MainPage.manageTemplatesPage;
         }
 
+
+        /// <summary>
+        /// Loadsd the interfaces for different types of pages (depends on what the user chose in the ManageTemplate page)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void list_box_Loaded(object sender, RoutedEventArgs e)
         {
 
@@ -56,11 +75,16 @@ namespace LoginPage
            
         }
 
+        /// <summary>
+        /// Interface for creating new Template page 
+        /// </summary>
         private void CreateNewTemplateInterface()
         {
-            list_box.Items.Clear();
-            buttons.Clear();
+            sections_list_box.Items.Clear();
+            sectionButtons.Clear();
+            // Takes sections from the database 
             templateSections = DBConnection.GetSectionsFromDatabase();
+            //Poplates the list box of sections 
             for (int i = 0; i < templateSections.Count; i++)
             {
                 Button btn = new Button();
@@ -70,17 +94,23 @@ namespace LoginPage
                 btn.Tag = i;
                 btn.Click += ButtonSelected;
                 btn.Name = "Unselected";
-                buttons.Add(btn);
-                list_box.Items.Add(btn);
+                sectionButtons.Add(btn);
+                sections_list_box.Items.Add(btn);
             }
         }
 
+        /// <summary>
+        /// Interface for creating the new Template from selected template 
+        /// (Sections which are considered to be the part of the base template will be the part of the new template this cannot be changed) 
+        /// </summary>
         private void CreateNewTemplateFromSelectedInterface()
         {
-            list_box.Items.Clear();
-            buttons.Clear();
+            sections_list_box.Items.Clear();
+            sectionButtons.Clear();
+            // Takes sections from the database 
             templateSections = DBConnection.GetSectionsFromDatabase();
             List<string> selectedSections = DBConnection.GetTemplateSection(ManageTemplatesPage.currentTemplate);
+            //Poplates the list box of sections
             for (int i = 0; i < templateSections.Count; i++)
             {
                 Button btn = new Button();
@@ -100,21 +130,28 @@ namespace LoginPage
                         btn.IsEnabled = false;
                     }               
                 }
-                buttons.Add(btn);
-                list_box.Items.Add(btn);
+                sectionButtons.Add(btn);
+                sections_list_box.Items.Add(btn);
             }
 
 
         }
-
+        
+        /// <summary>
+        /// Interface for editing the template (Cannot change the name of the template)
+        /// </summary>
         private void EditTemplateInterface()
         {
-            list_box.Items.Clear();
-            buttons.Clear();
+            sections_list_box.Items.Clear();
+            sectionButtons.Clear();
+            // get 
             templateSections = DBConnection.GetSectionsFromDatabase();
-            textBox.Text = ManageTemplatesPage.currentTemplate;
-            textBox.IsEnabled = false;
+            // name od the selected template
+            templateName.Text = ManageTemplatesPage.currentTemplate;
+            templateName.IsEnabled = false;
+            // Gets the name of the sections of the selected template from the database 
             List<string> selectedSections = DBConnection.GetTemplateSection(ManageTemplatesPage.currentTemplate);
+            //Poplates the list box of sections
             for (int i = 0; i < templateSections.Count; i++)
             {
                 Button btn = new Button();
@@ -133,15 +170,19 @@ namespace LoginPage
                         btn.Name = "Selected";
                     }
                 }
-                buttons.Add(btn);
-                list_box.Items.Add(btn);
+                sectionButtons.Add(btn);
+                sections_list_box.Items.Add(btn);
             }
 
 
         }
 
-
-
+        /// <summary>
+        /// If the section button is selected or  unselected, its color will be changed 
+        /// The color is used in the program to remember which sections are selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void ButtonSelected(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
@@ -159,37 +200,45 @@ namespace LoginPage
             }
         }
 
-       
+       /// <summary>
+       /// Submit button to save new template or edited template 
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="e"></param>
         private void Submit(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(textBox.Text))
+            // Checks if the field for the tamplate name is emmpty, if yes an error window will pop up ob the screen and template won't be created  
+            if (string.IsNullOrEmpty(templateName.Text))
             {
                 MessageBox.Show("Invalid data");
             }
-            else if (pageType !=3 && TemplateSection.TemplateExists(textBox.Text))
+            // checks if the name of template exists in the database,if yes the template will not be created and a relative message will  pop up on the screen
+            else if (pageType !=3 && TemplateSection.TemplateExists(templateName.Text))
             {
                 MessageBox.Show("Template alreade exists, chage the name");
             }
             else
             {
                
-                List<TemplateSection> sections = TemplateSection.SectionsForTemplate(buttons);
+                List<TemplateSection> sections = TemplateSection.SectionsForTemplate(sectionButtons);
                 int template_id = DBConnection.GetLastTemplateID();
                 template_id++;
-                Template template = new Template(textBox.Text, sections, template_id);
+                Template template = new Template(templateName.Text, sections, template_id);
             
               
-
+                // Used for edit template type of page, the old version of the template will be deleted and a new obe will be created on its place 
                 if (pageType == 3)
                 {
                     DBConnection.DeleteTemplate(template.name);
                 }
-
+                // Saves the template
                 DBConnection.InsertTemplate(template.name);
                 DBConnection.InsertTemplateSection(template);
                 
-                textBox.Text = "";
-
+                templateName.Text = "";
+                
+                // if the type of the page is Create new section,  after the template was created it will be reloaded to let the user create another new template,,
+                // otherwise the manage template page will be opened 
                 if (pageType == 1)
                 {
                     ManageTemplatesPage.templateNameArray = DBConnection.GetTemplateNamesFromDatabase();

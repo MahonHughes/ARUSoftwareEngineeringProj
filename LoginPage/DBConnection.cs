@@ -544,21 +544,6 @@ namespace LoginPage
         }
 
 
-        public static void UpdateTemplateSection(Template template)
-        {
-            using (dbConnetion = new SqlConnection(connString))
-            {
-                dbConnetion.Open();
-                for (int i = 0; i < template.templateSections.Count; i++)
-                {
-                    SqlCommand cmd = new SqlCommand(Constants.insertTemplateSections, dbConnetion);
-                    cmd.CommandType = System.Data.CommandType.Text;
-                    cmd.Parameters.Add(new SqlParameter("template_id", template.id));
-                    cmd.Parameters.Add(new SqlParameter("section_id", template.templateSections[i].sectionID));
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
 
         /// <summary>
         /// Gets the section ID and the tempComment ID from the database and adds them to a list as arrays.

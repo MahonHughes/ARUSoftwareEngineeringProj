@@ -20,7 +20,7 @@
                 <GradientStop Color="#FF443F60"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <ListBox x:Name="list_box" HorizontalAlignment="Center" Height="401" Margin="382,160,354,139" VerticalAlignment="Center" Width="464" BorderBrush="White" BorderThickness="3" Loaded="list_box_Loaded" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="2">
+        <ListBox x:Name="sections_list_box" HorizontalAlignment="Center" Height="401" Margin="382,160,354,139" VerticalAlignment="Center" Width="464" BorderBrush="White" BorderThickness="3" Loaded="list_box_Loaded" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="2">
             <ListBox.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
@@ -31,15 +31,15 @@
                     <GradientStop Color="#FF4737AE" Offset="1"/>
                     <GradientStop Color="#FFD120BD"/>
                     <GradientStop Color="#FF403775"/>
-                    <GradientStop Color="#FF3D3182" Offset="0.505"/>
+                    <GradientStop Color="#FF433791" Offset="0.505"/>
                 </LinearGradientBrush>
             </ListBox.Background>
         </ListBox>
         <Label Content="Template name:" HorizontalAlignment="Center" Margin="265,47,221,0" VerticalAlignment="Top" FontSize="48" Foreground="White" />
 
-        <TextBox x:Name="textBox" HorizontalAlignment="Center" Height="36" Margin="632,74,240,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" FontSize="24" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="templateName" HorizontalAlignment="Center" Height="36" Margin="632,74,240,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="328" FontSize="24" Grid.ColumnSpan="2"/>
         <Button Content="Submit" HorizontalAlignment="Right" Margin="0,0,30,50" VerticalAlignment="Bottom" Width="250" Height="65" Click="Submit" FontSize="30" Grid.Column="1"/>
-        <Button x:Name="bt_cancel" Content="Back" HorizontalAlignment="Left" Margin="55,0,0,50" VerticalAlignment="Bottom" Width="250" Height="65" FontSize="30" Click="Button_Click"/>
+        <Button x:Name="back_btn" Content="Back" HorizontalAlignment="Left" Margin="55,0,0,50" VerticalAlignment="Bottom" Width="250" Height="65" FontSize="30" Click="back_btn_click"/>
         <Button x:Name="btnMaximise" Grid.ColumnSpan="2" Content="+" HorizontalAlignment="Right" Margin="0,10,83,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Maximise_Click"/>
         <Button x:Name="btnClose" Grid.ColumnSpan="2" Content="x" HorizontalAlignment="Right" Margin="0,10,18,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Close_Click"/>
         <Button x:Name="btnMinimise" Content="-" HorizontalAlignment="Right" Margin="0,10,149,0" VerticalAlignment="Top" Width="47" Height="46" FontSize="24" Click="Minimise_Click" Grid.Column="1"/>
