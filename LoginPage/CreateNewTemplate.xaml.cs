@@ -146,8 +146,9 @@ namespace LoginPage
             sectionButtons.Clear();
             // get 
             templateSections = DBConnection.GetSectionsFromDatabase();
-            // name od the selected template
+            // name of the selected template
             templateName.Text = ManageTemplatesPage.currentTemplate;
+            // user cannot chage the name of the tempate
             templateName.IsEnabled = false;
             // Gets the name of the sections of the selected template from the database 
             List<string> selectedSections = DBConnection.GetTemplateSection(ManageTemplatesPage.currentTemplate);
@@ -237,7 +238,7 @@ namespace LoginPage
                 
                 templateName.Text = "";
                 
-                // if the type of the page is Create new section,  after the template was created it will be reloaded to let the user create another new template,,
+                // if the type of the page is Create new section,  after the template was created it will be reloaded to let the user create another new template,
                 // otherwise the manage template page will be opened 
                 if (pageType == 1)
                 {
