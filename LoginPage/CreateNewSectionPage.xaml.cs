@@ -46,7 +46,7 @@ namespace LoginPage
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Add_section_click(object sender, RoutedEventArgs e)
         {
             //Creates new section window each time button is pushed
             sectionWindow = new AddSectionWindow();
@@ -178,7 +178,7 @@ namespace LoginPage
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bt_comment_Click(object sender, RoutedEventArgs e)
+        private void bt_Add_comment_Click(object sender, RoutedEventArgs e)
         {
             commentWindow = new CreateCommentWindow();
             commentWindow.Show();
@@ -238,5 +238,7 @@ namespace LoginPage
         {
             Application.Current.Shutdown();
         }
+
+  
     }
 }

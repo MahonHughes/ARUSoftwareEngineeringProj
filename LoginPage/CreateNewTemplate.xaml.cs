@@ -55,7 +55,7 @@ namespace LoginPage
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void list_box_Loaded(object sender, RoutedEventArgs e)
+        private void sections_list_box_Loaded(object sender, RoutedEventArgs e)
         {
 
             if (pageType == 1)
@@ -274,5 +274,7 @@ namespace LoginPage
         {
             Application.Current.Shutdown();
         }
+
+
     }
 }

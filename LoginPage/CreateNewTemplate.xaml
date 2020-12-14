@@ -20,7 +20,7 @@
                 <GradientStop Color="#FF443F60"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <ListBox x:Name="sections_list_box" HorizontalAlignment="Center" Height="401" Margin="382,160,354,139" VerticalAlignment="Center" Width="464" BorderBrush="White" BorderThickness="3" Loaded="list_box_Loaded" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="2">
+        <ListBox x:Name="sections_list_box" HorizontalAlignment="Center" Height="401" Margin="382,160,354,139" VerticalAlignment="Center" Width="464" BorderBrush="White" BorderThickness="3" Loaded="sections_list_box_Loaded" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="2">
             <ListBox.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>

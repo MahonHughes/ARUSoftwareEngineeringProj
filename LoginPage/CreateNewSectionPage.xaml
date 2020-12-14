@@ -55,8 +55,8 @@
                 </Style>
             </ListBox.Resources>
         </ListBox>
-        <Button Content="Add section" HorizontalAlignment="Center" Margin="69,279,635,140" VerticalAlignment="Center" Width="145" Height="50" FontSize="25" Click="Button_Click" Grid.Row="1"/>
-        <Button x:Name="bt_comment" Content="Add Comment" HorizontalAlignment="Center" Margin="434,277,165,142" VerticalAlignment="Center" Width="250" Height="50" FontSize="30" Grid.Row="1" Click="bt_comment_Click" IsEnabled="False" RenderTransformOrigin="-0.086,0.683"/>
+        <Button x:Name="AddSectionButton" Content="Add section" HorizontalAlignment="Center" Margin="69,279,635,140" VerticalAlignment="Center" Width="145" Height="50" FontSize="25" Click="Add_section_click" Grid.Row="1"/>
+        <Button x:Name="bt_comment" Content="Add Comment" HorizontalAlignment="Center" Margin="434,277,165,142" VerticalAlignment="Center" Width="250" Height="50" FontSize="30" Grid.Row="1" Click="bt_Add_comment_Click" IsEnabled="False" RenderTransformOrigin="-0.086,0.683"/>
         <Border CornerRadius="5" BorderThickness="3" BorderBrush="White" Margin="434,66.6,97,217" Grid.ColumnSpan="2" Grid.Row="1"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="186" Width="668.8" >
             <TextBlock x:Name="text_box" Background="White" TextWrapping="Wrap" Margin="-0.2,-2.2,-0.4,-0.6" FontSize="18"></TextBlock>
         </Border>
