@@ -64,13 +64,13 @@ namespace LoginPage
         /// <param name="e"></param>
         private void Maximise_Click(object sender, RoutedEventArgs e)
         {
-            if (MainWindow.mainPage.WindowState == WindowState.Normal)
+            if (MainWindow.adminPage.WindowState == WindowState.Normal)
             {
-                MainWindow.mainPage.WindowState = WindowState.Maximized;
+                MainWindow.adminPage.WindowState = WindowState.Maximized;
             }
             else
             {
-                MainWindow.mainPage.WindowState = WindowState.Normal;
+                MainWindow.adminPage.WindowState = WindowState.Normal;
             }
         }
         /// <summary>
@@ -80,7 +80,7 @@ namespace LoginPage
         /// <param name="e"></param>
         private void Minimise_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.mainPage.WindowState = WindowState.Minimized;
+            MainWindow.adminPage.WindowState = WindowState.Minimized;
         }
 
         /// <summary>
