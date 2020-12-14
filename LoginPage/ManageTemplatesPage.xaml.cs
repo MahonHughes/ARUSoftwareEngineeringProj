@@ -29,7 +29,7 @@ namespace LoginPage
         }
 
         /// <summary>
-        /// Opens the page dor creating new template
+        /// Opens the page for creating new template
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
